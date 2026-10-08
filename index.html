@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quantum Consciousness Tracker - Make It Matter</title>
+    <title>Quantum Consciousness Protocol - Make It Matter</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
@@ -64,25 +64,16 @@
             font-weight: 500;
         }
 
-        /* Sleek Language Selector */
         .lang-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 3rem; 
-            width: 100%; max-width: 600px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 3rem; 
+            width: 100%; max-width: 700px; margin: 0 auto;
         }
         @media (min-width: 768px) { .lang-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem 4rem; } }
         
         .lang-text-btn {
-            font-family: var(--font-sans);
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: #64748b;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: all 0.4s ease;
-            position: relative;
-            text-align: center;
+            font-family: var(--font-sans); font-size: 1.1rem; font-weight: 400; color: #64748b;
+            background: transparent; border: none; cursor: pointer; padding: 0.5rem;
+            transition: all 0.4s ease; position: relative; text-align: center; letter-spacing: 0.05em;
         }
         .lang-text-btn::after {
             content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 1px; 
@@ -91,7 +82,6 @@
         .lang-text-btn:hover { color: #0f172a; transform: translateY(-2px); }
         .lang-text-btn:hover::after { width: 30px; }
 
-        /* Minimalist Action Cards */
         .action-grid { 
             display: grid; grid-template-columns: 1fr; gap: 2rem; 
             width: 100%; max-width: 800px; margin: 0 auto 3rem auto;
@@ -99,44 +89,32 @@
         @media (min-width: 768px) { .action-grid { grid-template-columns: 1fr 1fr; } }
 
         .action-card {
-            background: #ffffff;
-            border: 1px solid #f1f5f9;
-            border-radius: 16px;
-            padding: 3rem 2rem;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #ffffff; border: 1px solid #f1f5f9; border-radius: 16px; padding: 3rem 2rem;
+            cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; flex-direction: column; align-items: center; text-align: center;
             box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.03);
         }
         .action-card:hover {
-            transform: translateY(-8px);
-            border-color: #e2e8f0;
+            transform: translateY(-8px); border-color: #e2e8f0;
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
         }
-        .action-icon {
-            font-size: 2.5rem; color: #0f172a; margin-bottom: 1.5rem;
-        }
+        .action-icon { margin-bottom: 1.5rem; display: flex; justify-content: center; align-items: center; height: 70px; }
         .action-title { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: #0f172a; margin-bottom: 0.75rem; }
         .action-desc { font-size: 0.95rem; color: #64748b; line-height: 1.6; }
 
-        #app-container {
-            padding-top: 80px; padding-bottom: 40px;
-            display: none;
-        }
+        #app-container { padding-top: 80px; padding-bottom: 40px; display: none; }
         #app-container.active { display: block; }
 
         #toolbar {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color); z-index: 50;
-            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color); z-index: 50; padding: 10px 20px;
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02); flex-wrap: wrap; gap: 10px;
         }
 
         .a4-page {
-            background: var(--paper-bg);
-            width: 100%; max-width: 210mm; min-height: 297mm;
+            background: var(--paper-bg); width: 100%; max-width: 210mm; min-height: 297mm;
             margin: 0 auto 30px auto; padding: 20mm 15mm;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
             position: relative; box-sizing: border-box;
@@ -151,9 +129,7 @@
             .mobile-hide { display: none !important; }
         }
 
-        /* Form elements formatting */
         .doc-title { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 600; color: var(--text-main); margin-bottom: 0.5rem; line-height: 1.2; }
-        .doc-subtitle { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         .section-header { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; color: #2563eb; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; margin: 0 0 1rem 0; letter-spacing: 0.5px; }
         
         input[type="text"], textarea {
@@ -170,8 +146,6 @@
         .chk-box { flex-shrink: 0; width: 18px; height: 18px; border: 2px solid var(--border-color); border-radius: 3px; background: white; transition: 0.2s; position: relative; margin-top: 2px;}
         .chk-wrap input:checked + .chk-box { background: #2563eb; border-color: #2563eb; }
         .chk-wrap input:checked + .chk-box::after { content: ''; position: absolute; left: 5px; top: 2px; width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
-        .chk-title { font-weight: 600; display: block; color: var(--text-main); font-size: 0.9rem;}
-        .chk-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.2; display: block;}
 
         .canvas-wrapper { position: relative; border: 1px solid var(--border-color); border-radius: 6px; background: #fafafa; overflow: hidden; }
         .drawing-board { display: block; width: 100%; touch-action: none; cursor: crosshair; }
@@ -193,7 +167,7 @@
         .modal-content-area ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
         .modal-content-area li { margin-bottom: 0.5rem; }
         
-        .print-avoid-break { page-break-inside: avoid; break-inside: avoid; margin-bottom: 1.5rem; }
+        .print-avoid-break { page-break-inside: avoid; break-inside: avoid; }
 
         @media print {
             @page { size: A4 portrait; margin: 0 !important; }
@@ -201,39 +175,28 @@
             #toolbar, .canvas-tools, #sys-modal, #dialog-modal, .view-screen { display: none !important; }
             #app-container { display: block !important; padding: 0 !important; }
             
-            /* Fixing the 1-page cutoff bug AND enforcing strict KDP bounds */
+            /* Strict Amazon KDP Setup */
             .a4-page { 
                 box-shadow: none !important; margin: 0 !important; border: none !important;
                 page-break-after: always; break-after: page; 
-                width: 210mm !important; 
-                height: 297mm !important; /* STRICT A4 HEIGHT */
-                max-height: 297mm !important;
+                width: 210mm !important; height: 297mm !important; max-height: 297mm !important;
                 /* Asymmetric padding: 25mm at bottom protects the footer from content collision */
                 padding: 15mm 15mm 25mm 15mm !important; 
-                box-sizing: border-box !important;
-                display: block !important;
-                position: relative !important;
+                box-sizing: border-box !important; display: block !important; position: relative !important;
                 overflow: hidden !important; /* PREVENT ANY BLEED OVER THE EDGE */
             }
             .a4-page:last-child { page-break-after: auto; break-after: auto; }
             
-            /* Print colors reset */
             input[type="text"], textarea { border-bottom-color: #64748b; color: black; }
             input[type="text"]:placeholder-shown { border-bottom-color: #cbd5e1; }
             .chk-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #64748b; }
             .canvas-wrapper { border: 1px solid #64748b; background: white; }
             .chk-wrap input:checked + .chk-box { background: #334155 !important; border-color: #334155 !important; }
             
-            /* Compacting spacing slightly for print to ensure fit */
-            .section-header { margin-top: 0.75rem !important; margin-bottom: 0.25rem !important; }
-            
             .print-footer { 
-                position: absolute !important; 
-                bottom: 12mm !important; /* Safely nested inside the 25mm bottom padding */
-                left: 15mm !important; 
-                right: 15mm !important; 
-                margin: 0 !important;
-                padding: 0 !important; 
+                position: absolute !important; bottom: 12mm !important; 
+                left: 15mm !important; right: 15mm !important; 
+                margin: 0 !important; padding: 0 !important; 
             }
         }
     </style>
@@ -266,9 +229,7 @@
             <div class="action-grid">
                 <button class="action-card group" onclick="executeAction('print')">
                     <div class="action-icon">
-                        <svg class="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
-                        </svg>
+                        <svg class="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                     </div>
                     <h3 class="action-title" data-i18n="opt-print-title">Print Empty Module</h3>
                     <p class="action-desc" data-i18n="opt-print-desc">Generate a clean, unformatted A4 PDF for physical archiving and manual compilation with a pen.</p>
@@ -276,9 +237,7 @@
 
                 <button class="action-card group" onclick="executeAction('start')">
                     <div class="action-icon">
-                        <svg class="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
+                        <svg class="w-16 h-16 opacity-80 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
                     <h3 class="action-title" data-i18n="opt-digital-title">Start Digital Session</h3>
                     <p class="action-desc" data-i18n="opt-digital-desc">Type, draw, and use the built-in Binaural Hemi-Sync audio engine and timer directly on this device.</p>
@@ -327,7 +286,7 @@
 
             <div class="toolbar-group flex items-center gap-2">
                 <div class="font-mono text-base font-bold w-20 text-center text-slate-700" id="timer-display">00:00:00</div>
-                <button class="btn btn-outline py-1.5" onclick="toggleTimer()" id="timer-btn" data-i18n="init-seq">Start Session</button>
+                <button class="btn btn-outline py-1.5" onclick="toggleTimer()" id="timer-btn" data-i18n="init-seq">Start Timer</button>
                 <div class="h-6 w-px bg-slate-300 mx-1 mobile-hide"></div>
                 <button class="btn btn-danger py-1.5 mobile-hide" onclick="clearData(true)" data-i18n="purge">Clear Data</button>
                 <button class="btn btn-primary py-1.5 shadow-md" onclick="window.print()" data-i18n="pdf-prnt">Print A4 / PDF</button>
@@ -335,6 +294,84 @@
         </div>
 
         <main class="w-full">
+            <div class="a4-page">
+                <div class="print-avoid-break">
+                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
+                        <div>
+                            <div class="font-mono text-[10px] text-slate-500 tracking-widest uppercase mb-1" data-i18n="clearance">Personal Explorer Log // Declassified</div>
+                            <h1 class="doc-title" data-i18n="title-1">Quantum Consciousness Protocol</h1>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-mono text-[10px] text-slate-500 tracking-wider"><span data-i18n="file-ref">FILE REF:</span> <input type="text" id="f_ref" class="w-24 border-b border-slate-400 bg-transparent text-center focus:bg-slate-50 outline-none"></div>
+                            <div class="font-mono text-[10px] text-slate-500 mt-2">PAGE 1 / 3</div>
+                        </div>
+                    </header>
+
+                    <div class="grid grid-cols-4 gap-4 mb-4">
+                        <div class="col-span-1"><span class="input-label" data-i18n="date">Date</span><input type="text" id="f_date" placeholder="YYYY-MM-DD"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="init-time">Start Time</span><input type="text" id="f_start"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="halt-time">End Time</span><input type="text" id="f_end"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="duration">Duration</span><input type="text" id="f_dur"></div>
+                        
+                        <div class="col-span-2"><span class="input-label" data-i18n="geo">Location</span><input type="text" id="f_loc"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="posture">Physical Posture</span><input type="text" id="f_pos" placeholder="e.g. Supine"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="mood">Baseline State</span><input type="text" id="f_mood" placeholder="e.g. Calm, Tired"></div>
+                    </div>
+                </div>
+
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-5" data-i18n="freq-params">Frequency Induction Parameters</h2>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div><span class="input-label" data-i18n="audio-src">Audio Source (Gateway/Hemi-Sync/App)</span><input type="text" id="f_src"></div>
+                        <div><span class="input-label" data-i18n="headphones">Headphones Hardware</span><input type="text" id="f_hp"></div>
+                    </div>
+                    
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 flex justify-between flex-wrap gap-2 mb-4">
+                        <label class="chk-wrap"><input type="checkbox" id="c_freq_delta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="delta">DELTA (0.5-4 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_freq_theta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="theta">THETA (4-8 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_freq_alpha"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="alpha">ALPHA (8-14 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_freq_beta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="beta">BETA (14-30 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_freq_gamma"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="gamma">GAMMA (30+ Hz)</span></label>
+                    </div>
+                </div>
+
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-5" data-i18n="target-state">Target Consciousness Vector</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-2 gap-3 mb-4">
+                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f10"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f10">Focus 10</span><span class="chk-desc" data-i18n="mind-awake">Mind Awake / Body Asleep</span></div></label>
+                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f12"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f12">Focus 12</span><span class="chk-desc" data-i18n="exp-aware">Expanded Awareness</span></div></label>
+                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f15"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f15">Focus 15</span><span class="chk-desc" data-i18n="void-state">No Time / Void State</span></div></label>
+                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f21"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f21">Focus 21</span><span class="chk-desc" data-i18n="bridge-zone">Edge of Time-Space</span></div></label>
+                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f22"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f22">Focus 22-27</span><span class="chk-desc" data-i18n="f22-desc">Belief System Territories</span></div></label>
+                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f34"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f34">Focus 34/35</span><span class="chk-desc" data-i18n="f34-desc">The Gathering</span></div></label>
+                    </div>
+                </div>
+
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-5" data-i18n="pre-session">Pre-Session Intention</h2>
+                    <textarea id="t_intent" class="h-12 w-full mb-4" data-i18n-ph="intention-ph" placeholder="Input target coordinates, reality framework, or shifting intention..."></textarea>
+                </div>
+
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-5 text-red-600 border-red-200" data-i18n="click-out">Click-Out / Amnesia Anomaly Log</h2>
+                    <div class="bg-red-50 border border-red-100 rounded-lg p-4">
+                        <p class="text-sm text-slate-700 font-semibold mb-3" data-i18n="amnesia-q">Sudden loss of consciousness or missing time recorded?</p>
+                        <div class="flex items-center gap-6 mb-3">
+                            <label class="chk-wrap text-red-700"><input type="checkbox" id="c_click_no" onclick="uncheckGroup('click', this)"><span class="chk-box border-red-300"></span><span class="chk-title text-sm uppercase tracking-wide" data-i18n="negative">NEGATIVE</span></label>
+                            <label class="chk-wrap text-red-700"><input type="checkbox" id="c_click_yes" onclick="uncheckGroup('click', this)"><span class="chk-box border-red-300"></span><span class="chk-title text-sm uppercase tracking-wide" data-i18n="positive">POSITIVE</span></label>
+                        </div>
+                        <div class="flex items-center gap-4 text-sm text-slate-600 font-mono">
+                            <span data-i18n="t-start">Est. Start:</span> <input type="text" id="f_click_s" class="w-24 border-slate-300 bg-transparent focus:bg-white">
+                            <span data-i18n="t-end">Est. End:</span> <input type="text" id="f_click_e" class="w-24 border-slate-300 bg-transparent focus:bg-white">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="print-footer absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
+                    <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-01</span>
+                </div>
+            </div>
+
             <div class="a4-page">
                 <div class="print-avoid-break">
                     <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
@@ -349,7 +386,7 @@
                 </div>
 
                 <div class="print-avoid-break">
-                    <h2 class="section-header" data-i18n="stage-1">Stage 1: Ideogram / Gestalt</h2>
+                    <h2 class="section-header mt-3 mb-2" data-i18n="stage-1">Stage 1: Ideogram / Gestalt</h2>
                     <div class="canvas-wrapper h-48 mb-4">
                         <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="matrix-active">INITIAL SKETCH / ENERGY LINES</div>
                         <div class="canvas-tools">
@@ -363,7 +400,7 @@
                 </div>
 
                 <div class="print-avoid-break">
-                    <h2 class="section-header" data-i18n="stage-2">Stage 2: Sensory Decoding</h2>
+                    <h2 class="section-header mt-3 mb-2" data-i18n="stage-2">Stage 2: Sensory Decoding</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                         <div><span class="input-label" data-i18n="visuals">VISUALS (Colors, Light, Forms)</span><textarea id="t_visuals" class="h-12 w-full"></textarea></div>
                         <div><span class="input-label" data-i18n="auditory">AUDITORY (Acoustics, Voices)</span><textarea id="t_auditory" class="h-12 w-full"></textarea></div>
@@ -373,7 +410,7 @@
                 </div>
 
                 <div class="print-avoid-break">
-                    <h2 class="section-header" data-i18n="stage-3">Stage 3: Analytical Dimensional Sketch</h2>
+                    <h2 class="section-header mt-3 mb-2" data-i18n="stage-3">Stage 3: Analytical Dimensional Sketch</h2>
                     <div class="canvas-wrapper h-56">
                         <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="mapping">ARCHITECTURAL/BIOLOGICAL MAPPING</div>
                         <div class="canvas-tools">
@@ -398,7 +435,7 @@
                         <div class="text-right text-xs text-slate-500 mt-1">PAGE 3 / 3</div>
                     </header>
 
-                    <h2 class="section-header" data-i18n="timeline-diff">Timeline Differential Analysis</h2>
+                    <h2 class="section-header mt-3 mb-2" data-i18n="timeline-diff">Timeline Differential Analysis</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div>
                             <span class="input-label" data-i18n="cr-base">Current Reality (CR) Baseline</span>
@@ -412,7 +449,7 @@
                 </div>
 
                 <div class="print-avoid-break">
-                    <h2 class="section-header" data-i18n="quantum-anchors">Quantum Anchors (Variables)</h2>
+                    <h2 class="section-header mt-3 mb-2" data-i18n="quantum-anchors">Quantum Anchors (Variables)</h2>
                     <p class="text-sm text-slate-600 mb-3" data-i18n="anchor-desc">Define divergence parameters to lock consciousness into the Target Timeline.</p>
                     
                     <div class="space-y-3 mb-6">
@@ -423,7 +460,7 @@
                 </div>
 
                 <div class="print-avoid-break">
-                    <h2 class="section-header text-red-600 border-red-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
+                    <h2 class="section-header mt-3 mb-2 text-red-600 border-red-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
                     <p class="text-sm text-slate-600 mb-3" data-i18n="bleed-desc">Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).</p>
                     
                     <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-3 items-center bg-slate-50 p-3 rounded-lg border border-slate-200">
@@ -688,7 +725,7 @@
                 "opt-digital-title": "Démarrer la Session Numérique", "opt-digital-desc": "Tapez, dessinez et utilisez le moteur audio Hemi-Sync directement sur cet appareil.",
                 "btn-back": "← Retour aux Langues",
                 "hemi-sync": "SYNC AUDIO", "init-seq": "Démarrer Minuteur", "halt-timer": "Arrêter / RàZ", "purge": "Effacer Données", "pdf-prnt": "Imprimer A4 / PDF",
-                "manual-freq": "Fréquences Manuelles", "auto-focus": "Pilote Automatique", "cancel": "Annuler", "confirm": "OK",
+                "manual-freq": "Fréquences Manuelles", "auto-focus": "Piloto Automatique", "cancel": "Annuler", "confirm": "OK",
                 "btn-manual": "Manuel de l'OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Effacer toutes les données interactives ? Action irréversible.",
                 "autopilot-msg": "Piloto automatique lancé. Rampe de fréquence graduelle. Mettez le casque.", "clear-canvas-msg": "Effacer ce croquis ?",
@@ -736,7 +773,7 @@
                 "autopilot-msg": "Autopilot uruchomiony. Stopniowe opadanie do stanu Focus. Załóż słuchawki.", "clear-canvas-msg": "Wyczyścić szkic?",
                 "clearance": "Osobisty Dziennik // Odtajniono", "title-1": "Protokół Świadomości Kwantowej",
                 "file-ref": "NR REF:", "date": "Data", "init-time": "Czas Start", "halt-time": "Czas Koniec", "duration": "Czas Trwania",
-                "geo": "Współrzędne", "posture": "Postawa Fizyczna", "mood": "Stan Bazy",
+                "geo": "Współrzędne", "posture": "Postura Física", "mood": "Stan Bazy",
                 "freq-params": "Parametry Indukcji", "audio-src": "Źródło Audio (Hemi-Sync)", "headphones": "Słuchawki",
                 "delta": "DELTA (0.5-4 Hz)", "theta": "THETA (4-8 Hz)", "alpha": "ALPHA (8-14 Hz)", "beta": "BETA (14-30 Hz)", "gamma": "GAMMA (30+ Hz)",
                 "target-state": "Docelowy Wektor",
@@ -836,7 +873,7 @@
             document.getElementById('view-action').classList.add('view-hidden');
             document.getElementById('app-container').classList.remove('active');
             stopAudio();
-            if(isWavesPlaying) toggleWaves(); // Stop waves if going back
+            if(isWavesPlaying) toggleWaves(); 
             document.getElementById('view-language').classList.remove('view-hidden');
         }
 
@@ -900,6 +937,7 @@
             loadCanvasData('canvas-gestalt', localStorage.getItem('qcs5_img_canvas-gestalt'));
             loadCanvasData('canvas-analytical', localStorage.getItem('qcs5_img_canvas-analytical'));
         }
+        
         function saveData() {
             inputs.forEach(input => {
                 const val = input.type === 'checkbox' ? input.checked : input.value;
@@ -937,7 +975,6 @@
             saveData();
         }
 
-        // Timer - Simplified logic without form filling
         let timerInterval; let seconds = 0; let isTimerRunning = false;
         function updateTimerDisplay() {
             const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
@@ -945,25 +982,22 @@
             const s = (seconds % 60).toString().padStart(2, '0');
             document.getElementById('timer-display').innerText = `${h}:${m}:${s}`;
         }
+        
         function toggleTimer() {
             const btn = document.getElementById('timer-btn');
             const lang = localStorage.getItem('qcs_lang') || 'en';
             if(isTimerRunning) {
-                // Stop and Reset
                 clearInterval(timerInterval); 
                 isTimerRunning = false;
                 seconds = 0;
                 document.getElementById('timer-display').innerText = "00:00:00";
-                btn.innerText = i18n[lang]['init-seq']; // Back to "Start Timer"
-                btn.classList.remove('btn-danger');
-                btn.classList.add('btn-outline');
+                btn.innerText = i18n[lang]['init-seq']; // Start
+                btn.classList.remove('btn-danger'); btn.classList.add('btn-outline');
             } else {
-                // Start
                 timerInterval = setInterval(() => { seconds++; updateTimerDisplay(); }, 1000);
                 isTimerRunning = true; 
-                btn.innerText = i18n[lang]['halt-timer']; // "Stop / Reset"
-                btn.classList.remove('btn-outline');
-                btn.classList.add('btn-danger');
+                btn.innerText = i18n[lang]['halt-timer']; // Stop
+                btn.classList.remove('btn-outline'); btn.classList.add('btn-danger');
             }
         }
 
@@ -976,30 +1010,23 @@
             synthLeft = new Tone.Oscillator({ type: "sine" }).toDestination();
             synthRight = new Tone.Oscillator({ type: "sine" }).toDestination();
             
-            // Perfect Hard Panning
+            // Hard Panning (100% L, 100% R)
             const pannerLeft = new Tone.Panner(-1).toDestination();
             const pannerRight = new Tone.Panner(1).toDestination();
             synthLeft.disconnect().connect(pannerLeft);
             synthRight.disconnect().connect(pannerRight);
             
-            // KEY FIX: Keep oscillators running silently to prevent Tone.js restart bugs
+            // Keep running silently to prevent Tone.js restart bugs
             synthLeft.volume.value = -Infinity; 
             synthRight.volume.value = -Infinity;
-            synthLeft.start();
-            synthRight.start();
+            synthLeft.start(); synthRight.start();
 
-            // Ocean Waves Synthesizer
-            waveFilter = new Tone.AutoFilter({
-                frequency: 0.1, 
-                min: 150, 
-                max: 500, 
-                type: "sine"
-            }).connect(new Tone.Volume(-22).toDestination());
+            // Ocean Waves Synthesizer (Brown Noise is deeper/smoother than Pink)
+            waveFilter = new Tone.AutoFilter({ frequency: 0.1, min: 150, max: 400, type: "sine" }).connect(new Tone.Volume(-18).toDestination());
             waveNoise = new Tone.Noise("brown").connect(waveFilter);
             
             waveNoise.volume.value = -Infinity;
-            waveNoise.start();
-            waveFilter.start();
+            waveNoise.start(); waveFilter.start();
         }
 
         async function playSelectedAudio() {
@@ -1022,7 +1049,7 @@
                     case 'f21': isAutopilot = true; targetFreq = 0.5; rampTime = 150; break;
                 }
                 
-                const baseFreq = 110; 
+                const baseFreq = 110; // Deep resonant carrier frequency
                 synthLeft.frequency.value = baseFreq; 
                 
                 if (isAutopilot) {
@@ -1034,9 +1061,8 @@
                 }
                 
                 if(!isAudioPlaying) {
-                    // Smooth 2-second fade-in (Ramp to -25dB instead of starting)
-                    synthLeft.volume.rampTo(-25, 2); 
-                    synthRight.volume.rampTo(-25, 2);
+                    // Smooth 2-second fade-in
+                    synthLeft.volume.rampTo(-20, 2); synthRight.volume.rampTo(-20, 2);
                     
                     isAudioPlaying = true;
                     indicator.classList.replace('bg-slate-300', 'bg-green-500'); indicator.classList.add('animate-pulse');
@@ -1047,7 +1073,6 @@
 
         function stopAudio() {
             if(synthLeft && isAudioPlaying) { 
-                // KEY FIX: Smooth fade-out without stopping the oscillators (Ramp to -Infinity)
                 synthLeft.volume.rampTo(-Infinity, 1);
                 synthRight.volume.rampTo(-Infinity, 1);
             }
@@ -1065,14 +1090,10 @@
                 const btnWaves = document.getElementById('btn-waves');
                 
                 if (isWavesPlaying) {
-                    // Fade out
-                    waveNoise.volume.rampTo(-Infinity, 1);
-                    isWavesPlaying = false;
+                    waveNoise.volume.rampTo(-Infinity, 1); isWavesPlaying = false;
                     btnWaves.classList.remove('bg-blue-100', 'border-blue-300', 'shadow-inner');
                 } else {
-                    // Fade in
-                    waveNoise.volume.rampTo(0, 2); 
-                    isWavesPlaying = true;
+                    waveNoise.volume.rampTo(0, 2); isWavesPlaying = true;
                     btnWaves.classList.add('bg-blue-100', 'border-blue-300', 'shadow-inner');
                 }
             } catch (e) { showAlert("Tap anywhere to enable audio.", "System"); }
@@ -1122,6 +1143,7 @@
             canvas.addEventListener('mousedown', startDraw); canvas.addEventListener('mousemove', draw); canvas.addEventListener('mouseup', stopDraw); canvas.addEventListener('mouseout', stopDraw);
             canvas.addEventListener('touchstart', startDraw, {passive: false}); canvas.addEventListener('touchmove', draw, {passive: false}); canvas.addEventListener('touchend', stopDraw);
         }
+        
         function setTool(canvasId, tool, btnEl) {
             canvasState[canvasId].tool = tool;
             const container = document.getElementById(canvasId).parentElement;
@@ -1162,7 +1184,6 @@
             }; img.src = dataUrl;
         }
 
-        // Initialization
         window.addEventListener('load', () => {
             setupCanvas('canvas-gestalt'); setupCanvas('canvas-analytical');
             const savedLang = localStorage.getItem('qcs_lang');
