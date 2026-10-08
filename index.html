@@ -11,12 +11,12 @@
     <style>
         :root {
             --paper-bg: #ffffff;
-            --page-bg: #f3f4f6;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border-color: #d1d5db;
-            --accent: #2563eb;
-            --alert: #dc2626;
+            --page-bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --accent: #3b82f6;
+            --alert: #ef4444;
             --font-sans: 'Inter', sans-serif;
             --font-serif: 'Playfair Display', serif;
         }
@@ -33,77 +33,79 @@
 
         .view-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fafafa;
+            background: #ffffff;
             z-index: 200;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: opacity 0.5s ease, visibility 0.5s;
+            overflow-y: auto; padding: 2rem 1rem;
         }
         .view-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         
         .brand-title {
             font-family: var(--font-serif);
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 800;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #111827;
+            color: #0f172a;
             margin-bottom: 0.5rem;
             text-align: center;
         }
         .brand-subtitle {
             font-family: var(--font-sans);
-            font-size: clamp(0.7rem, 2vw, 0.85rem);
-            color: #9ca3af;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: #94a3b8;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
-            margin-bottom: 3.5rem;
+            letter-spacing: 0.3em;
+            margin-bottom: 4rem;
             text-align: center;
+            font-weight: 600;
         }
 
         .lang-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; 
-            width: 100%; max-width: 800px; padding: 0 1.5rem; 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; 
+            width: 100%; max-width: 800px; padding: 0; margin: 0 auto;
         }
-        @media (min-width: 768px) { .lang-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+        @media (min-width: 768px) { .lang-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; } }
         
         .lang-card {
-            background: #ffffff; border: 1px solid #f3f4f6; border-radius: 24px;
-            padding: 2rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px;
+            padding: 2.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            text-align: center;
         }
         .lang-card:hover {
-            transform: translateY(-5px); border-color: #e5e7eb;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            transform: translateY(-8px); border-color: var(--accent);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15), 0 10px 10px -5px rgba(59, 130, 246, 0.04);
         }
-        .lang-icon { font-size: 2.8rem; margin-bottom: 1rem; transition: transform 0.4s ease; }
-        .lang-card:hover .lang-icon { transform: scale(1.15); }
-        .lang-label { font-size: 0.85rem; font-weight: 600; color: #4b5563; letter-spacing: 0.05em; text-transform: uppercase; }
+        .lang-icon { font-size: 3.5rem; margin-bottom: 1.2rem; transition: transform 0.4s ease; line-height: 1;}
+        .lang-card:hover .lang-icon { transform: scale(1.1); }
+        .lang-label { font-size: 0.9rem; font-weight: 700; color: #334155; letter-spacing: 0.05em; text-transform: uppercase; }
 
         .action-grid { 
-            display: grid; grid-template-columns: 1fr; gap: 2rem; 
-            width: 100%; max-width: 900px; padding: 0 1.5rem; margin-bottom: 3rem;
+            display: grid; grid-template-columns: 1fr; gap: 2.5rem; 
+            width: 100%; max-width: 900px; padding: 0; margin: 0 auto 3rem auto;
         }
         @media (min-width: 768px) { .action-grid { grid-template-columns: 1fr 1fr; } }
 
         .avant-card {
-            background: #ffffff; border: 1px solid #f3f4f6; border-radius: 32px;
-            overflow: hidden; cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px;
+            overflow: hidden; cursor: pointer; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; flex-direction: column; height: 100%; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
         .avant-card:hover {
-            transform: translateY(-8px); border-color: #e5e7eb;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            transform: translateY(-8px); border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.15);
         }
         .avant-icon-wrapper {
-            padding: 3rem 2rem; display: flex; justify-content: center; align-items: center;
-            background: #f8fafc; transition: background 0.5s; border-bottom: 1px solid #f1f5f9;
+            padding: 3.5rem 2rem; display: flex; justify-content: center; align-items: center;
+            background: #f8fafc; border-bottom: 1px solid #f1f5f9;
         }
-        .avant-card:hover .avant-icon-wrapper { background: #f1f5f9; }
         .avant-content { padding: 2.5rem 2rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-        .avant-title { font-size: 1.4rem; font-weight: 800; color: #111827; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-        .avant-desc { font-size: 0.95rem; color: #6b7280; line-height: 1.6; font-weight: 500; }
+        .avant-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .avant-desc { font-size: 1rem; color: #64748b; line-height: 1.6; font-weight: 500; }
 
         #app-container {
             padding-top: 80px; padding-bottom: 40px;
@@ -129,17 +131,17 @@
         }
 
         @media (max-width: 768px) {
-            .brand-title { font-size: 2.2rem; margin-bottom: 2rem; }
+            .brand-title { font-size: 2.5rem; margin-bottom: 2rem; }
             .a4-page { padding: 15px; min-height: auto; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 15px; }
             #toolbar { padding: 10px; flex-direction: column; align-items: stretch; }
-            .toolbar-group { justify-content: center; width: 100%; }
-            #app-container { padding-top: 150px; }
+            .toolbar-group { justify-content: center; width: 100%; flex-wrap: wrap; gap: 8px;}
+            #app-container { padding-top: 180px; }
             .mobile-hide { display: none !important; }
         }
 
         .doc-title { font-family: var(--font-serif); font-size: 2.2rem; color: var(--text-main); margin-bottom: 0.5rem; line-height: 1.2; }
         .doc-subtitle { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        .section-header { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; color: var(--accent); border-bottom: 2px solid var(--border-color); padding-bottom: 4px; margin: 1.5rem 0 1rem 0; letter-spacing: 0.5px; }
+        .section-header { font-weight: 700; font-size: 0.9rem; text-transform: uppercase; color: var(--accent); border-bottom: 2px solid var(--border-color); padding-bottom: 4px; margin: 0 0 1rem 0; letter-spacing: 0.5px; }
         
         input[type="text"], textarea {
             width: 100%; background: transparent; border: none; border-bottom: 1px dashed var(--border-color);
@@ -147,7 +149,7 @@
             padding: 4px 2px; transition: border-color 0.2s; resize: none;
         }
         textarea { border: 1px dashed var(--border-color); border-radius: 4px; padding: 8px; }
-        input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--accent); border-bottom-style: solid; background: rgba(37, 99, 235, 0.02); }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--accent); border-bottom-style: solid; background: rgba(59, 130, 246, 0.02); }
         .input-label { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 2px; margin-top: 8px;}
 
         .chk-wrap { display: inline-flex; align-items: flex-start; gap: 8px; cursor: pointer; user-select: none; }
@@ -164,11 +166,11 @@
         .tool-btn { font-size: 0.7rem; padding: 4px 8px; background: white; border: 1px solid var(--border-color); border-radius: 3px; cursor: pointer; color: var(--text-main); font-weight: 600;}
         .tool-btn.active, .tool-btn:hover { background: var(--page-bg); border-color: var(--text-muted); }
 
-        .btn { padding: 6px 12px; font-size: 0.85rem; font-weight: 600; border-radius: 6px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn { padding: 8px 16px; font-size: 0.85rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
         .btn-outline { background: white; border-color: var(--border-color); color: var(--text-main); }
         .btn-outline:hover { background: var(--page-bg); }
         .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { background: #1d4ed8; }
+        .btn-primary:hover { background: #2563eb; }
         .btn-danger { background: white; border-color: var(--alert); color: var(--alert); }
         .btn-danger:hover { background: var(--alert); color: white; }
         
@@ -178,22 +180,37 @@
         .modal-content-area ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
         .modal-content-area li { margin-bottom: 0.5rem; }
         
+        .print-avoid-break {
+            /* This ensures the block stays together on the same page */
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
         @media print {
-            @page { size: A4 portrait; margin: 0; }
+            @page { size: A4 portrait; margin: 15mm; }
             body, html { background: white !important; padding: 0 !important; margin: 0 !important; height: auto !important; }
             #toolbar, .canvas-tools, #sys-modal, #dialog-modal, .view-screen { display: none !important; }
             #app-container { display: block !important; padding: 0 !important; }
+            
             .a4-page { 
                 box-shadow: none !important; margin: 0 !important; border: none !important;
                 page-break-after: always; break-after: page; 
-                width: 210mm !important; min-height: 297mm !important;
-                padding: 15mm !important;
+                width: 100% !important; min-height: 0 !important; height: auto !important;
+                padding: 0 !important; /* Managed by @page margin */
+                display: block !important;
             }
-            input[type="text"], textarea { border-bottom-color: #999; color: black; }
-            input[type="text"]:placeholder-shown { border-bottom-color: #ddd; }
-            .chk-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #666; }
-            .canvas-wrapper { border: 1px solid #999; background: white; }
-            .chk-wrap input:checked + .chk-box { background: #333 !important; border-color: #333 !important; }
+            .a4-page:last-child { page-break-after: auto; break-after: auto; }
+            
+            /* Ensure fields are black and white for print */
+            input[type="text"], textarea { border-bottom-color: #64748b; color: black; }
+            input[type="text"]:placeholder-shown { border-bottom-color: #cbd5e1; }
+            .chk-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #64748b; }
+            .canvas-wrapper { border: 1px solid #64748b; background: white; }
+            .chk-wrap input:checked + .chk-box { background: #334155 !important; border-color: #334155 !important; }
+            
+            /* Fix Absolute Footer in print */
+            .print-footer { position: relative; bottom: auto; left: auto; right: auto; margin-top: 2rem; padding: 0; }
         }
     </style>
 </head>
@@ -201,8 +218,7 @@
 
     <div id="view-language" class="view-screen">
         <h1 class="brand-title">Make It Matter</h1>
-        <p class="brand-subtitle">Select your language</p>
-        <div class="lang-grid">
+        <div class="lang-grid mt-8">
             <button class="lang-card" onclick="selectLanguage('en')"><span class="lang-icon">🇬🇧</span><span class="lang-label">English</span></button>
             <button class="lang-card" onclick="selectLanguage('it')"><span class="lang-icon">🇮🇹</span><span class="lang-label">Italiano</span></button>
             <button class="lang-card" onclick="selectLanguage('es')"><span class="lang-icon">🇪🇸</span><span class="lang-label">Español</span></button>
@@ -219,11 +235,11 @@
             <h1 class="brand-title">Make It Matter</h1>
             <p class="brand-subtitle" data-i18n="module-name">Quantum Consciousness Protocol</p>
             
-            <div class="action-grid">
+            <div class="action-grid mt-4">
                 <button class="avant-card group" onclick="executeAction('print')">
-                    <div class="avant-icon-wrapper text-gray-800">
+                    <div class="avant-icon-wrapper text-slate-800">
                         <svg class="w-24 h-24 transition-transform duration-500 group-hover:-translate-y-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
                         </svg>
                     </div>
                     <div class="avant-content">
@@ -235,17 +251,17 @@
                 <button class="avant-card group" onclick="executeAction('start')">
                     <div class="avant-icon-wrapper text-blue-600">
                         <svg class="w-24 h-24 transition-transform duration-500 group-hover:-translate-y-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 15l-1 1H9l-1-1M3 19h18"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
                     </div>
                     <div class="avant-content">
-                        <h3 class="avant-title" data-i18n="opt-digital-title">Use on Screen</h3>
-                        <p class="avant-desc" data-i18n="opt-digital-desc">Type, draw, and save directly on this device.</p>
+                        <h3 class="avant-title" data-i18n="opt-digital-title">Start Session</h3>
+                        <p class="avant-desc" data-i18n="opt-digital-desc">Type, draw, and use the built-in timer and audio sync directly on this device.</p>
                     </div>
                 </button>
             </div>
             
-            <button class="btn btn-outline border-none text-gray-400 hover:text-gray-800 transition-colors" onclick="goBackToLanguage()">
+            <button class="btn btn-outline border-none text-slate-400 hover:text-slate-800 transition-colors bg-transparent" onclick="goBackToLanguage()">
                 <span data-i18n="btn-back">← Back to Languages</span>
             </button>
         </div>
@@ -254,241 +270,265 @@
     <div id="app-container">
         <div id="toolbar">
             <div class="toolbar-group flex items-center gap-2">
-                <span class="font-serif font-bold text-lg mobile-hide text-gray-800">MIM.</span>
-                <button class="btn btn-outline text-xs py-1" onclick="goBackToLanguage()">🌐</button>
-                <button class="btn btn-outline" onclick="openModal('manual')" data-i18n="btn-manual">OS Manual</button>
-                <button class="btn btn-outline" onclick="openModal('gateway')" data-i18n="btn-gateway">Gateway eBook</button>
+                <span class="font-serif font-bold text-xl mobile-hide text-slate-800 mr-2">MIM.</span>
+                <button class="btn btn-outline py-1.5 px-3" onclick="goBackToLanguage()">🌐</button>
+                <button class="btn btn-outline py-1.5" onclick="openModal('manual')" data-i18n="btn-manual">OS Manual</button>
+                <button class="btn btn-outline py-1.5" onclick="openModal('gateway')" data-i18n="btn-gateway">Gateway eBook</button>
             </div>
 
-            <div class="toolbar-group flex items-center gap-2 bg-gray-100 p-1 rounded-lg border border-gray-200">
-                <span class="text-xs font-semibold text-gray-500 px-2 mobile-hide" data-i18n="hemi-sync">AUDIO SYNC</span>
-                <select id="audio-preset" class="bg-white border border-gray-300 text-xs font-semibold rounded-md px-2 py-1 outline-none max-w-[170px]">
-                    <optgroup label="Manual (Static)" data-i18n-label="manual-freq">
+            <div class="toolbar-group flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
+                <span class="text-xs font-bold text-slate-500 px-2 mobile-hide tracking-wider" data-i18n="hemi-sync">AUDIO SYNC</span>
+                <select id="audio-preset" class="bg-white border border-slate-300 text-sm font-semibold rounded-lg px-2 py-1.5 outline-none max-w-[180px] shadow-sm">
+                    <optgroup label="Manual Frequencies" data-i18n-label="manual-freq">
                         <option value="delta">Delta (2.5Hz)</option>
                         <option value="theta">Theta (5Hz)</option>
                         <option value="alpha">Alpha (10Hz)</option>
                         <option value="beta">Beta (20Hz)</option>
                         <option value="gamma">Gamma (40Hz)</option>
                     </optgroup>
-                    <optgroup label="Autopilot (Descent)" data-i18n-label="auto-focus">
+                    <optgroup label="Guided Autopilot" data-i18n-label="auto-focus">
                         <option value="f10">Focus 10 (Mind Awake)</option>
                         <option value="f12">Focus 12 (Expanded)</option>
                         <option value="f15">Focus 15 (No Time)</option>
                         <option value="f21">Focus 21 (Bridge)</option>
                     </optgroup>
                 </select>
-                <button class="btn btn-primary text-xs py-1 px-3" id="btn-play-audio" onclick="playSelectedAudio()">Play</button>
-                <button class="btn btn-danger text-xs py-1 px-2" onclick="stopAudio()">Stop</button>
-                <span id="audio-status-indicator" class="w-2 h-2 rounded-full bg-gray-300 ml-1"></span>
+                <button class="btn btn-primary py-1.5 px-4 shadow-sm" id="btn-play-audio" onclick="playSelectedAudio()">Play</button>
+                <button class="btn btn-danger py-1.5 px-3 shadow-sm" onclick="stopAudio()">Stop</button>
+                <span id="audio-status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-300 ml-1"></span>
             </div>
 
             <div class="toolbar-group flex items-center gap-2">
-                <div class="font-mono text-sm font-bold w-20 text-center" id="timer-display">00:00:00</div>
-                <button class="btn btn-outline text-xs" onclick="toggleTimer()" id="timer-btn" data-i18n="init-seq">Start Session</button>
-                <div class="h-6 w-px bg-gray-300 mx-1 mobile-hide"></div>
-                <button class="btn btn-danger text-xs mobile-hide" onclick="clearData(true)" data-i18n="purge">Clear Data</button>
-                <button class="btn btn-primary text-xs" onclick="window.print()" data-i18n="pdf-prnt">Print / PDF</button>
+                <div class="font-mono text-base font-bold w-20 text-center text-slate-700" id="timer-display">00:00:00</div>
+                <button class="btn btn-outline py-1.5" onclick="toggleTimer()" id="timer-btn" data-i18n="init-seq">Start Session</button>
+                <div class="h-6 w-px bg-slate-300 mx-1 mobile-hide"></div>
+                <button class="btn btn-danger py-1.5 mobile-hide" onclick="clearData(true)" data-i18n="purge">Clear Data</button>
+                <button class="btn btn-primary py-1.5 shadow-md" onclick="window.print()" data-i18n="pdf-prnt">Print A4 / PDF</button>
             </div>
         </div>
 
         <main class="w-full">
             <div class="a4-page">
-                <header class="flex justify-between items-end border-b-2 border-gray-800 pb-4 mb-6">
-                    <div>
-                        <div class="doc-subtitle mb-1" data-i18n="clearance">Personal Explorer Log // Declassified</div>
-                        <h1 class="doc-title" data-i18n="title-1">Quantum Consciousness Protocol</h1>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-xs text-gray-500 font-bold" data-i18n="file-ref">FILE REF:</span>
-                        <input type="text" id="ref-id" class="w-32 text-center text-lg font-mono border-none !border-b-0 bg-gray-50 rounded" placeholder="QCS-001">
-                        <div class="text-xs text-gray-500 mt-1">PAGE 1 / 3</div>
-                    </div>
-                </header>
+                <div class="print-avoid-break">
+                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-4 mb-6">
+                        <div>
+                            <div class="doc-subtitle mb-1" data-i18n="clearance">Personal Explorer Log // Declassified</div>
+                            <h1 class="doc-title" data-i18n="title-1">Quantum Consciousness Protocol</h1>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-500 font-bold" data-i18n="file-ref">FILE REF:</span>
+                            <input type="text" id="ref-id" class="w-32 text-center text-lg font-mono border-none !border-b-0 bg-slate-50 rounded" placeholder="QCS-001">
+                            <div class="text-xs text-slate-500 mt-1">PAGE 1 / 3</div>
+                        </div>
+                    </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                    <div><span class="input-label" data-i18n="date">Date</span><input type="text" id="f_date" placeholder="DD/MM/YYYY"></div>
-                    <div><span class="input-label" data-i18n="init-time">Start Time</span><input type="text" id="f_start_time"></div>
-                    <div><span class="input-label" data-i18n="halt-time">End Time</span><input type="text" id="f_end_time"></div>
-                    <div><span class="input-label" data-i18n="duration">Duration</span><input type="text" id="f_duration"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div><span class="input-label" data-i18n="date">Date</span><input type="text" id="f_date" placeholder="DD/MM/YYYY"></div>
+                        <div><span class="input-label" data-i18n="init-time">Start Time</span><input type="text" id="f_start_time"></div>
+                        <div><span class="input-label" data-i18n="halt-time">End Time</span><input type="text" id="f_end_time"></div>
+                        <div><span class="input-label" data-i18n="duration">Duration</span><input type="text" id="f_duration"></div>
+                        
+                        <div class="md:col-span-2"><span class="input-label" data-i18n="geo">Location</span><input type="text" id="f_location"></div>
+                        <div><span class="input-label" data-i18n="posture">Physical Posture</span><input type="text" id="f_posture" placeholder="e.g. Supine"></div>
+                        <div><span class="input-label" data-i18n="mood">Baseline State</span><input type="text" id="f_mood" placeholder="e.g. Calm, Tired"></div>
+                    </div>
+                </div>
+
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-8" data-i18n="freq-params">Frequency Induction Parameters</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="md:col-span-2"><span class="input-label" data-i18n="audio-src">Audio Source (Gateway/Hemi-Sync/App)</span><input type="text" id="f_audio_src"></div>
+                        <div><span class="input-label" data-i18n="headphones">Headphones Hardware</span><input type="text" id="f_headphones"></div>
+                    </div>
                     
-                    <div class="md:col-span-2"><span class="input-label" data-i18n="geo">Location</span><input type="text" id="f_location"></div>
-                    <div><span class="input-label" data-i18n="posture">Physical Posture</span><input type="text" id="f_posture" placeholder="e.g. Supine"></div>
-                    <div><span class="input-label" data-i18n="mood">Baseline State</span><input type="text" id="f_mood" placeholder="e.g. Calm, Tired"></div>
+                    <div class="flex flex-wrap gap-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <label class="chk-wrap"><input type="checkbox" id="c_delta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="delta">DELTA (0.5-4 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_theta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="theta">THETA (4-8 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_alpha"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="alpha">ALPHA (8-14 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_beta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="beta">BETA (14-30 Hz)</span></label>
+                        <label class="chk-wrap"><input type="checkbox" id="c_gamma"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="gamma">GAMMA (30+ Hz)</span></label>
+                    </div>
                 </div>
 
-                <h2 class="section-header" data-i18n="freq-params">Frequency Induction Parameters</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div class="md:col-span-2"><span class="input-label" data-i18n="audio-src">Audio Source (Gateway/Hemi-Sync/App)</span><input type="text" id="f_audio_src"></div>
-                    <div><span class="input-label" data-i18n="headphones">Headphones Hardware</span><input type="text" id="f_headphones"></div>
-                </div>
-                
-                <div class="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200 mb-6">
-                    <label class="chk-wrap"><input type="checkbox" id="c_delta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="delta">DELTA (0.5-4 Hz)</span></label>
-                    <label class="chk-wrap"><input type="checkbox" id="c_theta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="theta">THETA (4-8 Hz)</span></label>
-                    <label class="chk-wrap"><input type="checkbox" id="c_alpha"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="alpha">ALPHA (8-14 Hz)</span></label>
-                    <label class="chk-wrap"><input type="checkbox" id="c_beta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="beta">BETA (14-30 Hz)</span></label>
-                    <label class="chk-wrap"><input type="checkbox" id="c_gamma"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="gamma">GAMMA (30+ Hz)</span></label>
-                </div>
-
-                <h2 class="section-header" data-i18n="target-state">Target Consciousness Vector</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                    <label class="chk-wrap p-3 border border-gray-200 rounded hover:bg-gray-50 transition"><input type="checkbox" id="c_f10"><span class="chk-box"></span>
-                        <div><span class="chk-title" data-i18n="f10">Focus 10</span><span class="chk-desc" data-i18n="mind-awake">Mind Awake / Body Asleep</span></div>
-                    </label>
-                    <label class="chk-wrap p-3 border border-gray-200 rounded hover:bg-gray-50 transition"><input type="checkbox" id="c_f12"><span class="chk-box"></span>
-                        <div><span class="chk-title" data-i18n="f12">Focus 12</span><span class="chk-desc" data-i18n="exp-aware">Expanded Awareness</span></div>
-                    </label>
-                    <label class="chk-wrap p-3 border border-gray-200 rounded hover:bg-gray-50 transition"><input type="checkbox" id="c_f15"><span class="chk-box"></span>
-                        <div><span class="chk-title" data-i18n="f15">Focus 15</span><span class="chk-desc" data-i18n="void-state">No Time / Void State</span></div>
-                    </label>
-                    <label class="chk-wrap p-3 border border-gray-200 rounded hover:bg-gray-50 transition"><input type="checkbox" id="c_f21"><span class="chk-box"></span>
-                        <div><span class="chk-title" data-i18n="f21">Focus 21</span><span class="chk-desc" data-i18n="bridge-zone">Edge of Time-Space</span></div>
-                    </label>
-                    <label class="chk-wrap p-3 border border-gray-200 rounded hover:bg-gray-50 transition"><input type="checkbox" id="c_f22"><span class="chk-box"></span>
-                        <div><span class="chk-title" data-i18n="f22">Focus 22-27</span><span class="chk-desc" data-i18n="f22-desc">Belief System Territories</span></div>
-                    </label>
-                    <label class="chk-wrap p-3 border border-gray-200 rounded hover:bg-gray-50 transition"><input type="checkbox" id="c_f34"><span class="chk-box"></span>
-                        <div><span class="chk-title" data-i18n="f34">Focus 34/35</span><span class="chk-desc" data-i18n="f34-desc">The Gathering</span></div>
-                    </label>
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-8" data-i18n="target-state">Target Consciousness Vector</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <label class="chk-wrap p-3 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f10"><span class="chk-box"></span>
+                            <div><span class="chk-title" data-i18n="f10">Focus 10</span><span class="chk-desc" data-i18n="mind-awake">Mind Awake / Body Asleep</span></div>
+                        </label>
+                        <label class="chk-wrap p-3 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f12"><span class="chk-box"></span>
+                            <div><span class="chk-title" data-i18n="f12">Focus 12</span><span class="chk-desc" data-i18n="exp-aware">Expanded Awareness</span></div>
+                        </label>
+                        <label class="chk-wrap p-3 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f15"><span class="chk-box"></span>
+                            <div><span class="chk-title" data-i18n="f15">Focus 15</span><span class="chk-desc" data-i18n="void-state">No Time / Void State</span></div>
+                        </label>
+                        <label class="chk-wrap p-3 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f21"><span class="chk-box"></span>
+                            <div><span class="chk-title" data-i18n="f21">Focus 21</span><span class="chk-desc" data-i18n="bridge-zone">Edge of Time-Space</span></div>
+                        </label>
+                        <label class="chk-wrap p-3 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f22"><span class="chk-box"></span>
+                            <div><span class="chk-title" data-i18n="f22">Focus 22-27</span><span class="chk-desc" data-i18n="f22-desc">Belief System Territories</span></div>
+                        </label>
+                        <label class="chk-wrap p-3 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f34"><span class="chk-box"></span>
+                            <div><span class="chk-title" data-i18n="f34">Focus 34/35</span><span class="chk-desc" data-i18n="f34-desc">The Gathering</span></div>
+                        </label>
+                    </div>
                 </div>
 
-                <h2 class="section-header" data-i18n="pre-session">Pre-Session Intention</h2>
-                <textarea id="t_intention" class="w-full h-24 mb-6" data-i18n-ph="intention-ph" placeholder="Input target coordinates, reality framework, or shifting intention..."></textarea>
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-8" data-i18n="pre-session">Pre-Session Intention</h2>
+                    <textarea id="t_intention" class="w-full h-24" data-i18n-ph="intention-ph" placeholder="Input target coordinates, reality framework, or shifting intention..."></textarea>
+                </div>
 
-                <h2 class="section-header text-red-600 border-red-200" data-i18n="click-out">Click-Out / Amnesia Anomaly Log</h2>
-                <div class="bg-red-50 border border-red-100 p-4 rounded-lg">
-                    <p class="text-sm font-semibold text-gray-800 mb-3" data-i18n="amnesia-q">Sudden loss of consciousness or missing time recorded?</p>
-                    <div class="flex flex-wrap items-center gap-6">
-                        <label class="chk-wrap"><input type="checkbox" id="c_click_no" onclick="uncheckGroup('click', this)"><span class="chk-box !border-red-400"></span><span class="chk-title text-red-600" data-i18n="negative">NEGATIVE</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_click_yes" onclick="uncheckGroup('click', this)"><span class="chk-box !border-red-400"></span><span class="chk-title text-red-600" data-i18n="positive">POSITIVE</span></label>
-                        <div class="flex items-center gap-2 ml-auto">
-                            <span class="text-sm font-mono text-gray-600" data-i18n="t-start">Est. Start:</span><input type="text" id="f_click_start" class="w-20 border-red-300 text-center bg-transparent">
-                            <span class="text-sm font-mono text-gray-600 ml-2" data-i18n="t-end">Est. End:</span><input type="text" id="f_click_end" class="w-20 border-red-300 text-center bg-transparent">
+                <div class="print-avoid-break">
+                    <h2 class="section-header mt-8 text-red-600 border-red-200" data-i18n="click-out">Click-Out / Amnesia Anomaly Log</h2>
+                    <div class="bg-red-50 border border-red-100 p-4 rounded-lg">
+                        <p class="text-sm font-semibold text-slate-800 mb-3" data-i18n="amnesia-q">Sudden loss of consciousness or missing time recorded?</p>
+                        <div class="flex flex-wrap items-center gap-6">
+                            <label class="chk-wrap"><input type="checkbox" id="c_click_no" onclick="uncheckGroup('click', this)"><span class="chk-box !border-red-400"></span><span class="chk-title text-red-600" data-i18n="negative">NEGATIVE</span></label>
+                            <label class="chk-wrap"><input type="checkbox" id="c_click_yes" onclick="uncheckGroup('click', this)"><span class="chk-box !border-red-400"></span><span class="chk-title text-red-600" data-i18n="positive">POSITIVE</span></label>
+                            <div class="flex items-center gap-2 ml-auto">
+                                <span class="text-sm font-mono text-slate-600" data-i18n="t-start">Est. Start:</span><input type="text" id="f_click_start" class="w-20 border-red-300 text-center bg-transparent">
+                                <span class="text-sm font-mono text-slate-600 ml-2" data-i18n="t-end">Est. End:</span><input type="text" id="f_click_end" class="w-20 border-red-300 text-center bg-transparent">
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-gray-400 font-mono uppercase">
+                <div class="print-footer absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
                     <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-01</span>
                 </div>
             </div>
 
             <div class="a4-page">
-                <header class="flex justify-between items-end border-b-2 border-gray-800 pb-4 mb-6">
-                    <div><h1 class="doc-title" data-i18n="title-2">Controlled Remote Viewing</h1></div>
-                    <div class="text-right text-xs text-gray-500 mt-1">PAGE 2 / 3</div>
-                </header>
+                <div class="print-avoid-break">
+                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-4 mb-6">
+                        <div><h1 class="doc-title" data-i18n="title-2">Controlled Remote Viewing</h1></div>
+                        <div class="text-right text-xs text-slate-500 mt-1">PAGE 2 / 3</div>
+                    </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div><span class="input-label" data-i18n="trn">Target Reference Number (TRN)</span><input type="text" id="f_trn" class="text-xl tracking-widest font-mono font-bold"></div>
-                    <div><span class="input-label" data-i18n="target-desc">Target Decryption (Post-Session)</span><input type="text" id="f_target_desc" class="text-lg"></div>
-                </div>
-
-                <h2 class="section-header" data-i18n="stage-1">Stage 1: Ideogram / Gestalt</h2>
-                <div class="canvas-wrapper h-60 mb-6">
-                    <div class="absolute top-2 left-2 text-xs font-mono text-gray-400 pointer-events-none" data-i18n="matrix-active">INITIAL SKETCH / ENERGY LINES</div>
-                    <div class="canvas-tools">
-                        <button class="tool-btn active" onclick="setTool('canvas-gestalt', 'pen', this)" data-i18n="pen">Pen</button>
-                        <button class="tool-btn" onclick="setTool('canvas-gestalt', 'eraser', this)" data-i18n="erase">Erase</button>
-                        <button class="tool-btn" onclick="undoCanvas('canvas-gestalt')" data-i18n="undo">Undo</button>
-                        <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-gestalt', true)" data-i18n="purge">Clear</button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div><span class="input-label" data-i18n="trn">Target Reference Number (TRN)</span><input type="text" id="f_trn" class="text-xl tracking-widest font-mono font-bold"></div>
+                        <div><span class="input-label" data-i18n="target-desc">Target Decryption (Post-Session)</span><input type="text" id="f_target_desc" class="text-lg"></div>
                     </div>
-                    <canvas id="canvas-gestalt" class="drawing-board h-full"></canvas>
                 </div>
 
-                <h2 class="section-header" data-i18n="stage-2">Stage 2: Sensory Decoding</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div><span class="input-label" data-i18n="visuals">VISUALS (Colors, Light, Forms)</span><textarea id="t_visuals" class="h-16 w-full"></textarea></div>
-                    <div><span class="input-label" data-i18n="auditory">AUDITORY (Acoustics, Voices)</span><textarea id="t_auditory" class="h-16 w-full"></textarea></div>
-                    <div><span class="input-label" data-i18n="tactile">TACTILE/THERMAL (Textures, Temp)</span><textarea id="t_tactile" class="h-16 w-full"></textarea></div>
-                    <div><span class="input-label" data-i18n="olfactory">OLFACTORY/GUSTATORY (Smell/Taste)</span><textarea id="t_olfactory" class="h-16 w-full"></textarea></div>
-                </div>
-
-                <h2 class="section-header" data-i18n="stage-3">Stage 3: Analytical Dimensional Sketch</h2>
-                <div class="canvas-wrapper h-80 mb-6">
-                    <div class="absolute top-2 left-2 text-xs font-mono text-gray-400 pointer-events-none" data-i18n="mapping">ARCHITECTURAL/BIOLOGICAL MAPPING</div>
-                    <div class="canvas-tools">
-                        <button class="tool-btn active" onclick="setTool('canvas-analytical', 'pen', this)" data-i18n="pen">Pen</button>
-                        <button class="tool-btn" onclick="setTool('canvas-analytical', 'eraser', this)" data-i18n="erase">Erase</button>
-                        <button class="tool-btn" onclick="undoCanvas('canvas-analytical')" data-i18n="undo">Undo</button>
-                        <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-analytical', true)" data-i18n="purge">Clear</button>
+                <div class="print-avoid-break">
+                    <h2 class="section-header" data-i18n="stage-1">Stage 1: Ideogram / Gestalt</h2>
+                    <div class="canvas-wrapper h-60 mb-6">
+                        <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="matrix-active">INITIAL SKETCH / ENERGY LINES</div>
+                        <div class="canvas-tools">
+                            <button class="tool-btn active" onclick="setTool('canvas-gestalt', 'pen', this)" data-i18n="pen">Pen</button>
+                            <button class="tool-btn" onclick="setTool('canvas-gestalt', 'eraser', this)" data-i18n="erase">Erase</button>
+                            <button class="tool-btn" onclick="undoCanvas('canvas-gestalt')" data-i18n="undo">Undo</button>
+                            <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-gestalt', true)" data-i18n="purge">Clear</button>
+                        </div>
+                        <canvas id="canvas-gestalt" class="drawing-board h-full"></canvas>
                     </div>
-                    <canvas id="canvas-analytical" class="drawing-board h-full"></canvas>
                 </div>
 
-                <div class="absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-gray-400 font-mono uppercase">
+                <div class="print-avoid-break">
+                    <h2 class="section-header" data-i18n="stage-2">Stage 2: Sensory Decoding</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div><span class="input-label" data-i18n="visuals">VISUALS (Colors, Light, Forms)</span><textarea id="t_visuals" class="h-16 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="auditory">AUDITORY (Acoustics, Voices)</span><textarea id="t_auditory" class="h-16 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="tactile">TACTILE/THERMAL (Textures, Temp)</span><textarea id="t_tactile" class="h-16 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="olfactory">OLFACTORY/GUSTATORY (Smell/Taste)</span><textarea id="t_olfactory" class="h-16 w-full"></textarea></div>
+                    </div>
+                </div>
+
+                <div class="print-avoid-break">
+                    <h2 class="section-header" data-i18n="stage-3">Stage 3: Analytical Dimensional Sketch</h2>
+                    <div class="canvas-wrapper h-80">
+                        <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="mapping">ARCHITECTURAL/BIOLOGICAL MAPPING</div>
+                        <div class="canvas-tools">
+                            <button class="tool-btn active" onclick="setTool('canvas-analytical', 'pen', this)" data-i18n="pen">Pen</button>
+                            <button class="tool-btn" onclick="setTool('canvas-analytical', 'eraser', this)" data-i18n="erase">Erase</button>
+                            <button class="tool-btn" onclick="undoCanvas('canvas-analytical')" data-i18n="undo">Undo</button>
+                            <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-analytical', true)" data-i18n="purge">Clear</button>
+                        </div>
+                        <canvas id="canvas-analytical" class="drawing-board h-full"></canvas>
+                    </div>
+                </div>
+
+                <div class="print-footer absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
                     <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-02</span>
                 </div>
             </div>
 
             <div class="a4-page">
-                <header class="flex justify-between items-end border-b-2 border-gray-800 pb-4 mb-6">
-                    <div><h1 class="doc-title" data-i18n="title-3">Timeline Diagnostics</h1></div>
-                    <div class="text-right text-xs text-gray-500 mt-1">PAGE 3 / 3</div>
-                </header>
+                <div class="print-avoid-break">
+                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-4 mb-6">
+                        <div><h1 class="doc-title" data-i18n="title-3">Timeline Diagnostics</h1></div>
+                        <div class="text-right text-xs text-slate-500 mt-1">PAGE 3 / 3</div>
+                    </header>
 
-                <h2 class="section-header" data-i18n="timeline-diff">Timeline Differential Analysis</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div>
-                        <span class="input-label" data-i18n="cr-base">Current Reality (CR) Baseline</span>
-                        <textarea id="t_cr" class="h-32 w-full mt-1 bg-gray-50 border-gray-200"></textarea>
+                    <h2 class="section-header" data-i18n="timeline-diff">Timeline Differential Analysis</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <span class="input-label" data-i18n="cr-base">Current Reality (CR) Baseline</span>
+                            <textarea id="t_cr" class="h-32 w-full mt-1 bg-slate-50 border-slate-200"></textarea>
+                        </div>
+                        <div>
+                            <span class="input-label text-blue-600" data-i18n="dr-target">Desired Reality (DR) Target</span>
+                            <textarea id="t_dr" class="h-32 w-full mt-1 bg-blue-50 border-blue-200 focus:bg-white"></textarea>
+                        </div>
                     </div>
-                    <div>
-                        <span class="input-label text-blue-600" data-i18n="dr-target">Desired Reality (DR) Target</span>
-                        <textarea id="t_dr" class="h-32 w-full mt-1 bg-blue-50 border-blue-200 focus:bg-white"></textarea>
+                </div>
+
+                <div class="print-avoid-break">
+                    <h2 class="section-header" data-i18n="quantum-anchors">Quantum Anchors (Variables)</h2>
+                    <p class="text-sm text-slate-600 mb-4" data-i18n="anchor-desc">Define divergence parameters to lock consciousness into the Target Timeline.</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div><span class="input-label" data-i18n="cog-anchor">COGNITIVE ANCHOR (Core DR Paradigm / Belief System)</span><textarea id="t_anchor_cog" class="h-16 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="som-anchor">SOMATIC ANCHOR (Proprioceptive Feedback in DR)</span><textarea id="t_anchor_som" class="h-16 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="env-anchor">ENVIRONMENTAL ANCHOR (Initial sensory input upon waking in DR)</span><textarea id="t_anchor_env" class="h-16 w-full"></textarea></div>
                     </div>
                 </div>
 
-                <h2 class="section-header" data-i18n="quantum-anchors">Quantum Anchors (Variables)</h2>
-                <p class="text-sm text-gray-600 mb-4" data-i18n="anchor-desc">Define divergence parameters to lock consciousness into the Target Timeline.</p>
-                
-                <div class="space-y-4 mb-8">
-                    <div><span class="input-label" data-i18n="cog-anchor">COGNITIVE ANCHOR (Core DR Paradigm / Belief System)</span><textarea id="t_anchor_cog" class="h-16 w-full"></textarea></div>
-                    <div><span class="input-label" data-i18n="som-anchor">SOMATIC ANCHOR (Proprioceptive Feedback in DR)</span><textarea id="t_anchor_som" class="h-16 w-full"></textarea></div>
-                    <div><span class="input-label" data-i18n="env-anchor">ENVIRONMENTAL ANCHOR (Initial sensory input upon waking in DR)</span><textarea id="t_anchor_env" class="h-16 w-full"></textarea></div>
+                <div class="print-avoid-break">
+                    <h2 class="section-header text-purple-700 border-purple-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
+                    <p class="text-sm text-slate-600 mb-4" data-i18n="bleed-desc">Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).</p>
+                    
+                    <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-4 items-center bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <div class="font-mono text-sm font-bold text-slate-700">T+ 12h</div>
+                        <div><input type="text" id="f_obs_12" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                        
+                        <div class="font-mono text-sm font-bold text-slate-700">T+ 24h</div>
+                        <div><input type="text" id="f_obs_24" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                        
+                        <div class="font-mono text-sm font-bold text-slate-700">T+ 48h</div>
+                        <div><input type="text" id="f_obs_48" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                    </div>
                 </div>
 
-                <h2 class="section-header text-purple-700 border-purple-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
-                <p class="text-sm text-gray-600 mb-4" data-i18n="bleed-desc">Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).</p>
-                
-                <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-4 items-center bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <div class="font-mono text-sm font-bold text-gray-700">T+ 12h</div>
-                    <div><input type="text" id="f_obs_12" placeholder="Observation Log..." data-i18n-ph="obs"></div>
-                    
-                    <div class="font-mono text-sm font-bold text-gray-700">T+ 24h</div>
-                    <div><input type="text" id="f_obs_24" placeholder="Observation Log..." data-i18n-ph="obs"></div>
-                    
-                    <div class="font-mono text-sm font-bold text-gray-700">T+ 48h</div>
-                    <div><input type="text" id="f_obs_48" placeholder="Observation Log..." data-i18n-ph="obs"></div>
-                </div>
-
-                <div class="absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-gray-400 font-mono uppercase">
+                <div class="print-footer absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
                     <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-03</span>
                 </div>
             </div>
         </main>
     </div>
 
-    <div id="dialog-modal" class="hidden fixed inset-0 z-[250] bg-gray-900/50 backdrop-blur-sm flex justify-center items-center p-4">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all">
+    <div id="dialog-modal" class="hidden fixed inset-0 z-[250] bg-slate-900/50 backdrop-blur-sm flex justify-center items-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all">
             <div class="p-6 text-center">
-                <h3 id="dialog-title" class="text-lg font-bold text-gray-900 mb-2 font-serif">Message</h3>
-                <p id="dialog-message" class="text-sm text-gray-600 mb-6">...</p>
+                <h3 id="dialog-title" class="text-xl font-bold text-slate-900 mb-2 font-serif">Message</h3>
+                <p id="dialog-message" class="text-sm text-slate-600 mb-8 leading-relaxed">...</p>
                 <div class="flex justify-center gap-3">
-                    <button id="dialog-cancel" class="btn btn-outline hidden" data-i18n="cancel">Cancel</button>
-                    <button id="dialog-confirm" class="btn btn-primary" data-i18n="confirm">OK</button>
+                    <button id="dialog-cancel" class="btn btn-outline hidden w-full" data-i18n="cancel">Cancel</button>
+                    <button id="dialog-confirm" class="btn btn-primary w-full" data-i18n="confirm">OK</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="sys-modal" class="hidden fixed inset-0 z-[150] bg-gray-900/50 flex justify-center items-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden border border-gray-200">
-            <div class="flex justify-between items-center p-4 border-b border-gray-200 bg-gray-50">
-                <h2 id="modal-title" class="font-serif font-bold text-xl text-gray-800 tracking-wide">TITLE</h2>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-800 text-3xl leading-none">&times;</button>
+    <div id="sys-modal" class="hidden fixed inset-0 z-[150] bg-slate-900/50 flex justify-center items-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden border border-slate-200">
+            <div class="flex justify-between items-center p-5 border-b border-slate-200 bg-slate-50">
+                <h2 id="modal-title" class="font-serif font-bold text-2xl text-slate-800 tracking-wide">TITLE</h2>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-800 text-3xl leading-none transition-colors">&times;</button>
             </div>
-            <div id="modal-body" class="p-8 overflow-y-auto text-gray-700 text-sm leading-relaxed modal-content-area bg-white"></div>
+            <div id="modal-body" class="p-8 overflow-y-auto text-slate-700 text-sm leading-relaxed modal-content-area bg-white"></div>
         </div>
     </div>
 
@@ -496,14 +536,14 @@
         const i18n = {
             en: {
                 "module-name": "Quantum Consciousness Protocol", 
-                "opt-print-title": "Print the Module", "opt-print-desc": "Print the empty Quantum Consciousness Protocol to fill out with a pen.",
-                "opt-digital-title": "Use on Screen", "opt-digital-desc": "Type, draw, and save directly on this device.",
+                "opt-print-title": "Print Empty Pages", "opt-print-desc": "Print the Quantum Consciousness Protocol on real paper to write with a pen.",
+                "opt-digital-title": "Start Session", "opt-digital-desc": "Type, draw, and use the built-in timer and audio sync directly on this device.",
                 "btn-back": "← Back to Languages",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Start Session", "resume-seq": "Resume", "halt-seq": "Pause / Log End Time", "purge": "Clear Data", "pdf-prnt": "Print / PDF",
-                "manual-freq": "Manual (Static)", "auto-focus": "Autopilot (Descent)", "cancel": "Cancel", "confirm": "OK", 
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Start Session", "resume-seq": "Resume", "halt-seq": "Pause / End", "purge": "Clear Data", "pdf-prnt": "Print A4 / PDF",
+                "manual-freq": "Manual Frequencies", "auto-focus": "Guided Autopilot", "cancel": "Cancel", "confirm": "OK", 
                 "btn-manual": "OS Manual", "btn-gateway": "Gateway eBook",
                 "purge-msg": "Erase all data from the interactive session? This cannot be undone.", 
-                "autopilot-msg": "Autopilot Initiated. Executing gradual frequency ramp down to Target Focus state. Ensure headphones are active.", "clear-canvas-msg": "Clear this sketch matrix?",
+                "autopilot-msg": "Autopilot Initiated. Executing gradual frequency ramp down to Target Focus state. Ensure headphones are active.", "clear-canvas-msg": "Clear this sketch?",
                 "clearance": "Personal Explorer Log // Declassified", "title-1": "Quantum Consciousness Protocol",
                 "file-ref": "FILE REF:", "date": "Date", "init-time": "Start Time", "halt-time": "End Time", "duration": "Duration",
                 "geo": "Location", "posture": "Physical Posture", "mood": "Baseline State",
@@ -533,20 +573,20 @@
                 "bleed-tracker": "Bleed-Through / Anomaly Tracker", "bleed-desc": "Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).",
                 "obs": "Observation Log...",
                 "man-t": "OPERATIONAL MANUAL",
-                "man-b": "<p><strong>1. AUDIO SYNC (HEMI-SYNC):</strong> Use the top toolbar to synthesize binaural beats. Stereo headphones are mandatory. <em>Autopilot</em> mode uses frequency ramping: it starts at a waking frequency and slowly guides your brainwaves down to the target state over several minutes to avoid acoustic shock.</p><p><strong>2. DIGITAL CANVAS (REMOTE VIEWING):</strong> The Gestalt and Dimensional Sketch areas are fully interactive. Use a mouse or stylus to map targets. Sketches are optimized for high-contrast A4 printing.</p><p><strong>3. AUTO-SAVE & PERSISTENCE:</strong> Every keystroke and sketch is continuously saved to your device's local memory. You can close the browser safely.</p><p><strong>4. PRINTING PROTOCOL:</strong> Clicking 'Print / PDF' strips the UI and reformats the data onto perfectly scaled A4 pages for physical archiving.</p>",
+                "man-b": "<p><strong>1. AUDIO SYNC:</strong> Use the top toolbar to synthesize binaural beats. Stereo headphones are mandatory. <em>Autopilot</em> mode uses frequency ramping: it starts at a waking frequency and slowly guides your brainwaves down to the target state over several minutes to avoid acoustic shock.</p><p><strong>2. DIGITAL CANVAS (REMOTE VIEWING):</strong> The Gestalt and Dimensional Sketch areas are fully interactive. Use a mouse or stylus to map targets. Sketches are optimized for high-contrast A4 printing.</p><p><strong>3. AUTO-SAVE & PERSISTENCE:</strong> Every keystroke and sketch is continuously saved to your device's local memory. You can close the browser safely.</p><p><strong>4. PRINTING PROTOCOL:</strong> Clicking 'Print A4 / PDF' reformats the data onto perfectly scaled A4 pages for physical archiving on white backgrounds.</p>",
                 "gw-t": "THE GATEWAY PROCESS (CIA REPORT SUMMARY)",
                 "gw-b": "<p><em>REF: CIA-RDP96-00788R001700210016-5 (Declassified 2003)</em></p><p>In 1983, US Army Intelligence commissioned Wayne M. McDonnell to analyze the Gateway Experience developed by the Monroe Institute. The goal was to construct a scientifically valid framework for understanding altered states of consciousness.</p><p><strong>1. HEMI-SYNC & BRAINWAVES:</strong> The process relies on Frequency Following Response (FFR). By introducing slightly different audio frequencies into each ear, the brain creates a third 'binaural beat', forcing the left and right hemispheres into synchronization and deep relaxation.</p><p><strong>2. THE HOLOGRAPHIC UNIVERSE:</strong> The report concludes that the universe is a massive, complex hologram formed by interacting energy fields. Human consciousness is a holographic system capable of tuning into this universal matrix, transcending the illusions of time and space.</p><p><strong>3. FOCUS LEVELS (STATES OF CONSCIOUSNESS):</strong></p><ul><li><strong>Focus 10:</strong> Mind Awake, Body Asleep. The foundational state.</li><li><strong>Focus 12:</strong> Expanded Awareness. Consciousness expands beyond physical limits.</li><li><strong>Focus 15:</strong> No Time. The mind detaches from the space-time continuum.</li><li><strong>Focus 21:</strong> The Bridge. The absolute edge of physical space-time perception.</li><li><strong>Focus 22-27:</strong> Belief System Territories. Non-physical realities mapping to human afterlife concepts.</li><li><strong>Focus 34/35:</strong> The Gathering. Communication with extra-dimensional intelligences.</li></ul><p><strong>4. PATTERN TRANSACTING (MANIFESTATION):</strong> By achieving Focus 12 or 15, an individual can project a desired pattern (intention) into the universal hologram. The universe then reorganizes its energy matrix to manifest this new probability into physical reality.</p>"
             },
             it: {
                 "module-name": "Protocollo Coscienza Quantica", 
-                "opt-print-title": "Stampa il Modulo", "opt-print-desc": "Stampa il Protocollo Coscienza Quantica vuoto per compilarlo a penna.",
-                "opt-digital-title": "Usa sullo Schermo", "opt-digital-desc": "Scrivi, disegna e salva direttamente in questa app.",
+                "opt-print-title": "Stampa Pagine Vuote", "opt-print-desc": "Stampa il Protocollo Coscienza Quantica su carta reale per scriverci a penna.",
+                "opt-digital-title": "Inizia Sessione", "opt-digital-desc": "Scrivi, disegna e usa il timer e l'audio sincronizzato direttamente su questo dispositivo.",
                 "btn-back": "← Torna alle Lingue",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Inizia Sessione", "resume-seq": "Riprendi", "halt-seq": "Pausa / Log Ora Fine", "purge": "Cancella Dati", "pdf-prnt": "Stampa / PDF",
-                "manual-freq": "Manuale (Statico)", "auto-focus": "Autopilota (Discesa)", "cancel": "Annulla", "confirm": "OK",
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Inizia Sessione", "resume-seq": "Riprendi", "halt-seq": "Pausa / Fine", "purge": "Cancella Dati", "pdf-prnt": "Stampa A4 / PDF",
+                "manual-freq": "Frequenze Manuali", "auto-focus": "Autopilota Guidato", "cancel": "Annulla", "confirm": "OK",
                 "btn-manual": "Manuale OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Cancellare tutti i dati della sessione? Questa azione è irreversibile.",
-                "autopilot-msg": "Autopilota Avviato. Esecuzione rampa di frequenza graduale verso lo stato Focus Target. Assicurarsi di indossare le cuffie.", "clear-canvas-msg": "Cancellare questa matrice di disegno?",
+                "autopilot-msg": "Autopilota Avviato. Esecuzione rampa di frequenza graduale verso lo stato Focus. Indossare le cuffie.", "clear-canvas-msg": "Cancellare questo schizzo?",
                 "clearance": "Diario Esploratore Personale // Declassificato", "title-1": "Protocollo Coscienza Quantica",
                 "file-ref": "RIF. FILE:", "date": "Data", "init-time": "Ora Inizio", "halt-time": "Ora Fine", "duration": "Durata",
                 "geo": "Coordinate Luogo", "posture": "Postura Fisica", "mood": "Stato di Base",
@@ -576,20 +616,20 @@
                 "bleed-tracker": "Tracker Fuga Temporale (Bleed-Through)", "bleed-desc": "Registra sincronicità, Effetti Mandela o anomalie nelle 48h successive.",
                 "obs": "Log Osservazione...",
                 "man-t": "MANUALE OPERATIVO",
-                "man-b": "<p><strong>1. AUDIO SYNC (HEMI-SYNC):</strong> Usa la barra superiore per sintetizzare battiti binaurali. Le cuffie stereo sono obbligatorie. La modalità <em>Autopilota</em> attua una rampa di discesa graduale verso lo stato Target.</p><p><strong>2. CANVAS DIGITALE:</strong> Le aree Gestalt e Schizzo sono interattive. Usa mouse o stylus. Ottimizzate per stampa A4.</p><p><strong>3. AUTO-SALVATAGGIO:</strong> Ogni tasto premuto e disegno viene salvato all'istante nella memoria locale del browser.</p><p><strong>4. PROTOCOLLO STAMPA:</strong> Cliccando 'Stampa / PDF', l'interfaccia si dissolve per generare fogli A4 impaginati su sfondo bianco puro.</p>",
+                "man-b": "<p><strong>1. AUDIO SYNC:</strong> Usa la barra superiore per sintetizzare battiti binaurali. Le cuffie stereo sono obbligatorie. La modalità <em>Autopilota</em> attua una rampa di discesa graduale verso lo stato Target.</p><p><strong>2. CANVAS DIGITALE:</strong> Le aree Gestalt e Schizzo sono interattive. Usa mouse o stylus. Ottimizzate per stampa A4.</p><p><strong>3. AUTO-SALVATAGGIO:</strong> Ogni tasto premuto e disegno viene salvato all'istante nella memoria locale del browser.</p><p><strong>4. PROTOCOLLO STAMPA:</strong> Cliccando 'Stampa A4 / PDF', l'interfaccia impagina perfettamente i dati su fogli A4 bianchi per l'archiviazione.</p>",
                 "gw-t": "PROCESSO GATEWAY (DOSSIER CIA)",
                 "gw-b": "<p><em>RIF: CIA-RDP96-00788R001700210016-5 (Declassificato 2003)</em></p><p>Nel 1983, l'Intelligence USA incaricò W. McDonnell di analizzare il Gateway Experience dell'Istituto Monroe per costruire un modello scientifico sugli stati alterati di coscienza.</p><p><strong>1. HEMI-SYNC E ONDE CEREBRALI:</strong> Si basa sulla Risposta di Seguito in Frequenza (FFR). Inviando due frequenze distinte alle orecchie, il cervello crea un terzo 'battito binaurale'.</p><p><strong>2. UNIVERSO OLOGRAFICO:</strong> L'universo è un ologramma formato da campi di energia. La coscienza umana è un sistema olografico capace di sintonizzarsi con questa matrice.</p><p><strong>3. LIVELLI DI FOCUS:</strong></p><ul><li><strong>Focus 10:</strong> Mente sveglia, Corpo addormentato.</li><li><strong>Focus 12:</strong> Consapevolezza Espansa.</li><li><strong>Focus 15:</strong> Nessun Tempo. Svincolo dalle costrizioni cronologiche.</li><li><strong>Focus 21:</strong> Il Ponte. L'orlo finale della percezione dello spazio-tempo fisico.</li><li><strong>Focus 22-27:</strong> Territori dei Sistemi di Credenze (Realtà non fisiche).</li><li><strong>Focus 34/35:</strong> The Gathering. Comunicazione interdimensionale.</li></ul><p><strong>4. PATTERN TRANSACTING:</strong> Raggiungendo Focus 12 o 15, si può proiettare un'intenzione nell'ologramma universale per manifestare tale probabilità nella realtà.</p>"
             },
             es: {
-                "module-name": "Protocollo de Conciencia Cuántica", 
-                "opt-print-title": "Imprimir el Protocolo", "opt-print-desc": "Imprima el Protocolo vacío para completarlo a bolígrafo.",
-                "opt-digital-title": "Usar en Pantalla", "opt-digital-desc": "Escriba, dibuje y guarde directamente en su dispositivo.",
+                "module-name": "Protocolo de Conciencia Cuántica", 
+                "opt-print-title": "Imprimir Páginas Vacías", "opt-print-desc": "Imprima el Protocolo de Conciencia Cuántica en papel real para escribir con bolígrafo.",
+                "opt-digital-title": "Iniciar Sesión", "opt-digital-desc": "Escriba, dibuje y use el temporizador y el audio sincronizado directamente en este dispositivo.",
                 "btn-back": "← Volver a Idiomas",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Sesión", "resume-seq": "Reanudar", "halt-seq": "Pausa / Fin", "purge": "Borrar Datos", "pdf-prnt": "Imprimir / PDF",
-                "manual-freq": "Manual (Estático)", "auto-focus": "Piloto Automático", "cancel": "Cancelar", "confirm": "OK",
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Sesión", "resume-seq": "Reanudar", "halt-seq": "Pausa / Fin", "purge": "Borrar Datos", "pdf-prnt": "Imprimir A4 / PDF",
+                "manual-freq": "Frecuencias Manuales", "auto-focus": "Piloto Automático", "cancel": "Cancelar", "confirm": "OK",
                 "btn-manual": "Manual OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "¿Borrar todos los datos de la sesión? Esto no se puede deshacer.",
-                "autopilot-msg": "Piloto Automático iniciado. Ejecutando rampa de descenso gradual. Use auriculares.", "clear-canvas-msg": "¿Borrar este boceto?",
+                "autopilot-msg": "Piloto Automático iniciado. Ejecutando rampa de descenso gradual hacia el estado Focus. Use auriculares.", "clear-canvas-msg": "¿Borrar este boceto?",
                 "clearance": "Registro de Explorador // Desclasificado", "title-1": "Protocolo de Conciencia Cuántica",
                 "file-ref": "REF. ARCHIVO:", "date": "Fecha", "init-time": "Hora Inicio", "halt-time": "Hora Fin", "duration": "Duración",
                 "geo": "Coordenadas", "posture": "Postura Física", "mood": "Estado Base",
@@ -605,34 +645,34 @@
                 "pre-session": "Intención Pre-Sesión", "intention-ph": "Introducir coordenadas, marco de realidad o intención...",
                 "click-out": "Registro de Anomalías / Click-Out", "amnesia-q": "¿Pérdida repentina de conciencia o tiempo perdido?",
                 "negative": "NEGATIVO", "positive": "POSITIVO", "t-start": "Inicio Est:", "t-end": "Fin Est:",
-                "form-1": "Registro de Exploración Subjetiva", "title-2": "Visión Remota Controlada (CRV)", "trn": "Número de Referencia (TRN)",
+                "form-1": "Registro de Exploración Subjetiva", "title-2": "Visión Remota Controlada", "trn": "Número de Referencia (TRN)",
                 "target-desc": "Descifrado del Objetivo", "stage-1": "Fase 1: Ideograma / Gestalt",
                 "matrix-active": "BOCETO INICIAL / LÍNEAS DE ENERGÍA", "pen": "Lápiz", "erase": "Borrador", "undo": "Deshacer",
                 "stage-2": "Fase 2: Decodificación Sensorial", "visuals": "VISUALES", "auditory": "AUDITIVOS",
                 "tactile": "TÁCTIL/TÉRMICO", "olfactory": "OLFATIVO/GUSTATIVO",
-                "stage-3": "Fase 3: Boceto Dimensional", "mapping": "MAPEO ARQUITECTÓNICO/BIOLÓGICO",
+                "stage-3": "Fase 3: Boceto Dimensional", "mapping": "MAPEO ARQUITECTÓNICO",
                 "title-3": "Diagnóstico de Línea Temporal", "timeline-diff": "Análisis Diferencial",
                 "cr-base": "Realidad Actual (CR) Base", "dr-target": "Realidad Deseada (DR) Objetivo",
                 "quantum-anchors": "Anclajes Cuánticos", "anchor-desc": "Defina parámetros para anclar la conciencia en la Realidad Deseada.",
                 "cog-anchor": "ANCLAJE COGNITIVO", "som-anchor": "ANCLAJE SOMÁTICO", "env-anchor": "ANCLAJE AMBIENTAL",
-                "bleed-tracker": "Fuga Temporal", "bleed-desc": "Registre sincronicidades en las siguientes 48h.",
+                "bleed-tracker": "Rastreador de Fugas Temporales", "bleed-desc": "Registre sincronicidades en las 48h posteriores.",
                 "obs": "Registro de Observación...",
                 "man-t": "MANUAL OPERATIVO",
-                "man-b": "<p><strong>1. AUDIO SYNC:</strong> Sincronización hemisférica integrada. Requiere auriculares estéreo. El <em>Piloto Automático</em> usa un descenso gradual.</p><p><strong>2. CANVAS DIGITAL:</strong> Las áreas de dibujo son interactivas.</p>",
+                "man-b": "<p><strong>1. AUDIO SYNC:</strong> Sincronización hemisférica. Requiere auriculares estéreo. El <em>Piloto Automático</em> usa un descenso gradual.</p><p><strong>2. CANVAS DIGITAL:</strong> Áreas de dibujo interactivas.</p>",
                 "gw-t": "PROCESO GATEWAY (INFORME CIA)",
-                "gw-b": "<p><em>REF: CIA-RDP96-00788R001700210016-5 (Desclasificado 2003)</em></p><p>Análisis del Gateway Experience del Monroe Institute.</p>"
+                "gw-b": "<p><em>REF: CIA-RDP96-00788R001700210016-5</em></p><p>Análisis del Gateway Experience del Monroe Institute. Incluye niveles desde el Focus 10 hasta el Focus 35 (La Reunión).</p>"
             },
             pt: {
                 "module-name": "Protocolo de Consciência Quântica", 
-                "opt-print-title": "Imprimir o Protocolo", "opt-print-desc": "Imprima o Protocolo vazio para preenchê-lo à caneta.",
-                "opt-digital-title": "Usar na Tela", "opt-digital-desc": "Digite, desenhe e salve diretamente neste dispositivo.",
+                "opt-print-title": "Imprimir Páginas Vazias", "opt-print-desc": "Imprima o Protocolo em papel real para preenchê-lo à caneta.",
+                "opt-digital-title": "Iniciar Sessão", "opt-digital-desc": "Digite, desenhe e use o cronômetro e o áudio diretamente neste dispositivo.",
                 "btn-back": "← Voltar aos Idiomas",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Sessão", "resume-seq": "Retomar", "halt-seq": "Pausa / Fim", "purge": "Limpar Dados", "pdf-prnt": "Imprimir / PDF",
-                "manual-freq": "Manual (Estático)", "auto-focus": "Piloto Automático", "cancel": "Cancelar", "confirm": "OK",
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Sessão", "resume-seq": "Retomar", "halt-seq": "Pausa / Fim", "purge": "Limpar Dados", "pdf-prnt": "Imprimir A4 / PDF",
+                "manual-freq": "Frequências Manuais", "auto-focus": "Piloto Automático", "cancel": "Cancelar", "confirm": "OK",
                 "btn-manual": "Manual do OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Apagar todos os dados desta sessão?",
-                "autopilot-msg": "Piloto Automático iniciado. Executando rampa de descida gradual.", "clear-canvas-msg": "Limpar este esboço?",
-                "clearance": "Registro Pessoal de Explorador // Desclassificado", "title-1": "Protocolo de Consciência Quântica",
+                "autopilot-msg": "Piloto Automático iniciado. Executando descida gradual para o estado Focus.", "clear-canvas-msg": "Limpar este esboço?",
+                "clearance": "Registro de Explorador // Desclassificado", "title-1": "Protocolo de Consciência Quântica",
                 "file-ref": "REF. ARQUIVO:", "date": "Data", "init-time": "Hora Início", "halt-time": "Hora Fim", "duration": "Duração",
                 "geo": "Coordenadas", "posture": "Postura Física", "mood": "Estado Base",
                 "freq-params": "Parâmetros de Indução", "audio-src": "Fonte de Áudio", "headphones": "Fones",
@@ -640,40 +680,40 @@
                 "target-state": "Vetor de Consciência Alvo",
                 "f10": "Foco 10", "mind-awake": "Mente Acordada / Corpo Dormindo",
                 "f12": "Foco 12", "exp-aware": "Consciência Expandida",
-                "f15": "Foco 15", "void-state": "Sem Tempo",
+                "f15": "Foco 15", "void-state": "Sem Tempo / Vazio",
                 "f21": "Foco 21", "bridge-zone": "Limite do Espaço-Tempo",
-                "f22": "Foco 22-27", "f22-desc": "Territórios de Crenças",
+                "f22": "Foco 22-27", "f22-desc": "Sistemas de Crenças",
                 "f34": "Foco 34/35", "f34-desc": "O Encontro",
                 "pre-session": "Intenção Pré-Sessão", "intention-ph": "Insira coordenadas...",
-                "click-out": "Registro de Anomalias", "amnesia-q": "Perda repentina de consciência?",
+                "click-out": "Registro de Anomalias / Click-Out", "amnesia-q": "Perda repentina de consciência?",
                 "negative": "NEGATIVO", "positive": "POSITIVO", "t-start": "Início Est:", "t-end": "Fim Est:",
                 "form-1": "Registro de Exploração", "title-2": "Visão Remota Controlada", "trn": "TRN",
                 "target-desc": "Decodificação do Alvo", "stage-1": "Fase 1: Gestalt",
                 "matrix-active": "ESBOÇO INICIAL", "pen": "Caneta", "erase": "Borracha", "undo": "Desfazer",
-                "stage-2": "Fase 2: Sensorial", "visuals": "VISUAIS", "auditory": "AUDITIVOS",
+                "stage-2": "Fase 2: Decodificação Sensorial", "visuals": "VISUAIS", "auditory": "AUDITIVOS",
                 "tactile": "TÁTIL", "olfactory": "OLFATIVO",
-                "stage-3": "Fase 3: Dimensional", "mapping": "MAPEAMENTO",
+                "stage-3": "Fase 3: Esboço Dimensional", "mapping": "MAPEAMENTO ARQUITETÔNICO",
                 "title-3": "Diagnóstico de Linha do Tempo", "timeline-diff": "Análise Diferencial",
                 "cr-base": "Realidade Atual (CR)", "dr-target": "Realidade Desejada (DR)",
                 "quantum-anchors": "Âncoras Quânticas", "anchor-desc": "Defina os parâmetros.",
                 "cog-anchor": "ÂNCORA COGNITIVA", "som-anchor": "ÂNCORA SOMÁTICA", "env-anchor": "ÂNCORA AMBIENTAL",
-                "bleed-tracker": "Fuga Temporal", "bleed-desc": "Registre anomalias nas próximas 48h.",
+                "bleed-tracker": "Rastreador de Fuga Temporal", "bleed-desc": "Registre anomalias nas próximas 48h.",
                 "obs": "Observação...",
                 "man-t": "MANUAL OPERACIONAL",
                 "man-b": "<p><strong>1. AUDIO SYNC:</strong> Use fones de ouvido estéreo.</p>",
                 "gw-t": "O PROCESSO GATEWAY",
-                "gw-b": "<p><em>Relatório da CIA (Desclassificado 2003)</em></p>"
+                "gw-b": "<p><em>Relatório da CIA</em></p><p>Inclui Foco 10 ao Foco 35.</p>"
             },
             de: {
                 "module-name": "Quanten-Bewusstseins-Protokoll", 
-                "opt-print-title": "Protokoll Drucken", "opt-print-desc": "Drucken Sie das leere Protokoll zum Ausfüllen mit einem Stift.",
-                "opt-digital-title": "Auf dem Bildschirm", "opt-digital-desc": "Tippen, zeichnen und direkt hier speichern.",
+                "opt-print-title": "Leere Seiten Drucken", "opt-print-desc": "Drucken Sie das Protokoll auf echtes Papier, um es mit einem Stift auszufüllen.",
+                "opt-digital-title": "Sitzung Starten", "opt-digital-desc": "Tippen, zeichnen und nutzen Sie Timer und Audiosynchronisation direkt auf diesem Gerät.",
                 "btn-back": "← Zurück zur Sprachauswahl",
-                "hemi-sync": "AUDIO-SYNC", "init-seq": "Sitzung Starten", "resume-seq": "Fortsetzen", "halt-seq": "Pause / Endzeit", "purge": "Daten Löschen", "pdf-prnt": "Drucken / PDF",
-                "manual-freq": "Manuell (Statisch)", "auto-focus": "Autopilot (Abstieg)", "cancel": "Abbrechen", "confirm": "OK",
+                "hemi-sync": "AUDIO-SYNC", "init-seq": "Sitzung Starten", "resume-seq": "Fortsetzen", "halt-seq": "Pause / Ende", "purge": "Daten Löschen", "pdf-prnt": "Drucken A4 / PDF",
+                "manual-freq": "Manuelle Frequenzen", "auto-focus": "Geführter Autopilot", "cancel": "Abbrechen", "confirm": "OK",
                 "btn-manual": "OS Handbuch", "btn-gateway": "Gateway eBook",
-                "purge-msg": "Alle Sitzungsdaten löschen?",
-                "autopilot-msg": "Autopilot initiiert. Allmähliche Frequenzabsenkung.", "clear-canvas-msg": "Skizze löschen?",
+                "purge-msg": "Alle Sitzungsdaten löschen? Dies kann nicht rückgängig gemacht werden.",
+                "autopilot-msg": "Autopilot initiiert. Allmähliche Frequenzabsenkung zum Ziel-Fokus. Kopfhörer aufsetzen.", "clear-canvas-msg": "Diese Skizze löschen?",
                 "clearance": "Persönliches Forscherprotokoll // Freigegeben", "title-1": "Quanten-Bewusstseins-Protokoll",
                 "file-ref": "DATEI-REF:", "date": "Datum", "init-time": "Startzeit", "halt-time": "Endzeit", "duration": "Dauer",
                 "geo": "Standort", "posture": "Körperhaltung", "mood": "Ausgangszustand",
@@ -682,7 +722,7 @@
                 "target-state": "Ziel-Bewusstseinsvektor",
                 "f10": "Fokus 10", "mind-awake": "Geist wach / Körper schläft",
                 "f12": "Fokus 12", "exp-aware": "Erweitertes Bewusstsein",
-                "f15": "Fokus 15", "void-state": "Keine Zeit",
+                "f15": "Fokus 15", "void-state": "Keine Zeit / Void",
                 "f21": "Fokus 21", "bridge-zone": "Rand der Raum-Zeit",
                 "f22": "Fokus 22-27", "f22-desc": "Glaubenssystem-Territorien",
                 "f34": "Fokus 34/35", "f34-desc": "Die Versammlung",
@@ -691,31 +731,31 @@
                 "negative": "NEGATIV", "positive": "POSITIV", "t-start": "Gesch. Start:", "t-end": "Gesch. Ende:",
                 "form-1": "Subjektives Explorationsprotokoll", "title-2": "Kontrolliertes Remote Viewing", "trn": "TRN",
                 "target-desc": "Ziel-Entschlüsselung", "stage-1": "Stufe 1: Gestalt",
-                "matrix-active": "ERSTE SKIZZE", "pen": "Stift", "erase": "Radierer", "undo": "Rückgängig",
-                "stage-2": "Stufe 2: Sensorisch", "visuals": "VISUELL", "auditory": "AUDITIV",
+                "matrix-active": "ERSTE SKIZZE / ENERGIELINIEN", "pen": "Stift", "erase": "Radierer", "undo": "Rückgängig",
+                "stage-2": "Stufe 2: Sensorische Dekodierung", "visuals": "VISUELL", "auditory": "AUDITIV",
                 "tactile": "TAKTIL", "olfactory": "OLFAKTORISCH",
-                "stage-3": "Stufe 3: Dimensional", "mapping": "MAPPING",
+                "stage-3": "Stufe 3: Dimensionale Skizze", "mapping": "MAPPING",
                 "title-3": "Timeline-Diagnostik", "timeline-diff": "Timeline-Differenzialanalyse",
                 "cr-base": "Aktuelle Realität (CR)", "dr-target": "Gewünschte Realität (DR)",
                 "quantum-anchors": "Quantenanker", "anchor-desc": "Divergenzparameter definieren.",
                 "cog-anchor": "KOGNITIVER ANKER", "som-anchor": "SOMATISCHER ANKER", "env-anchor": "UMWELTANKER",
-                "bleed-tracker": "Zeitlinien-Überschneidung", "bleed-desc": "Anomalien post-session protokollieren.",
+                "bleed-tracker": "Zeitlinien-Überschneidung", "bleed-desc": "Anomalien in den nächsten 48h protokollieren.",
                 "obs": "Beobachtung...",
                 "man-t": "BETRIEBSHANDBUCH",
                 "man-b": "<p><strong>1. AUDIO-SYNC:</strong> Stereo-Kopfhörer erforderlich.</p>",
                 "gw-t": "DER GATEWAY-PROZESS",
-                "gw-b": "<p><em>CIA-Bericht (Freigegeben 2003)</em></p>"
+                "gw-b": "<p><em>CIA-Bericht (Freigegeben 2003)</em></p><p>Enthält Fokus 10 bis Fokus 35.</p>"
             },
             fr: {
                 "module-name": "Protocole de Conscience Quantique", 
-                "opt-print-title": "Imprimer le Protocole", "opt-print-desc": "Imprimez le Protocole vierge pour le remplir au stylo.",
-                "opt-digital-title": "Utiliser sur l'Écran", "opt-digital-desc": "Tapez, dessinez et enregistrez directement.",
+                "opt-print-title": "Imprimer des Pages Vides", "opt-print-desc": "Imprimez le Protocole sur du vrai papier pour écrire avec un stylo.",
+                "opt-digital-title": "Démarrer la Session", "opt-digital-desc": "Tapez, dessinez et utilisez l'audio directement sur cet appareil.",
                 "btn-back": "← Retour aux Langues",
-                "hemi-sync": "SYNC AUDIO", "init-seq": "Démarrer", "resume-seq": "Reprendre", "halt-seq": "Pause / Fin", "purge": "Effacer", "pdf-prnt": "Imprimer / PDF",
-                "manual-freq": "Manuel (Statique)", "auto-focus": "Pilote Automatique", "cancel": "Annuler", "confirm": "OK",
+                "hemi-sync": "SYNC AUDIO", "init-seq": "Démarrer", "resume-seq": "Reprendre", "halt-seq": "Pause / Fin", "purge": "Effacer", "pdf-prnt": "Imprimer A4 / PDF",
+                "manual-freq": "Fréquences Manuelles", "auto-focus": "Pilote Automatique", "cancel": "Annuler", "confirm": "OK",
                 "btn-manual": "Manuel de l'OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Effacer toutes les données ?",
-                "autopilot-msg": "Pilote automatique lancé.", "clear-canvas-msg": "Effacer ce croquis ?",
+                "autopilot-msg": "Pilote automatique lancé vers l'état Focus.", "clear-canvas-msg": "Effacer ce croquis ?",
                 "clearance": "Journal Personnel // Déclassifié", "title-1": "Protocole de Conscience Quantique",
                 "file-ref": "RÉF :", "date": "Date", "init-time": "Début", "halt-time": "Fin", "duration": "Durée",
                 "geo": "Lieu", "posture": "Posture", "mood": "État de Base",
@@ -724,85 +764,85 @@
                 "target-state": "Vecteur Cible",
                 "f10": "Focus 10", "mind-awake": "Esprit Éveillé / Corps Endormi",
                 "f12": "Focus 12", "exp-aware": "Conscience Élargie",
-                "f15": "Focus 15", "void-state": "Sans Temps",
+                "f15": "Focus 15", "void-state": "Sans Temps / Vide",
                 "f21": "Focus 21", "bridge-zone": "Frontière Espace-Temps",
                 "f22": "Focus 22-27", "f22-desc": "Territoires de Croyances",
                 "f34": "Focus 34/35", "f34-desc": "Le Rassemblement",
                 "pre-session": "Intention Pré-Session", "intention-ph": "Entrez les coordonnées...",
-                "click-out": "Journal des Anomalies", "amnesia-q": "Perte de conscience ?",
+                "click-out": "Journal des Anomalies / Click-Out", "amnesia-q": "Perte de conscience ?",
                 "negative": "NÉGATIF", "positive": "POSITIF", "t-start": "Début Est. :", "t-end": "Fin Est. :",
                 "form-1": "Journal d'Exploration", "title-2": "Vision à Distance Contrôlée", "trn": "TRN",
                 "target-desc": "Décryptage", "stage-1": "Phase 1 : Gestalt",
                 "matrix-active": "CROQUIS INITIAL", "pen": "Stylo", "erase": "Gomme", "undo": "Annuler",
-                "stage-2": "Phase 2 : Sensoriel", "visuals": "VISUELS", "auditory": "AUDITIFS",
+                "stage-2": "Phase 2 : Décodage Sensoriel", "visuals": "VISUELS", "auditory": "AUDITIFS",
                 "tactile": "TACTILE", "olfactory": "OLFACTIF",
-                "stage-3": "Phase 3 : Croquis", "mapping": "CARTOGRAPHIE",
+                "stage-3": "Phase 3 : Croquis Dimensionnel", "mapping": "CARTOGRAPHIE",
                 "title-3": "Diagnostic de Ligne Temporelle", "timeline-diff": "Analyse Différentielle",
                 "cr-base": "Réalité Actuelle (CR)", "dr-target": "Réalité Souhaitée (DR)",
                 "quantum-anchors": "Ancrages Quantiques", "anchor-desc": "Définir les paramètres.",
                 "cog-anchor": "ANCRAGE COGNITIF", "som-anchor": "ANCRAGE SOMATIQUE", "env-anchor": "ANCRAGE ENVIRONNEMENTAL",
-                "bleed-tracker": "Fuite Temporelle", "bleed-desc": "Notez les synchronicités (T+48h).",
+                "bleed-tracker": "Traqueur de Fuite Temporelle", "bleed-desc": "Notez les anomalies (T+48h).",
                 "obs": "Observation...",
                 "man-t": "MANUEL OPÉRATIONNEL",
                 "man-b": "<p><strong>1. SYNC AUDIO:</strong> Casque stéréo obligatoire.</p>",
                 "gw-t": "LE PROCESSUS GATEWAY",
-                "gw-b": "<p><em>Rapport de la CIA</em></p>"
+                "gw-b": "<p><em>Rapport de la CIA</em></p><p>Focus 10 à Focus 35.</p>"
             },
             pl: {
                 "module-name": "Protokół Świadomości Kwantowej", 
-                "opt-print-title": "Wydrukuj Protokół", "opt-print-desc": "Wydrukuj pusty Protokół, aby wypełnić go długopisem.",
-                "opt-digital-title": "Użyj na Ekranie", "opt-digital-desc": "Pisz, rysuj i zapisuj bezpośrednio.",
+                "opt-print-title": "Wydrukuj Puste Strony", "opt-print-desc": "Wydrukuj Protokół na prawdziwym papierze, aby pisać długopisem.",
+                "opt-digital-title": "Rozpocznij Sesję", "opt-digital-desc": "Pisz, rysuj i używaj audio bezpośrednio na tym urządzeniu.",
                 "btn-back": "← Powrót do Języków",
-                "hemi-sync": "SYNC AUDIO", "init-seq": "Rozpocznij", "resume-seq": "Wznów", "halt-seq": "Pauza / Koniec", "purge": "Wyczyść", "pdf-prnt": "Drukuj / PDF",
-                "manual-freq": "Ręczny (Statyczny)", "auto-focus": "Autopilot", "cancel": "Anuluj", "confirm": "OK",
+                "hemi-sync": "SYNC AUDIO", "init-seq": "Rozpocznij", "resume-seq": "Wznów", "halt-seq": "Pauza / Koniec", "purge": "Wyczyść", "pdf-prnt": "Drukuj A4 / PDF",
+                "manual-freq": "Ręczne Częstotliwości", "auto-focus": "Autopilot", "cancel": "Anuluj", "confirm": "OK",
                 "btn-manual": "Instrukcja OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Usunąć wszystkie dane?",
-                "autopilot-msg": "Autopilot uruchomiony.", "clear-canvas-msg": "Wyczyścić szkic?",
+                "autopilot-msg": "Autopilot uruchomiony. Stopniowe opadanie do stanu Focus.", "clear-canvas-msg": "Wyczyścić szkic?",
                 "clearance": "Osobisty Dziennik // Odtajniono", "title-1": "Protokół Świadomości Kwantowej",
                 "file-ref": "NR REF:", "date": "Data", "init-time": "Start", "halt-time": "Koniec", "duration": "Czas",
-                "geo": "Lokacja", "posture": "Postawa", "mood": "Stan",
+                "geo": "Lokacja", "posture": "Postawa", "mood": "Stan Bazy",
                 "freq-params": "Parametry Częstotliwości", "audio-src": "Źródło Audio", "headphones": "Słuchawki",
                 "delta": "DELTA (0.5-4 Hz)", "theta": "THETA (4-8 Hz)", "alpha": "ALPHA (8-14 Hz)", "beta": "BETA (14-30 Hz)", "gamma": "GAMMA (30+ Hz)",
                 "target-state": "Docelowy Wektor",
                 "f10": "Focus 10", "mind-awake": "Umysł Obudzony / Ciało Śpi",
                 "f12": "Focus 12", "exp-aware": "Rozszerzona Świadomość",
-                "f15": "Focus 15", "void-state": "Brak Czasu",
+                "f15": "Focus 15", "void-state": "Brak Czasu / Pustka",
                 "f21": "Focus 21", "bridge-zone": "Krawędź Czasoprzestrzeni",
                 "f22": "Focus 22-27", "f22-desc": "Terytoria Wierzeń",
                 "f34": "Focus 34/35", "f34-desc": "Zgromadzenie",
                 "pre-session": "Intencja Przed Sesją", "intention-ph": "Wprowadź współrzędne...",
-                "click-out": "Rejestr Anomalii", "amnesia-q": "Nagła utrata przytomności?",
+                "click-out": "Rejestr Anomalii / Click-Out", "amnesia-q": "Nagła utrata przytomności?",
                 "negative": "NEGATYWNY", "positive": "POZYTYWNY", "t-start": "Początek:", "t-end": "Koniec:",
-                "form-1": "Dziennik Eksploracji", "title-2": "Zdalne Postrzeganie", "trn": "TRN",
+                "form-1": "Dziennik Eksploracji", "title-2": "Zdalne Postrzeganie (CRV)", "trn": "TRN",
                 "target-desc": "Odkodowanie Celu", "stage-1": "Etap 1: Gestalt",
                 "matrix-active": "SZKIC POCZĄTKOWY", "pen": "Długopis", "erase": "Gumka", "undo": "Cofnij",
-                "stage-2": "Etap 2: Sensoryczne", "visuals": "WIZUALNE", "auditory": "SŁUCHOWE",
+                "stage-2": "Etap 2: Dekodowanie Sensoryczne", "visuals": "WIZUALNE", "auditory": "SŁUCHOWE",
                 "tactile": "DOTYKOWE", "olfactory": "WĘCHOWE",
-                "stage-3": "Etap 3: Wymiarowy", "mapping": "MAPOWANIE",
+                "stage-3": "Etap 3: Szkic Wymiarowy", "mapping": "MAPOWANIE",
                 "title-3": "Diagnostyka Linii Czasu", "timeline-diff": "Analiza Różnicowa",
                 "cr-base": "Obecna Rzeczywistość (CR)", "dr-target": "Pożądana Rzeczywistość (DR)",
                 "quantum-anchors": "Kotwice Kwantowe", "anchor-desc": "Zdefiniuj parametry rozbieżności.",
                 "cog-anchor": "KOTWICA POZNAWCZA", "som-anchor": "KOTWICA SOMATYCZNA", "env-anchor": "KOTWICA ŚRODOWISKOWA",
-                "bleed-tracker": "Przenikanie Linii Czasu", "bleed-desc": "Zanotuj synchroniczności w ciągu 48h.",
+                "bleed-tracker": "Przenikanie Linii Czasu", "bleed-desc": "Zanotuj anomalie w ciągu 48h.",
                 "obs": "Obserwacja...",
                 "man-t": "INSTRUKCJA OBSŁUGI",
                 "man-b": "<p><strong>1. AUDIO SYNC:</strong> Wymagane słuchawki stereo.</p>",
                 "gw-t": "PROCES GATEWAY",
-                "gw-b": "<p><em>Raport CIA</em></p>"
+                "gw-b": "<p><em>Raport CIA</em></p><p>Od Focus 10 do Focus 35.</p>"
             },
             ja: {
                 "module-name": "量子意識プロトコル", 
-                "opt-print-title": "プロトコルを印刷", "opt-print-desc": "空のプロトコルを印刷して、ペンで記入します。",
-                "opt-digital-title": "画面で使用", "opt-digital-desc": "このデバイスで直接入力、描画、保存します。",
+                "opt-print-title": "空のページを印刷", "opt-print-desc": "量子意識プロトコルを実際の紙に印刷してペンで記入します。",
+                "opt-digital-title": "セッション開始", "opt-digital-desc": "このデバイスで直接入力、描画、オーディオを使用します。",
                 "btn-back": "← 言語選択に戻る",
-                "hemi-sync": "オーディオ同期", "init-seq": "セッション開始", "resume-seq": "再開", "halt-seq": "一時停止 / 終了", "purge": "データ消去", "pdf-prnt": "印刷 / PDF",
-                "manual-freq": "マニュアル (静的)", "auto-focus": "オートパイロット", "cancel": "キャンセル", "confirm": "OK",
+                "hemi-sync": "オーディオ同期", "init-seq": "セッション開始", "resume-seq": "再開", "halt-seq": "一時停止 / 終了", "purge": "データ消去", "pdf-prnt": "印刷 A4 / PDF",
+                "manual-freq": "マニュアル周波数", "auto-focus": "ガイド付きオートパイロット", "cancel": "キャンセル", "confirm": "OK",
                 "btn-manual": "OSマニュアル", "btn-gateway": "Gateway電子書籍",
-                "purge-msg": "すべてのデータを消去しますか？",
-                "autopilot-msg": "オートパイロットが開始されました。", "clear-canvas-msg": "スケッチを消去しますか？",
+                "purge-msg": "すべてのデータを消去しますか？元に戻せません。",
+                "autopilot-msg": "オートパイロット開始。ターゲット・フォーカス状態まで徐々に下降します。ヘッドホンを着用してください。", "clear-canvas-msg": "スケッチを消去しますか？",
                 "clearance": "個人的な探求ログ // 機密指定解除", "title-1": "量子意識プロトコル",
                 "file-ref": "ファイル参照:", "date": "日付", "init-time": "開始", "halt-time": "終了", "duration": "持続時間",
-                "geo": "場所", "posture": "姿勢", "mood": "ベースライン",
+                "geo": "場所", "posture": "物理的姿勢", "mood": "ベースライン",
                 "freq-params": "周波数誘導パラメータ", "audio-src": "オーディオソース", "headphones": "ヘッドホン",
                 "delta": "デルタ (0.5-4 Hz)", "theta": "シータ (4-8 Hz)", "alpha": "アルファ (8-14 Hz)", "beta": "ベータ (14-30 Hz)", "gamma": "ガンマ (30+ Hz)",
                 "target-state": "ターゲット意識ベクトル",
@@ -813,24 +853,24 @@
                 "f22": "フォーカス 22-27", "f22-desc": "信念体系の領域",
                 "f34": "フォーカス 34/35", "f34-desc": "ギャザリング",
                 "pre-session": "セッション前の意図", "intention-ph": "ターゲット座標を入力...",
-                "click-out": "クリックアウト異常ログ", "amnesia-q": "突然の意識喪失はありましたか？",
+                "click-out": "クリックアウト / 健忘症ログ", "amnesia-q": "突然の意識喪失や時間の欠落はありましたか？",
                 "negative": "陰性", "positive": "陽性", "t-start": "推定開始:", "t-end": "推定終了:",
                 "form-1": "主観的探求ログ", "title-2": "リモート・ビューイング (CRV)", "trn": "TRN",
                 "target-desc": "ターゲット解読", "stage-1": "ステージ 1: ゲシュタルト",
                 "matrix-active": "初期スケッチ", "pen": "ペン", "erase": "消しゴム", "undo": "元に戻す",
-                "stage-2": "ステージ 2: 感覚", "visuals": "視覚", "auditory": "聴覚",
+                "stage-2": "ステージ 2: 感覚デコード", "visuals": "視覚", "auditory": "聴覚",
                 "tactile": "触覚", "olfactory": "嗅覚",
-                "stage-3": "ステージ 3: 分析", "mapping": "マッピング",
+                "stage-3": "ステージ 3: 次元スケッチ", "mapping": "マッピング",
                 "title-3": "タイムライン診断", "timeline-diff": "タイムライン差分分析",
                 "cr-base": "現在の現実 (CR)", "dr-target": "望む現実 (DR)",
-                "quantum-anchors": "量子アンカー", "anchor-desc": "分岐パラメータを定義します。",
+                "quantum-anchors": "量子アンカー", "anchor-desc": "ターゲット・タイムラインに固定するためのパラメータ。",
                 "cog-anchor": "認知的アンカー", "som-anchor": "身体的アンカー", "env-anchor": "環境的アンカー",
-                "bleed-tracker": "タイムライン滲出トラッカー", "bleed-desc": "異常現象を記録します。",
+                "bleed-tracker": "タイムライン滲出トラッカー", "bleed-desc": "セッション後の異常現象を記録します。",
                 "obs": "観察ログ...",
                 "man-t": "操作マニュアル",
                 "man-b": "<p><strong>1. オーディオ同期:</strong> ステレオヘッドホンが必要です。</p>",
                 "gw-t": "ゲートウェイ・プロセス",
-                "gw-b": "<p><em>CIAレポート要約</em></p>"
+                "gw-b": "<p><em>CIAレポート要約</em></p><p>フォーカス 10 から フォーカス 35 までを含みます。</p>"
             }
         };
 
@@ -1032,7 +1072,7 @@
                 }
                 
                 synthLeft.start(); synthRight.start(); isAudioPlaying = true;
-                indicator.classList.replace('bg-gray-300', 'bg-green-500'); indicator.classList.add('animate-pulse');
+                indicator.classList.replace('bg-slate-300', 'bg-green-500'); indicator.classList.add('animate-pulse');
                 btnPlay.classList.replace('btn-primary', 'btn-outline'); btnPlay.innerText = "Playing";
             } catch (e) { showAlert("Tap anywhere to enable audio.", "System"); }
         }
@@ -1041,7 +1081,7 @@
             isAudioPlaying = false;
             const btnPlay = document.getElementById('btn-play-audio');
             const indicator = document.getElementById('audio-status-indicator');
-            indicator.classList.replace('bg-green-500', 'bg-gray-300'); indicator.classList.remove('animate-pulse');
+            indicator.classList.replace('bg-green-500', 'bg-slate-300'); indicator.classList.remove('animate-pulse');
             btnPlay.classList.replace('btn-outline', 'btn-primary'); btnPlay.innerText = "Play";
         }
 
@@ -1054,7 +1094,7 @@
             setTimeout(() => {
                 const rect = canvas.parentElement.getBoundingClientRect();
                 canvas.width = rect.width; canvas.height = rect.height;
-                ctx.strokeStyle = '#111827'; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = 2.5;
+                ctx.strokeStyle = '#0f172a'; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = 2.5;
             }, 100);
 
             const getPos = (e) => {
