@@ -284,33 +284,34 @@
                         <option value="gamma">Gamma (40Hz)</option>
                     </optgroup>
                     <optgroup label="Guided Autopilot" data-i18n-label="auto-focus">
-                        <option value="f10">Focus 10 (Mind Awake)</option>
-                        <option value="f12">Focus 12 (Expanded)</option>
-                        <option value="f15">Focus 15 (No Time)</option>
-                        <option value="f21">Focus 21 (Bridge)</option>
-                    </optgroup>
-                </select>
-                <button class="btn btn-primary py-1.5 px-4 shadow-sm" id="btn-play-audio" onclick="playSelectedAudio()">Play</button>
-                <button class="btn btn-outline py-1.5 px-3" onclick="stopAudio()">Stop</button>
-                <span id="audio-status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-300 ml-1 mr-2"></span>
-                <div class="w-px h-6 bg-slate-300 mx-1"></div>
-                <!-- Waves Toggle -->
-                <button class="btn btn-outline py-1.5 px-3 border-transparent bg-transparent hover:bg-blue-50 hover:border-blue-200 transition-colors" id="btn-waves" onclick="toggleWaves()" title="Ocean Waves Background">🌊</button>
-            </div>
+                    <div class="grid grid-cols-4 gap-4 mb-4">
+                        <div class="col-span-1"><span class="input-label" data-i18n="date">Date</span><input type="text" id="f_date" placeholder="YYYY-MM-DD"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="init-time">Start Time</span><input type="text" id="f_start"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="halt-time">End Time</span><input type="text" id="f_end"></div>
+                        <div class="col-span-1"><span class="input-label" data-i18n="duration">Duration</span><input type="text" id="f_dur"></div>
+                        
+                        <div class="col-span-4"><span class="input-label" data-i18n="geo">Location</span><input type="text" id="f_loc"></div>
+                        
+                        <div class="col-span-4 md:col-span-2">
+                            <span class="input-label" data-i18n="posture">Physical Posture</span>
+                            <div class="flex flex-wrap gap-3 mt-1 items-center">
+                                <label class="chk-wrap"><input type="checkbox" id="c_pos_supine"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="pos-supine">Supine</span></label>
+                                <label class="chk-wrap"><input type="checkbox" id="c_pos_seated"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="pos-seated">Seated</span></label>
+                                <div class="flex-1 min-w-[120px]"><input type="text" id="f_pos_other" class="w-full text-sm font-sans" placeholder="Other..." data-i18n-ph="other-ph"></div>
+                            </div>
+                        </div>
+                        <div class="col-span-4 md:col-span-2">
+                            <span class="input-label" data-i18n="mood">Baseline State</span>
+                            <div class="flex flex-wrap gap-3 mt-1 items-center">
+                                <label class="chk-wrap"><input type="checkbox" id="c_mood_calm"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="mood-calm">Calm</span></label>
+                                <label class="chk-wrap"><input type="checkbox" id="c_mood_tired"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="mood-tired">Tired</span></label>
+                                <div class="flex-1 min-w-[120px]"><input type="text" id="f_mood_other" class="w-full text-sm font-sans" placeholder="Other..." data-i18n-ph="other-ph"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="toolbar-group flex items-center gap-2">
-                <div class="font-mono text-base font-bold w-20 text-center text-slate-700" id="timer-display">00:00:00</div>
-                <button class="btn btn-outline py-1.5" onclick="toggleTimer()" id="timer-btn" data-i18n="init-seq">Start Timer</button>
-                <div class="h-6 w-px bg-slate-300 mx-1 mobile-hide"></div>
-                <button class="btn btn-danger py-1.5 mobile-hide" onclick="clearData(true)" data-i18n="purge">Clear Data</button>
-                <button class="btn btn-primary py-1.5 shadow-md" onclick="window.print()" data-i18n="pdf-prnt">Print A4 / PDF</button>
-            </div>
-        </div>
-
-        <main class="w-full">
-            <div class="a4-page">
-                <div class="page-content">
-                    <div class="print-avoid-break">
+                <div class="print-avoid-break">
                         <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4 print:mb-2 print:pb-1">
                             <div>
                                 <div class="font-mono text-[10px] text-slate-500 tracking-widest uppercase mb-1" data-i18n="clearance">Personal Explorer Log // Declassified</div>
@@ -586,6 +587,7 @@
                 "f22": "Focus 22-27", "f22-desc": "Belief System Territories",
                 "f34": "Focus 34/35", "f34-desc": "The Gathering",
                 "pre-session": "Pre-Session Intention", "intention-ph": "Input target coordinates, reality framework, or shifting intention...",
+                "pos-supine": "Supine", "pos-seated": "Seated", "mood-calm": "Calm", "mood-tired": "Tired", "other-ph": "Other...",
                 "click-out": "Click-Out / Amnesia Anomaly Log", "amnesia-q": "Sudden loss of consciousness or missing time recorded?",
                 "negative": "NEGATIVE", "positive": "POSITIVE", "t-start": "Est. Start:", "t-end": "Est. End:",
                 "form-1": "Subjective Exploration Log", "title-2": "Controlled Remote Viewing", "trn": "Target Reference Number (TRN)",
@@ -629,6 +631,7 @@
                 "f22": "Focus 22-27", "f22-desc": "Territori Sistemi di Credenze",
                 "f34": "Focus 34/35", "f34-desc": "The Gathering (L'Adunanza)",
                 "pre-session": "Intenzione Pre-Sessione", "intention-ph": "Inserisci coordinate target, framework di realtà o intenzione di shifting...",
+                "pos-supine": "Supina", "pos-seated": "Seduta", "mood-calm": "Calma", "mood-tired": "Stanca", "other-ph": "Altro...",
                 "click-out": "Log Anomalie Click-Out / Amnesia", "amnesia-q": "Registrata perdita improvvisa di coscienza o tempo mancante?",
                 "negative": "NEGATIVO", "positive": "POSITIVO", "t-start": "Inizio Stima:", "t-end": "Fine Stima:",
                 "form-1": "Log Esplorazione Soggettiva", "title-2": "Visione a Distanza Controllata (CRV)", "trn": "Numero Riferimento Target (TRN)",
@@ -672,6 +675,7 @@
                 "f22": "Enfoque 22-27", "f22-desc": "Sistemas de Creencias",
                 "f34": "Enfoque 34/35", "f34-desc": "La Reunión",
                 "pre-session": "Intención Pre-Sesión", "intention-ph": "Introducir coordenadas, marco de realidad o intención de salto...",
+                "pos-supine": "Supina", "pos-seated": "Sentada", "mood-calm": "Calma", "mood-tired": "Cansancio", "other-ph": "Otro...",
                 "click-out": "Registro de Anomalías Click-Out / Amnesia", "amnesia-q": "¿Pérdida repentina de conciencia o tiempo perdido registrado?",
                 "negative": "NEGATIVO", "positive": "POSITIVO", "t-start": "Inicio Est:", "t-end": "Fin Est:",
                 "form-1": "Registro de Exploración Subjetiva", "title-2": "Visión Remota Controlada (CRV)", "trn": "Número de Referencia (TRN)",
@@ -714,6 +718,7 @@
                 "f22": "Foco 22-27", "f22-desc": "Sistemas de Crenças",
                 "f34": "Foco 34/35", "f34-desc": "O Encontro",
                 "pre-session": "Intenção Pré-Sessão", "intention-ph": "Insira coordenadas ou intenção de salto (shifting)...",
+                "pos-supine": "Supina", "pos-seated": "Sentada", "mood-calm": "Calma", "mood-tired": "Cansaço", "other-ph": "Outro...",
                 "click-out": "Registro de Anomalias Click-Out / Amnésia", "amnesia-q": "Perda repentina de consciência ou tempo perdido?",
                 "negative": "NEGATIVO", "positive": "POSITIVO", "t-start": "Início Est:", "t-end": "Fim Est:",
                 "form-1": "Registro de Exploração", "title-2": "Visão Remota Controlada", "trn": "Número de Referência (TRN)",
@@ -756,6 +761,7 @@
                 "f22": "Fokus 22-27", "f22-desc": "Glaubenssystem-Territorien",
                 "f34": "Fokus 34/35", "f34-desc": "Die Versammlung",
                 "pre-session": "Pre-Session Intention", "intention-ph": "Zielkoordinaten oder Shifting-Intention eingeben...",
+                "pos-supine": "Rückenlage", "pos-seated": "Sitzend", "mood-calm": "Ruhig", "mood-tired": "Müde", "other-ph": "Andere...",
                 "click-out": "Click-Out / Amnesie-Protokoll", "amnesia-q": "Plötzlicher Bewusstseinsverlust oder fehlende Zeit?",
                 "negative": "NEGATIV", "positive": "POSITIV", "t-start": "Gesch. Start:", "t-end": "Gesch. Ende:",
                 "form-1": "Subjektives Explorationsprotokoll", "title-2": "Kontrolliertes Remote Viewing", "trn": "Ziel-Referenznummer (TRN)",
@@ -798,6 +804,7 @@
                 "f22": "Focus 22-27", "f22-desc": "Territoires de Croyances",
                 "f34": "Focus 34/35", "f34-desc": "Le Rassemblement",
                 "pre-session": "Intention Pré-Session", "intention-ph": "Entrez les coordonnées ou intention...",
+                "pos-supine": "Allongée", "pos-seated": "Assise", "mood-calm": "Calme", "mood-tired": "Fatigué", "other-ph": "Autre...",
                 "click-out": "Journal des Anomalies Click-Out", "amnesia-q": "Perte de conscience ou temps manquant ?",
                 "negative": "NÉGATIF", "positive": "POSITIF", "t-start": "Début Est. :", "t-end": "Fin Est. :",
                 "form-1": "Journal d'Exploration Subjective", "title-2": "Vision à Distance Contrôlée (CRV)", "trn": "Numéro de Référence (TRN)",
@@ -840,6 +847,7 @@
                 "f22": "Focus 22-27", "f22-desc": "Terytoria Wierzeń",
                 "f34": "Focus 34/35", "f34-desc": "Zgromadzenie",
                 "pre-session": "Intencja Przed Sesją", "intention-ph": "Wprowadź współrzędne lub intencję...",
+                "pos-supine": "Leżąca", "pos-seated": "Siedząca", "mood-calm": "Spokój", "mood-tired": "Zmęczenie", "other-ph": "Inne...",
                 "click-out": "Rejestr Anomalii Click-Out / Amnezja", "amnesia-q": "Nagła utrata przytomności lub brakujący czas?",
                 "negative": "NEGATYWNY", "positive": "POZYTYWNY", "t-start": "Początek:", "t-end": "Koniec:",
                 "form-1": "Dziennik Eksploracji", "title-2": "Zdalne Postrzeganie (CRV)", "trn": "Numer Referencyjny (TRN)",
@@ -882,6 +890,7 @@
                 "f22": "フォーカス 22-27", "f22-desc": "信念体系の領域",
                 "f34": "フォーカス 34/35", "f34-desc": "ギャザリング",
                 "pre-session": "セッション前の意図", "intention-ph": "ターゲット座標、現実のフレームワーク、または意図を入力...",
+                "pos-supine": "仰向け", "pos-seated": "座り", "mood-calm": "穏やか", "mood-tired": "疲労", "other-ph": "その他...",
                 "click-out": "クリックアウト / 健忘症ログ", "amnesia-q": "突然の意識喪失や時間の欠落はありましたか？",
                 "negative": "陰性", "positive": "陽性", "t-start": "推定開始:", "t-end": "推定終了:",
                 "form-1": "主観的探求ログ", "title-2": "リモート・ビューイング (CRV)", "trn": "ターゲット参照番号 (TRN)",
@@ -989,7 +998,6 @@
                     else input.value = saved;
                 }
             });
-            if(!document.getElementById('f_date').value) document.getElementById('f_date').value = new Date().toLocaleDateString();
             loadCanvasData('canvas-gestalt', localStorage.getItem('qcs5_img_canvas-gestalt'));
             loadCanvasData('canvas-analytical', localStorage.getItem('qcs5_img_canvas-analytical'));
         }
@@ -1012,7 +1020,6 @@
                 });
                 clearCanvas('canvas-gestalt', false);
                 clearCanvas('canvas-analytical', false);
-                document.getElementById('f_date').value = new Date().toLocaleDateString();
                 if(isTimerRunning) toggleTimer();
                 seconds = 0; updateTimerDisplay();
             };
