@@ -11,7 +11,7 @@
     <style>
         :root {
             --paper-bg: #ffffff;
-            --page-bg: #f5f5f4; /* Sophisticated warm gray */
+            --page-bg: #f5f5f4;
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
@@ -34,7 +34,7 @@
 
         .view-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fafaf9; /* Very warm, high-end editorial white */
+            background: #fafaf9;
             z-index: 200;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: opacity 0.6s ease, visibility 0.6s;
@@ -115,9 +115,22 @@
 
         .a4-page {
             background: var(--paper-bg); width: 100%; max-width: 210mm; min-height: 297mm;
-            margin: 0 auto 30px auto; padding: 20mm 15mm;
+            margin: 0 auto 30px auto; padding: 15mm;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
             position: relative; box-sizing: border-box;
+            display: flex; flex-direction: column; /* FLEXBOX: Ensures content naturally pushes the footer */
+        }
+        
+        .page-content {
+            flex: 1; /* Automatically takes all available space above the footer */
+            display: flex; flex-direction: column;
+        }
+
+        /* Footer is now pushed naturally to the bottom, eliminating absolute positioning bleeds */
+        .print-footer { 
+            margin-top: auto; padding-top: 15px;
+            display: flex; justify-content: space-between; 
+            font-size: 0.75rem; line-height: 1rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;
         }
 
         @media (max-width: 768px) {
@@ -171,19 +184,18 @@
 
         @media print {
             @page { size: A4 portrait; margin: 0 !important; }
-            body, html { background: white !important; padding: 0 !important; margin: 0 !important; height: auto !important; }
+            body, html { background: white !important; padding: 0 !important; margin: 0 !important; height: auto !important; font-size: 14px !important; }
             #toolbar, .canvas-tools, #sys-modal, #dialog-modal, .view-screen { display: none !important; }
             #app-container { display: block !important; padding: 0 !important; }
             
-            /* Strict Amazon KDP Setup */
+            /* Strict Amazon KDP Setup & Overflow Prevention */
             .a4-page { 
                 box-shadow: none !important; margin: 0 !important; border: none !important;
                 page-break-after: always; break-after: page; 
                 width: 210mm !important; height: 297mm !important; max-height: 297mm !important;
-                /* Asymmetric padding: 25mm at bottom protects the footer from content collision */
-                padding: 15mm 15mm 25mm 15mm !important; 
-                box-sizing: border-box !important; display: block !important; position: relative !important;
-                overflow: hidden !important; /* PREVENT ANY BLEED OVER THE EDGE */
+                padding: 12mm 15mm !important; /* Uniform padding. Footer handles its own placement via flexbox */
+                box-sizing: border-box !important; display: flex !important; flex-direction: column !important;
+                overflow: hidden !important; /* Safety catch */
             }
             .a4-page:last-child { page-break-after: auto; break-after: auto; }
             
@@ -193,11 +205,12 @@
             .canvas-wrapper { border: 1px solid #64748b; background: white; }
             .chk-wrap input:checked + .chk-box { background: #334155 !important; border-color: #334155 !important; }
             
-            .print-footer { 
-                position: absolute !important; bottom: 12mm !important; 
-                left: 15mm !important; right: 15mm !important; 
-                margin: 0 !important; padding: 0 !important; 
-            }
+            /* Squeeze utility margins tightly to ensure everything comfortably fits A4 height */
+            .print\:mb-2 { margin-bottom: 0.5rem !important; }
+            .print\:mt-3 { margin-top: 0.75rem !important; }
+            .print\:p-2 { padding: 0.5rem !important; }
+            .print\:gap-2 { gap: 0.5rem !important; }
+            .section-header { margin-bottom: 0.5rem !important; padding-bottom: 2px !important; }
         }
     </style>
 </head>
@@ -251,6 +264,7 @@
     </div>
 
     <div id="app-container">
+        <!-- Toolbar -->
         <div id="toolbar">
             <div class="toolbar-group flex items-center gap-2">
                 <span class="font-serif font-bold text-xl mobile-hide text-slate-800 mr-2">MIM.</span>
@@ -295,187 +309,229 @@
 
         <main class="w-full">
             <div class="a4-page">
-                <div class="print-avoid-break">
-                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
-                        <div>
-                            <div class="font-mono text-[10px] text-slate-500 tracking-widest uppercase mb-1" data-i18n="clearance">Personal Explorer Log // Declassified</div>
-                            <h1 class="doc-title" data-i18n="title-1">Quantum Consciousness Protocol</h1>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-mono text-[10px] text-slate-500 tracking-wider"><span data-i18n="file-ref">FILE REF:</span> <input type="text" id="f_ref" class="w-24 border-b border-slate-400 bg-transparent text-center focus:bg-slate-50 outline-none"></div>
-                            <div class="font-mono text-[10px] text-slate-500 mt-2">PAGE 1 / 3</div>
-                        </div>
-                    </header>
+                <div class="page-content">
+                    <div class="print-avoid-break">
+                        <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4 print:mb-2 print:pb-1">
+                            <div>
+                                <div class="font-mono text-[10px] text-slate-500 tracking-widest uppercase mb-1" data-i18n="clearance">Personal Explorer Log // Declassified</div>
+                                <h1 class="doc-title" data-i18n="title-1">Quantum Consciousness Protocol</h1>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-mono text-[10px] text-slate-500 tracking-wider"><span data-i18n="file-ref">FILE REF:</span> <input type="text" id="f_ref" class="w-24 border-b border-slate-400 bg-transparent text-center focus:bg-slate-50 outline-none"></div>
+                                <div class="font-mono text-[10px] text-slate-500 mt-2">PAGE 1 / 3</div>
+                            </div>
+                        </header>
 
-                    <div class="grid grid-cols-4 gap-4 mb-4">
-                        <div class="col-span-1"><span class="input-label" data-i18n="date">Date</span><input type="text" id="f_date" placeholder="YYYY-MM-DD"></div>
-                        <div class="col-span-1"><span class="input-label" data-i18n="init-time">Start Time</span><input type="text" id="f_start"></div>
-                        <div class="col-span-1"><span class="input-label" data-i18n="halt-time">End Time</span><input type="text" id="f_end"></div>
-                        <div class="col-span-1"><span class="input-label" data-i18n="duration">Duration</span><input type="text" id="f_dur"></div>
+                        <div class="grid grid-cols-4 gap-4 mb-4 print:mb-2 print:gap-2">
+                            <div class="col-span-1"><span class="input-label" data-i18n="date">Date</span><input type="text" id="f_date" placeholder="YYYY-MM-DD"></div>
+                            <div class="col-span-1"><span class="input-label" data-i18n="init-time">Start Time</span><input type="text" id="f_start"></div>
+                            <div class="col-span-1"><span class="input-label" data-i18n="halt-time">End Time</span><input type="text" id="f_end"></div>
+                            <div class="col-span-1"><span class="input-label" data-i18n="duration">Duration</span><input type="text" id="f_dur"></div>
+                            
+                            <div class="col-span-2"><span class="input-label" data-i18n="geo">Location</span><input type="text" id="f_loc"></div>
+                            <div class="col-span-1"><span class="input-label" data-i18n="posture">Physical Posture</span><input type="text" id="f_pos" placeholder="e.g. Supine"></div>
+                            <div class="col-span-1"><span class="input-label" data-i18n="mood">Baseline State</span><input type="text" id="f_mood" placeholder="e.g. Calm, Tired"></div>
+                        </div>
+                    </div>
+
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-5 print:mt-3" data-i18n="freq-params">Frequency Induction Parameters</h2>
+                        <div class="grid grid-cols-2 gap-4 mb-4 print:mb-2 print:gap-2">
+                            <div><span class="input-label" data-i18n="audio-src">Audio Source (Gateway/Hemi-Sync/App)</span><input type="text" id="f_src"></div>
+                            <div><span class="input-label" data-i18n="headphones">Headphones Hardware</span><input type="text" id="f_hp"></div>
+                        </div>
                         
-                        <div class="col-span-2"><span class="input-label" data-i18n="geo">Location</span><input type="text" id="f_loc"></div>
-                        <div class="col-span-1"><span class="input-label" data-i18n="posture">Physical Posture</span><input type="text" id="f_pos" placeholder="e.g. Supine"></div>
-                        <div class="col-span-1"><span class="input-label" data-i18n="mood">Baseline State</span><input type="text" id="f_mood" placeholder="e.g. Calm, Tired"></div>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-5" data-i18n="freq-params">Frequency Induction Parameters</h2>
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div><span class="input-label" data-i18n="audio-src">Audio Source (Gateway/Hemi-Sync/App)</span><input type="text" id="f_src"></div>
-                        <div><span class="input-label" data-i18n="headphones">Headphones Hardware</span><input type="text" id="f_hp"></div>
-                    </div>
-                    
-                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 flex justify-between flex-wrap gap-2 mb-4">
-                        <label class="chk-wrap"><input type="checkbox" id="c_freq_delta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="delta">DELTA (0.5-4 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_freq_theta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="theta">THETA (4-8 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_freq_alpha"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="alpha">ALPHA (8-14 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_freq_beta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="beta">BETA (14-30 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_freq_gamma"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="gamma">GAMMA (30+ Hz)</span></label>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-5" data-i18n="target-state">Target Consciousness Vector</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-2 gap-3 mb-4">
-                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f10"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f10">Focus 10</span><span class="chk-desc" data-i18n="mind-awake">Mind Awake / Body Asleep</span></div></label>
-                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f12"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f12">Focus 12</span><span class="chk-desc" data-i18n="exp-aware">Expanded Awareness</span></div></label>
-                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f15"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f15">Focus 15</span><span class="chk-desc" data-i18n="void-state">No Time / Void State</span></div></label>
-                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f21"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f21">Focus 21</span><span class="chk-desc" data-i18n="bridge-zone">Edge of Time-Space</span></div></label>
-                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f22"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f22">Focus 22-27</span><span class="chk-desc" data-i18n="f22-desc">Belief System Territories</span></div></label>
-                        <label class="chk-wrap border border-slate-200 rounded-lg p-2 hover:bg-slate-50 transition-colors"><input type="checkbox" id="c_f34"><span class="chk-box mt-1"></span><div><span class="chk-title" data-i18n="f34">Focus 34/35</span><span class="chk-desc" data-i18n="f34-desc">The Gathering</span></div></label>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-5" data-i18n="pre-session">Pre-Session Intention</h2>
-                    <textarea id="t_intent" class="h-12 w-full mb-4" data-i18n-ph="intention-ph" placeholder="Input target coordinates, reality framework, or shifting intention..."></textarea>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-5 text-red-600 border-red-200" data-i18n="click-out">Click-Out / Amnesia Anomaly Log</h2>
-                    <div class="bg-red-50 border border-red-100 rounded-lg p-4">
-                        <p class="text-sm text-slate-700 font-semibold mb-3" data-i18n="amnesia-q">Sudden loss of consciousness or missing time recorded?</p>
-                        <div class="flex items-center gap-6 mb-3">
-                            <label class="chk-wrap text-red-700"><input type="checkbox" id="c_click_no" onclick="uncheckGroup('click', this)"><span class="chk-box border-red-300"></span><span class="chk-title text-sm uppercase tracking-wide" data-i18n="negative">NEGATIVE</span></label>
-                            <label class="chk-wrap text-red-700"><input type="checkbox" id="c_click_yes" onclick="uncheckGroup('click', this)"><span class="chk-box border-red-300"></span><span class="chk-title text-sm uppercase tracking-wide" data-i18n="positive">POSITIVE</span></label>
-                        </div>
-                        <div class="flex items-center gap-4 text-sm text-slate-600 font-mono">
-                            <span data-i18n="t-start">Est. Start:</span> <input type="text" id="f_click_s" class="w-24 border-slate-300 bg-transparent focus:bg-white">
-                            <span data-i18n="t-end">Est. End:</span> <input type="text" id="f_click_e" class="w-24 border-slate-300 bg-transparent focus:bg-white">
+                        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 print:p-2 flex justify-between flex-wrap gap-2 mb-4 print:mb-2">
+                            <label class="chk-wrap"><input type="checkbox" id="c_freq_delta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="delta">DELTA (0.5-4 Hz)</span></label>
+                            <label class="chk-wrap"><input type="checkbox" id="c_freq_theta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="theta">THETA (4-8 Hz)</span></label>
+                            <label class="chk-wrap"><input type="checkbox" id="c_freq_alpha"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="alpha">ALPHA (8-14 Hz)</span></label>
+                            <label class="chk-wrap"><input type="checkbox" id="c_freq_beta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="beta">BETA (14-30 Hz)</span></label>
+                            <label class="chk-wrap"><input type="checkbox" id="c_freq_gamma"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="gamma">GAMMA (30+ Hz)</span></label>
                         </div>
                     </div>
-                </div>
 
-                <div class="print-footer absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-5 print:mt-3" data-i18n="target-state">Target Consciousness Vector</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-2 gap-3 mb-4 print:mb-2 print:gap-2">
+                            <label class="chk-wrap border border-slate-200 rounded-lg p-2 print:p-1.5 hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" id="c_f10"><span class="chk-box mt-1 print:mt-0.5"></span>
+                                <div class="flex flex-col ml-1">
+                                    <span class="chk-title font-bold text-sm leading-none mt-0.5" data-i18n="f10">Focus 10</span>
+                                    <span class="chk-desc text-[10px] leading-tight text-slate-500 mt-1" data-i18n="mind-awake">Mind Awake / Body Asleep</span>
+                                </div>
+                            </label>
+                            <label class="chk-wrap border border-slate-200 rounded-lg p-2 print:p-1.5 hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" id="c_f12"><span class="chk-box mt-1 print:mt-0.5"></span>
+                                <div class="flex flex-col ml-1">
+                                    <span class="chk-title font-bold text-sm leading-none mt-0.5" data-i18n="f12">Focus 12</span>
+                                    <span class="chk-desc text-[10px] leading-tight text-slate-500 mt-1" data-i18n="exp-aware">Expanded Awareness</span>
+                                </div>
+                            </label>
+                            <label class="chk-wrap border border-slate-200 rounded-lg p-2 print:p-1.5 hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" id="c_f15"><span class="chk-box mt-1 print:mt-0.5"></span>
+                                <div class="flex flex-col ml-1">
+                                    <span class="chk-title font-bold text-sm leading-none mt-0.5" data-i18n="f15">Focus 15</span>
+                                    <span class="chk-desc text-[10px] leading-tight text-slate-500 mt-1" data-i18n="void-state">No Time / Void State</span>
+                                </div>
+                            </label>
+                            <label class="chk-wrap border border-slate-200 rounded-lg p-2 print:p-1.5 hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" id="c_f21"><span class="chk-box mt-1 print:mt-0.5"></span>
+                                <div class="flex flex-col ml-1">
+                                    <span class="chk-title font-bold text-sm leading-none mt-0.5" data-i18n="f21">Focus 21</span>
+                                    <span class="chk-desc text-[10px] leading-tight text-slate-500 mt-1" data-i18n="bridge-zone">Edge of Time-Space</span>
+                                </div>
+                            </label>
+                            <label class="chk-wrap border border-slate-200 rounded-lg p-2 print:p-1.5 hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" id="c_f22"><span class="chk-box mt-1 print:mt-0.5"></span>
+                                <div class="flex flex-col ml-1">
+                                    <span class="chk-title font-bold text-sm leading-none mt-0.5" data-i18n="f22">Focus 22-27</span>
+                                    <span class="chk-desc text-[10px] leading-tight text-slate-500 mt-1" data-i18n="f22-desc">Belief System Territories</span>
+                                </div>
+                            </label>
+                            <label class="chk-wrap border border-slate-200 rounded-lg p-2 print:p-1.5 hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" id="c_f34"><span class="chk-box mt-1 print:mt-0.5"></span>
+                                <div class="flex flex-col ml-1">
+                                    <span class="chk-title font-bold text-sm leading-none mt-0.5" data-i18n="f34">Focus 34/35</span>
+                                    <span class="chk-desc text-[10px] leading-tight text-slate-500 mt-1" data-i18n="f34-desc">The Gathering</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-5 print:mt-3" data-i18n="pre-session">Pre-Session Intention</h2>
+                        <textarea id="t_intent" class="h-12 w-full mb-4 print:mb-2" data-i18n-ph="intention-ph" placeholder="Input target coordinates, reality framework, or shifting intention..."></textarea>
+                    </div>
+
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-5 print:mt-3 text-red-600 border-red-200" data-i18n="click-out">Click-Out / Amnesia Anomaly Log</h2>
+                        <div class="bg-red-50 border border-red-100 rounded-lg p-4 print:p-2.5 print:mb-0">
+                            <p class="text-sm text-slate-700 font-semibold mb-3 print:mb-1.5" data-i18n="amnesia-q">Sudden loss of consciousness or missing time recorded?</p>
+                            <div class="flex items-center gap-6 mb-3 print:mb-1.5">
+                                <label class="chk-wrap text-red-700"><input type="checkbox" id="c_click_no" onclick="uncheckGroup('click', this)"><span class="chk-box border-red-300"></span><span class="chk-title text-sm uppercase tracking-wide" data-i18n="negative">NEGATIVE</span></label>
+                                <label class="chk-wrap text-red-700"><input type="checkbox" id="c_click_yes" onclick="uncheckGroup('click', this)"><span class="chk-box border-red-300"></span><span class="chk-title text-sm uppercase tracking-wide" data-i18n="positive">POSITIVE</span></label>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-slate-600 font-mono">
+                                <span data-i18n="t-start">Est. Start:</span> <input type="text" id="f_click_s" class="w-24 border-slate-300 bg-transparent focus:bg-white">
+                                <span data-i18n="t-end">Est. End:</span> <input type="text" id="f_click_e" class="w-24 border-slate-300 bg-transparent focus:bg-white">
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End .page-content -->
+                
+                <div class="print-footer">
                     <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-01</span>
                 </div>
             </div>
 
             <div class="a4-page">
-                <div class="print-avoid-break">
-                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
-                        <div><h1 class="doc-title" data-i18n="title-2">Controlled Remote Viewing</h1></div>
-                        <div class="text-right text-xs text-slate-500 mt-1">PAGE 2 / 3</div>
-                    </header>
+                <div class="page-content">
+                    <div class="print-avoid-break">
+                        <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
+                            <div><h1 class="doc-title" data-i18n="title-2">Controlled Remote Viewing</h1></div>
+                            <div class="text-right text-xs text-slate-500 mt-1">PAGE 2 / 3</div>
+                        </header>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div><span class="input-label" data-i18n="trn">Target Reference Number (TRN)</span><input type="text" id="f_trn" class="text-xl tracking-widest font-mono font-bold"></div>
-                        <div><span class="input-label" data-i18n="target-desc">Target Decryption (Post-Session)</span><input type="text" id="f_target_desc" class="text-lg"></div>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-3 mb-2" data-i18n="stage-1">Stage 1: Ideogram / Gestalt</h2>
-                    <div class="canvas-wrapper h-48 mb-4">
-                        <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="matrix-active">INITIAL SKETCH / ENERGY LINES</div>
-                        <div class="canvas-tools">
-                            <button class="tool-btn active" onclick="setTool('canvas-gestalt', 'pen', this)" data-i18n="pen">Pen</button>
-                            <button class="tool-btn" onclick="setTool('canvas-gestalt', 'eraser', this)" data-i18n="erase">Erase</button>
-                            <button class="tool-btn" onclick="undoCanvas('canvas-gestalt')" data-i18n="undo">Undo</button>
-                            <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-gestalt', true)" data-i18n="purge">Clear</button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div><span class="input-label" data-i18n="trn">Target Reference Number (TRN)</span><input type="text" id="f_trn" class="text-xl tracking-widest font-mono font-bold"></div>
+                            <div><span class="input-label" data-i18n="target-desc">Target Decryption (Post-Session)</span><input type="text" id="f_target_desc" class="text-lg"></div>
                         </div>
-                        <canvas id="canvas-gestalt" class="drawing-board h-full"></canvas>
                     </div>
-                </div>
 
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-3 mb-2" data-i18n="stage-2">Stage 2: Sensory Decoding</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                        <div><span class="input-label" data-i18n="visuals">VISUALS (Colors, Light, Forms)</span><textarea id="t_visuals" class="h-12 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="auditory">AUDITORY (Acoustics, Voices)</span><textarea id="t_auditory" class="h-12 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="tactile">TACTILE/THERMAL (Textures, Temp)</span><textarea id="t_tactile" class="h-12 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="olfactory">OLFACTORY/GUSTATORY (Smell/Taste)</span><textarea id="t_olfactory" class="h-12 w-full"></textarea></div>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-3 mb-2" data-i18n="stage-3">Stage 3: Analytical Dimensional Sketch</h2>
-                    <div class="canvas-wrapper h-56">
-                        <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="mapping">ARCHITECTURAL/BIOLOGICAL MAPPING</div>
-                        <div class="canvas-tools">
-                            <button class="tool-btn active" onclick="setTool('canvas-analytical', 'pen', this)" data-i18n="pen">Pen</button>
-                            <button class="tool-btn" onclick="setTool('canvas-analytical', 'eraser', this)" data-i18n="erase">Erase</button>
-                            <button class="tool-btn" onclick="undoCanvas('canvas-analytical')" data-i18n="undo">Undo</button>
-                            <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-analytical', true)" data-i18n="purge">Clear</button>
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-3 mb-2" data-i18n="stage-1">Stage 1: Ideogram / Gestalt</h2>
+                        <div class="canvas-wrapper h-48 mb-4">
+                            <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="matrix-active">INITIAL SKETCH / ENERGY LINES</div>
+                            <div class="canvas-tools">
+                                <button class="tool-btn active" onclick="setTool('canvas-gestalt', 'pen', this)" data-i18n="pen">Pen</button>
+                                <button class="tool-btn" onclick="setTool('canvas-gestalt', 'eraser', this)" data-i18n="erase">Erase</button>
+                                <button class="tool-btn" onclick="undoCanvas('canvas-gestalt')" data-i18n="undo">Undo</button>
+                                <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-gestalt', true)" data-i18n="purge">Clear</button>
+                            </div>
+                            <canvas id="canvas-gestalt" class="drawing-board h-full"></canvas>
                         </div>
-                        <canvas id="canvas-analytical" class="drawing-board h-full"></canvas>
                     </div>
-                </div>
 
-                <div class="print-footer absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-3 mb-2" data-i18n="stage-2">Stage 2: Sensory Decoding</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                            <div><span class="input-label" data-i18n="visuals">VISUALS (Colors, Light, Forms)</span><textarea id="t_visuals" class="h-12 w-full"></textarea></div>
+                            <div><span class="input-label" data-i18n="auditory">AUDITORY (Acoustics, Voices)</span><textarea id="t_auditory" class="h-12 w-full"></textarea></div>
+                            <div><span class="input-label" data-i18n="tactile">TACTILE/THERMAL (Textures, Temp)</span><textarea id="t_tactile" class="h-12 w-full"></textarea></div>
+                            <div><span class="input-label" data-i18n="olfactory">OLFACTORY/GUSTATORY (Smell/Taste)</span><textarea id="t_olfactory" class="h-12 w-full"></textarea></div>
+                        </div>
+                    </div>
+
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-3 mb-2" data-i18n="stage-3">Stage 3: Analytical Dimensional Sketch</h2>
+                        <div class="canvas-wrapper h-56">
+                            <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="mapping">ARCHITECTURAL/BIOLOGICAL MAPPING</div>
+                            <div class="canvas-tools">
+                                <button class="tool-btn active" onclick="setTool('canvas-analytical', 'pen', this)" data-i18n="pen">Pen</button>
+                                <button class="tool-btn" onclick="setTool('canvas-analytical', 'eraser', this)" data-i18n="erase">Erase</button>
+                                <button class="tool-btn" onclick="undoCanvas('canvas-analytical')" data-i18n="undo">Undo</button>
+                                <button class="tool-btn text-red-600" onclick="clearCanvas('canvas-analytical', true)" data-i18n="purge">Clear</button>
+                            </div>
+                            <canvas id="canvas-analytical" class="drawing-board h-full"></canvas>
+                        </div>
+                    </div>
+                </div> <!-- End .page-content -->
+
+                <div class="print-footer">
                     <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-02</span>
                 </div>
             </div>
 
             <div class="a4-page">
-                <div class="print-avoid-break">
-                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
-                        <div><h1 class="doc-title" data-i18n="title-3">Timeline Diagnostics</h1></div>
-                        <div class="text-right text-xs text-slate-500 mt-1">PAGE 3 / 3</div>
-                    </header>
+                <div class="page-content">
+                    <div class="print-avoid-break">
+                        <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
+                            <div><h1 class="doc-title" data-i18n="title-3">Timeline Diagnostics</h1></div>
+                            <div class="text-right text-xs text-slate-500 mt-1">PAGE 3 / 3</div>
+                        </header>
 
-                    <h2 class="section-header mt-3 mb-2" data-i18n="timeline-diff">Timeline Differential Analysis</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div>
-                            <span class="input-label" data-i18n="cr-base">Current Reality (CR) Baseline</span>
-                            <textarea id="t_cr" class="h-24 w-full mt-1 bg-slate-50 border-slate-200"></textarea>
+                        <h2 class="section-header mt-3 mb-2" data-i18n="timeline-diff">Timeline Differential Analysis</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 print:mb-3">
+                            <div>
+                                <span class="input-label" data-i18n="cr-base">Current Reality (CR) Baseline</span>
+                                <textarea id="t_cr" class="h-24 w-full mt-1 bg-slate-50 border-slate-200"></textarea>
+                            </div>
+                            <div>
+                                <span class="input-label text-blue-600" data-i18n="dr-target">Desired Reality (DR) Target</span>
+                                <textarea id="t_dr" class="h-24 w-full mt-1 bg-blue-50 border-blue-200 focus:bg-white"></textarea>
+                            </div>
                         </div>
-                        <div>
-                            <span class="input-label text-blue-600" data-i18n="dr-target">Desired Reality (DR) Target</span>
-                            <textarea id="t_dr" class="h-24 w-full mt-1 bg-blue-50 border-blue-200 focus:bg-white"></textarea>
+                    </div>
+
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-3 mb-2" data-i18n="quantum-anchors">Quantum Anchors (Variables)</h2>
+                        <p class="text-sm text-slate-600 mb-3 print:mb-2" data-i18n="anchor-desc">Define divergence parameters to lock consciousness into the Target Timeline.</p>
+                        
+                        <div class="space-y-3 print:space-y-2 mb-6 print:mb-3">
+                            <div><span class="input-label" data-i18n="cog-anchor">COGNITIVE ANCHOR (Core DR Paradigm / Belief System)</span><textarea id="t_anchor_cog" class="h-12 w-full"></textarea></div>
+                            <div><span class="input-label" data-i18n="som-anchor">SOMATIC ANCHOR (Proprioceptive Feedback in DR)</span><textarea id="t_anchor_som" class="h-12 w-full"></textarea></div>
+                            <div><span class="input-label" data-i18n="env-anchor">ENVIRONMENTAL ANCHOR (Initial sensory input upon waking in DR)</span><textarea id="t_anchor_env" class="h-12 w-full"></textarea></div>
                         </div>
                     </div>
-                </div>
 
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-3 mb-2" data-i18n="quantum-anchors">Quantum Anchors (Variables)</h2>
-                    <p class="text-sm text-slate-600 mb-3" data-i18n="anchor-desc">Define divergence parameters to lock consciousness into the Target Timeline.</p>
-                    
-                    <div class="space-y-3 mb-6">
-                        <div><span class="input-label" data-i18n="cog-anchor">COGNITIVE ANCHOR (Core DR Paradigm / Belief System)</span><textarea id="t_anchor_cog" class="h-12 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="som-anchor">SOMATIC ANCHOR (Proprioceptive Feedback in DR)</span><textarea id="t_anchor_som" class="h-12 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="env-anchor">ENVIRONMENTAL ANCHOR (Initial sensory input upon waking in DR)</span><textarea id="t_anchor_env" class="h-12 w-full"></textarea></div>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-3 mb-2 text-red-600 border-red-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
-                    <p class="text-sm text-slate-600 mb-3" data-i18n="bleed-desc">Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).</p>
-                    
-                    <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-3 items-center bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <div class="font-mono text-sm font-bold text-slate-700">T+ 12h</div>
-                        <div><input type="text" id="f_obs_12" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                    <div class="print-avoid-break">
+                        <h2 class="section-header mt-3 mb-2 text-red-600 border-red-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
+                        <p class="text-sm text-slate-600 mb-3 print:mb-2" data-i18n="bleed-desc">Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).</p>
                         
-                        <div class="font-mono text-sm font-bold text-slate-700">T+ 24h</div>
-                        <div><input type="text" id="f_obs_24" placeholder="Observation Log..." data-i18n-ph="obs"></div>
-                        
-                        <div class="font-mono text-sm font-bold text-slate-700">T+ 48h</div>
-                        <div><input type="text" id="f_obs_48" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                        <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-3 items-center bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <div class="font-mono text-sm font-bold text-slate-700">T+ 12h</div>
+                            <div><input type="text" id="f_obs_12" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                            
+                            <div class="font-mono text-sm font-bold text-slate-700">T+ 24h</div>
+                            <div><input type="text" id="f_obs_24" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                            
+                            <div class="font-mono text-sm font-bold text-slate-700">T+ 48h</div>
+                            <div><input type="text" id="f_obs_48" placeholder="Observation Log..." data-i18n-ph="obs"></div>
+                        </div>
                     </div>
-                </div>
+                </div> <!-- End .page-content -->
 
-                <div class="print-footer absolute bottom-4 left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
+                <div class="print-footer">
                     <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-03</span>
                 </div>
             </div>
@@ -748,7 +804,7 @@
                 "target-desc": "Décryptage de la Cible", "stage-1": "Phase 1 : Gestalt",
                 "matrix-active": "CROQUIS INITIAL / LIGNES D'ÉNERGIE", "pen": "Stylo", "erase": "Gomme", "undo": "Annuler",
                 "stage-2": "Phase 2 : Décodage Sensoriel", "visuals": "VISUELS (Couleurs, Lumière)", "auditory": "AUDITIFS (Voix, Fréquences)",
-                "tactile": "TACTILE/THERMIQUE", "olfactory": "OLFACTIF/GUSTATIF",
+                "tactile": "TACTILE/THERMIQUE", "olfactory": "OLFACTIF/GUSTATIVO",
                 "stage-3": "Phase 3 : Croquis Dimensionnel", "mapping": "CARTOGRAPHIE ARCHITECTURALE",
                 "title-3": "Diagnostic de Ligne Temporelle", "timeline-diff": "Analyse Différentielle Temporelle",
                 "cr-base": "Réalité Actuelle (CR)", "dr-target": "Réalité Souhaitée (DR)",
@@ -991,12 +1047,12 @@
                 isTimerRunning = false;
                 seconds = 0;
                 document.getElementById('timer-display').innerText = "00:00:00";
-                btn.innerText = i18n[lang]['init-seq']; // Start
+                btn.innerText = i18n[lang]['init-seq']; 
                 btn.classList.remove('btn-danger'); btn.classList.add('btn-outline');
             } else {
                 timerInterval = setInterval(() => { seconds++; updateTimerDisplay(); }, 1000);
                 isTimerRunning = true; 
-                btn.innerText = i18n[lang]['halt-timer']; // Stop
+                btn.innerText = i18n[lang]['halt-timer']; 
                 btn.classList.remove('btn-outline'); btn.classList.add('btn-danger');
             }
         }
@@ -1006,22 +1062,18 @@
         
         async function initAudio() {
             await Tone.start();
-            // Binaural Oscillators
             synthLeft = new Tone.Oscillator({ type: "sine" }).toDestination();
             synthRight = new Tone.Oscillator({ type: "sine" }).toDestination();
             
-            // Hard Panning (100% L, 100% R)
             const pannerLeft = new Tone.Panner(-1).toDestination();
             const pannerRight = new Tone.Panner(1).toDestination();
             synthLeft.disconnect().connect(pannerLeft);
             synthRight.disconnect().connect(pannerRight);
             
-            // Keep running silently to prevent Tone.js restart bugs
             synthLeft.volume.value = -Infinity; 
             synthRight.volume.value = -Infinity;
             synthLeft.start(); synthRight.start();
 
-            // Ocean Waves Synthesizer (Brown Noise is deeper/smoother than Pink)
             waveFilter = new Tone.AutoFilter({ frequency: 0.1, min: 150, max: 400, type: "sine" }).connect(new Tone.Volume(-18).toDestination());
             waveNoise = new Tone.Noise("brown").connect(waveFilter);
             
@@ -1049,7 +1101,7 @@
                     case 'f21': isAutopilot = true; targetFreq = 0.5; rampTime = 150; break;
                 }
                 
-                const baseFreq = 110; // Deep resonant carrier frequency
+                const baseFreq = 110; 
                 synthLeft.frequency.value = baseFreq; 
                 
                 if (isAutopilot) {
@@ -1061,7 +1113,6 @@
                 }
                 
                 if(!isAudioPlaying) {
-                    // Smooth 2-second fade-in
                     synthLeft.volume.rampTo(-20, 2); synthRight.volume.rampTo(-20, 2);
                     
                     isAudioPlaying = true;
