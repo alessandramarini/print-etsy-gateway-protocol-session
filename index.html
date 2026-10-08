@@ -553,14 +553,17 @@
             document.getElementById('view-action').classList.add('view-hidden');
             document.getElementById('app-container').classList.add('active');
             
-            if (action === 'print') {
-                // Instantly clean the entire interface for empty pen printing
-                clearData(false);
-                setTimeout(() => window.print(), 500);
-            } else {
-                // Normal digital startup
-                loadData();
-            }
+            // Critical fix: Resize canvases after container becomes visible, but BEFORE loading image data
+            setTimeout(() => {
+                resizeAllCanvases();
+                
+                if (action === 'print') {
+                    clearData(false);
+                    setTimeout(() => window.print(), 500);
+                } else {
+                    loadData();
+                }
+            }, 50);
         }
 
         function showConfirm(msg, onConfirm, title="System Message") {
@@ -821,46 +824,81 @@
         }
 
         const canvasState = {}; 
+        
+        function resizeAllCanvases() {
+            ['canvas-gestalt', 'canvas-analytical'].forEach(id => {
+                const canvas = document.getElementById(id);
+                if(!canvas || !canvasState[id]) return;
+                const rect = canvas.parentElement.getBoundingClientRect();
+                
+                // Only resize if the container actually has a size (is visible)
+                if (rect.width > 0 && rect.height > 0) {
+                    if (canvas.width !== rect.width || canvas.height !== rect.height) {
+                        // Backup existing drawing if any
+                        const tempCanvas = document.createElement('canvas');
+                        tempCanvas.width = canvas.width;
+                        tempCanvas.height = canvas.height;
+                        const tCtx = tempCanvas.getContext('2d');
+                        tCtx.drawImage(canvas, 0, 0);
+
+                        // Apply new correct dimensions
+                        canvas.width = rect.width; 
+                        canvas.height = rect.height;
+                        
+                        // Restore pen properties
+                        const ctx = canvasState[id].ctx;
+                        ctx.lineJoin = 'round'; ctx.lineCap = 'round'; 
+                        
+                        // Paste drawing back onto resized canvas
+                        ctx.drawImage(tempCanvas, 0, 0);
+                    }
+                }
+            });
+        }
+        
+        // Listen to window size changes (e.g., rotating a mobile phone)
+        window.addEventListener('resize', resizeAllCanvases);
+
         function setupCanvas(canvasId) {
             const canvas = document.getElementById(canvasId);
             const ctx = canvas.getContext('2d');
             canvasState[canvasId] = { ctx, tool: 'pen', history: [], isDrawing: false, lastX: 0, lastY: 0 };
             
-            // Proper resize logic for fixed positioning
-            const resizeCanvas = () => {
-                const rect = canvas.parentElement.getBoundingClientRect();
-                if(canvas.width !== rect.width || canvas.height !== rect.height) {
-                    const data = canvas.toDataURL();
-                    canvas.width = rect.width; canvas.height = rect.height;
-                    ctx.strokeStyle = '#0f172a'; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = 2.5;
-                    if(data !== 'data:,') loadCanvasData(canvasId, data, false);
-                }
-            };
-            setTimeout(resizeCanvas, 150);
-            window.addEventListener('resize', resizeCanvas);
-
             const getPos = (e) => {
                 const r = canvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                // Strict bounds relative to canvas element
+                const clientX = (e.touches && e.touches.length > 0) ? e.touches[0].clientX : e.clientX;
+                const clientY = (e.touches && e.touches.length > 0) ? e.touches[0].clientY : e.clientY;
                 return { x: clientX - r.left, y: clientY - r.top };
             };
+            
             const startDraw = (e) => {
+                if (e.cancelable) e.preventDefault(); // Prevents touch scrolling while drawing
                 canvasState[canvasId].isDrawing = true;
                 const pos = getPos(e);
                 [canvasState[canvasId].lastX, canvasState[canvasId].lastY] = [pos.x, pos.y];
             };
+            
             const draw = (e) => {
                 if (!canvasState[canvasId].isDrawing) return;
-                e.preventDefault();
-                const pos = getPos(e); const state = canvasState[canvasId];
+                if (e.cancelable) e.preventDefault();
+                const pos = getPos(e); 
+                const state = canvasState[canvasId];
+                
                 ctx.beginPath();
-                if(state.tool === 'eraser') { ctx.globalCompositeOperation = 'destination-out'; ctx.lineWidth = 20; } 
-                else { ctx.globalCompositeOperation = 'source-over'; ctx.lineWidth = 2.5; }
-                ctx.moveTo(state.lastX, state.lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke();
+                if(state.tool === 'eraser') { 
+                    ctx.globalCompositeOperation = 'destination-out'; 
+                    ctx.lineWidth = 20; 
+                } else { 
+                    ctx.globalCompositeOperation = 'source-over'; 
+                    ctx.lineWidth = 2.5; 
+                    ctx.strokeStyle = '#0f172a';
+                }
+                ctx.moveTo(state.lastX, state.lastY); 
+                ctx.lineTo(pos.x, pos.y); 
+                ctx.stroke();
                 [state.lastX, state.lastY] = [pos.x, pos.y];
             };
+            
             const stopDraw = () => {
                 if(canvasState[canvasId].isDrawing) {
                     canvasState[canvasId].isDrawing = false;
@@ -869,8 +907,18 @@
                     localStorage.setItem('qcs5_img_' + canvasId, canvas.toDataURL());
                 }
             };
-            canvas.addEventListener('mousedown', startDraw); canvas.addEventListener('mousemove', draw); canvas.addEventListener('mouseup', stopDraw); canvas.addEventListener('mouseout', stopDraw);
-            canvas.addEventListener('touchstart', startDraw, {passive: false}); canvas.addEventListener('touchmove', draw, {passive: false}); canvas.addEventListener('touchend', stopDraw);
+            
+            // Mouse events
+            canvas.addEventListener('mousedown', startDraw); 
+            canvas.addEventListener('mousemove', draw); 
+            canvas.addEventListener('mouseup', stopDraw); 
+            canvas.addEventListener('mouseout', stopDraw);
+            
+            // Touch events (Mobile/Tablet Support)
+            canvas.addEventListener('touchstart', startDraw, {passive: false}); 
+            canvas.addEventListener('touchmove', draw, {passive: false}); 
+            canvas.addEventListener('touchend', stopDraw);
+            canvas.addEventListener('touchcancel', stopDraw);
         }
         
         function setTool(canvasId, tool, btnEl) {
@@ -879,42 +927,56 @@
             container.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
             btnEl.classList.add('active');
         }
+        
         function saveCanvasState(canvasId) {
             const canvas = document.getElementById(canvasId);
             canvasState[canvasId].history.push(canvas.toDataURL());
             if(canvasState[canvasId].history.length > 10) canvasState[canvasId].history.shift(); 
         }
+        
         function undoCanvas(canvasId) {
             const history = canvasState[canvasId].history;
             if(history.length > 1) {
-                history.pop(); const previous = history[history.length - 1];
+                history.pop(); 
+                const previous = history[history.length - 1];
                 loadCanvasData(canvasId, previous, false);
                 localStorage.setItem('qcs5_img_' + canvasId, previous);
-            } else if (history.length === 1) { clearCanvas(canvasId, false); }
+            } else if (history.length === 1) { 
+                clearCanvas(canvasId, false); 
+            }
         }
+        
         function clearCanvas(canvasId, ask=true) {
             const executeClear = () => {
-                const canvas = document.getElementById(canvasId); const ctx = canvasState[canvasId].ctx;
+                const canvas = document.getElementById(canvasId); 
+                const ctx = canvasState[canvasId].ctx;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 localStorage.removeItem('qcs5_img_' + canvasId);
-                canvasState[canvasId].history = []; saveCanvasState(canvasId);
+                canvasState[canvasId].history = []; 
+                saveCanvasState(canvasId);
             };
             if(!ask) executeClear();
             else { showConfirm("Clear this sketch?", executeClear); }
         }
+        
         function loadCanvasData(canvasId, dataUrl, addToHistory=true) {
             if(!dataUrl || dataUrl === 'data:,') return;
-            const canvas = document.getElementById(canvasId); const ctx = canvasState[canvasId].ctx;
+            const canvas = document.getElementById(canvasId); 
+            const ctx = canvasState[canvasId].ctx;
             const img = new Image();
             img.onload = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0);
-                if(addToHistory) canvasState[canvasId].history = [dataUrl];
-            }; img.src = dataUrl;
+                if(addToHistory) {
+                    canvasState[canvasId].history = [canvas.toDataURL()];
+                }
+            }; 
+            img.src = dataUrl;
         }
 
         window.addEventListener('load', () => {
-            setupCanvas('canvas-gestalt'); setupCanvas('canvas-analytical');
+            setupCanvas('canvas-gestalt'); 
+            setupCanvas('canvas-analytical');
         });
     </script>
 </body>
