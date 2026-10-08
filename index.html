@@ -337,105 +337,12 @@
         <main class="w-full">
             <div class="a4-page">
                 <div class="print-avoid-break">
-                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-3">
-                        <div>
-                            <div class="doc-subtitle mb-1" data-i18n="clearance">Personal Explorer Log // Declassified</div>
-                            <h1 class="doc-title" data-i18n="title-1">Quantum Consciousness Protocol</h1>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-xs text-slate-500 font-bold" data-i18n="file-ref">FILE REF:</span>
-                            <input type="text" id="ref-id" class="w-32 text-center text-lg font-mono border-none !border-b-0 bg-slate-50 rounded" placeholder="QCS-001">
-                            <div class="text-xs text-slate-500 mt-1">PAGE 1 / 3</div>
-                        </div>
-                    </header>
-
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
-                        <div><span class="input-label" data-i18n="date">Date</span><input type="text" id="f_date" placeholder="DD/MM/YYYY"></div>
-                        <div><span class="input-label" data-i18n="init-time">Start Time</span><input type="text" id="f_start_time"></div>
-                        <div><span class="input-label" data-i18n="halt-time">End Time</span><input type="text" id="f_end_time"></div>
-                        <div><span class="input-label" data-i18n="duration">Duration</span><input type="text" id="f_duration"></div>
-                        
-                        <div class="md:col-span-2"><span class="input-label" data-i18n="geo">Location</span><input type="text" id="f_location"></div>
-                        <div><span class="input-label" data-i18n="posture">Physical Posture</span><input type="text" id="f_posture" placeholder="e.g. Supine"></div>
-                        <div><span class="input-label" data-i18n="mood">Baseline State</span><input type="text" id="f_mood" placeholder="e.g. Calm, Tired"></div>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-4" data-i18n="freq-params">Frequency Induction Parameters</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
-                        <div class="md:col-span-2"><span class="input-label" data-i18n="audio-src">Audio Source (Gateway/Hemi-Sync/App)</span><input type="text" id="f_audio_src"></div>
-                        <div><span class="input-label" data-i18n="headphones">Headphones Hardware</span><input type="text" id="f_headphones"></div>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-3 p-2 bg-slate-50 rounded-lg border border-slate-200">
-                        <label class="chk-wrap"><input type="checkbox" id="c_delta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="delta">DELTA (0.5-4 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_theta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="theta">THETA (4-8 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_alpha"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="alpha">ALPHA (8-14 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_beta"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="beta">BETA (14-30 Hz)</span></label>
-                        <label class="chk-wrap"><input type="checkbox" id="c_gamma"><span class="chk-box"></span><span class="chk-title text-sm" data-i18n="gamma">GAMMA (30+ Hz)</span></label>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-4" data-i18n="target-state">Target Consciousness Vector</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        <label class="chk-wrap p-1.5 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f10"><span class="chk-box"></span>
-                            <div><span class="chk-title" data-i18n="f10">Focus 10</span><span class="chk-desc" data-i18n="mind-awake">Mind Awake / Body Asleep</span></div>
-                        </label>
-                        <label class="chk-wrap p-1.5 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f12"><span class="chk-box"></span>
-                            <div><span class="chk-title" data-i18n="f12">Focus 12</span><span class="chk-desc" data-i18n="exp-aware">Expanded Awareness</span></div>
-                        </label>
-                        <label class="chk-wrap p-1.5 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f15"><span class="chk-box"></span>
-                            <div><span class="chk-title" data-i18n="f15">Focus 15</span><span class="chk-desc" data-i18n="void-state">No Time / Void State</span></div>
-                        </label>
-                        <label class="chk-wrap p-1.5 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f21"><span class="chk-box"></span>
-                            <div><span class="chk-title" data-i18n="f21">Focus 21</span><span class="chk-desc" data-i18n="bridge-zone">Edge of Time-Space</span></div>
-                        </label>
-                        <label class="chk-wrap p-1.5 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f22"><span class="chk-box"></span>
-                            <div><span class="chk-title" data-i18n="f22">Focus 22-27</span><span class="chk-desc" data-i18n="f22-desc">Belief System Territories</span></div>
-                        </label>
-                        <label class="chk-wrap p-1.5 border border-slate-200 rounded hover:bg-slate-50 transition"><input type="checkbox" id="c_f34"><span class="chk-box"></span>
-                            <div><span class="chk-title" data-i18n="f34">Focus 34/35</span><span class="chk-desc" data-i18n="f34-desc">The Gathering</span></div>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-3" data-i18n="pre-session">Pre-Session Intention</h2>
-                    <textarea id="t_intention" class="w-full h-12" data-i18n-ph="intention-ph" placeholder="Input target coordinates, reality framework, or shifting intention..."></textarea>
-                </div>
-
-                <div class="print-avoid-break">
-                    <h2 class="section-header mt-3 text-red-600 border-red-200" data-i18n="click-out">Click-Out / Amnesia Anomaly Log</h2>
-                    <div class="bg-red-50 border border-red-100 p-2 rounded-lg">
-                        <p class="text-xs font-semibold text-slate-800 mb-1" data-i18n="amnesia-q">Sudden loss of consciousness or missing time recorded?</p>
-                        <div class="flex items-center justify-between gap-2">
-                            <div class="flex items-center gap-4">
-                                <label class="chk-wrap"><input type="checkbox" id="c_click_no" onclick="uncheckGroup('click', this)"><span class="chk-box !border-red-400"></span><span class="chk-title text-red-600 text-sm" data-i18n="negative">NEGATIVE</span></label>
-                                <label class="chk-wrap"><input type="checkbox" id="c_click_yes" onclick="uncheckGroup('click', this)"><span class="chk-box !border-red-400"></span><span class="chk-title text-red-600 text-sm" data-i18n="positive">POSITIVE</span></label>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="flex items-center gap-1"><span class="text-xs font-mono text-slate-600" data-i18n="t-start">Est. Start:</span><input type="text" id="f_click_start" class="w-16 text-sm border-red-300 text-center bg-transparent"></div>
-                                <div class="flex items-center gap-1"><span class="text-xs font-mono text-slate-600" data-i18n="t-end">Est. End:</span><input type="text" id="f_click_end" class="w-16 text-sm border-red-300 text-center bg-transparent"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="print-footer absolute left-0 right-0 px-[15mm] flex justify-between text-xs text-slate-400 font-mono uppercase">
-                    <span data-i18n="form-1">Subjective Exploration Log</span><span>FORM-QCS-01</span>
-                </div>
-            </div>
-
-            <div class="a4-page">
-                <div class="print-avoid-break">
-                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-4 mb-6">
+                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
                         <div><h1 class="doc-title" data-i18n="title-2">Controlled Remote Viewing</h1></div>
                         <div class="text-right text-xs text-slate-500 mt-1">PAGE 2 / 3</div>
                     </header>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div><span class="input-label" data-i18n="trn">Target Reference Number (TRN)</span><input type="text" id="f_trn" class="text-xl tracking-widest font-mono font-bold"></div>
                         <div><span class="input-label" data-i18n="target-desc">Target Decryption (Post-Session)</span><input type="text" id="f_target_desc" class="text-lg"></div>
                     </div>
@@ -443,7 +350,7 @@
 
                 <div class="print-avoid-break">
                     <h2 class="section-header" data-i18n="stage-1">Stage 1: Ideogram / Gestalt</h2>
-                    <div class="canvas-wrapper h-60 mb-6">
+                    <div class="canvas-wrapper h-48 mb-4">
                         <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="matrix-active">INITIAL SKETCH / ENERGY LINES</div>
                         <div class="canvas-tools">
                             <button class="tool-btn active" onclick="setTool('canvas-gestalt', 'pen', this)" data-i18n="pen">Pen</button>
@@ -457,17 +364,17 @@
 
                 <div class="print-avoid-break">
                     <h2 class="section-header" data-i18n="stage-2">Stage 2: Sensory Decoding</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div><span class="input-label" data-i18n="visuals">VISUALS (Colors, Light, Forms)</span><textarea id="t_visuals" class="h-16 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="auditory">AUDITORY (Acoustics, Voices)</span><textarea id="t_auditory" class="h-16 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="tactile">TACTILE/THERMAL (Textures, Temp)</span><textarea id="t_tactile" class="h-16 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="olfactory">OLFACTORY/GUSTATORY (Smell/Taste)</span><textarea id="t_olfactory" class="h-16 w-full"></textarea></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        <div><span class="input-label" data-i18n="visuals">VISUALS (Colors, Light, Forms)</span><textarea id="t_visuals" class="h-12 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="auditory">AUDITORY (Acoustics, Voices)</span><textarea id="t_auditory" class="h-12 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="tactile">TACTILE/THERMAL (Textures, Temp)</span><textarea id="t_tactile" class="h-12 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="olfactory">OLFACTORY/GUSTATORY (Smell/Taste)</span><textarea id="t_olfactory" class="h-12 w-full"></textarea></div>
                     </div>
                 </div>
 
                 <div class="print-avoid-break">
                     <h2 class="section-header" data-i18n="stage-3">Stage 3: Analytical Dimensional Sketch</h2>
-                    <div class="canvas-wrapper h-80">
+                    <div class="canvas-wrapper h-56">
                         <div class="absolute top-2 left-2 text-xs font-mono text-slate-400 pointer-events-none" data-i18n="mapping">ARCHITECTURAL/BIOLOGICAL MAPPING</div>
                         <div class="canvas-tools">
                             <button class="tool-btn active" onclick="setTool('canvas-analytical', 'pen', this)" data-i18n="pen">Pen</button>
@@ -486,40 +393,40 @@
 
             <div class="a4-page">
                 <div class="print-avoid-break">
-                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-4 mb-6">
+                    <header class="flex justify-between items-end border-b-2 border-slate-800 pb-2 mb-4">
                         <div><h1 class="doc-title" data-i18n="title-3">Timeline Diagnostics</h1></div>
                         <div class="text-right text-xs text-slate-500 mt-1">PAGE 3 / 3</div>
                     </header>
 
                     <h2 class="section-header" data-i18n="timeline-diff">Timeline Differential Analysis</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div>
                             <span class="input-label" data-i18n="cr-base">Current Reality (CR) Baseline</span>
-                            <textarea id="t_cr" class="h-32 w-full mt-1 bg-slate-50 border-slate-200"></textarea>
+                            <textarea id="t_cr" class="h-24 w-full mt-1 bg-slate-50 border-slate-200"></textarea>
                         </div>
                         <div>
                             <span class="input-label text-blue-600" data-i18n="dr-target">Desired Reality (DR) Target</span>
-                            <textarea id="t_dr" class="h-32 w-full mt-1 bg-blue-50 border-blue-200 focus:bg-white"></textarea>
+                            <textarea id="t_dr" class="h-24 w-full mt-1 bg-blue-50 border-blue-200 focus:bg-white"></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="print-avoid-break">
                     <h2 class="section-header" data-i18n="quantum-anchors">Quantum Anchors (Variables)</h2>
-                    <p class="text-sm text-slate-600 mb-4" data-i18n="anchor-desc">Define divergence parameters to lock consciousness into the Target Timeline.</p>
+                    <p class="text-sm text-slate-600 mb-3" data-i18n="anchor-desc">Define divergence parameters to lock consciousness into the Target Timeline.</p>
                     
-                    <div class="space-y-4 mb-8">
-                        <div><span class="input-label" data-i18n="cog-anchor">COGNITIVE ANCHOR (Core DR Paradigm / Belief System)</span><textarea id="t_anchor_cog" class="h-16 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="som-anchor">SOMATIC ANCHOR (Proprioceptive Feedback in DR)</span><textarea id="t_anchor_som" class="h-16 w-full"></textarea></div>
-                        <div><span class="input-label" data-i18n="env-anchor">ENVIRONMENTAL ANCHOR (Initial sensory input upon waking in DR)</span><textarea id="t_anchor_env" class="h-16 w-full"></textarea></div>
+                    <div class="space-y-3 mb-6">
+                        <div><span class="input-label" data-i18n="cog-anchor">COGNITIVE ANCHOR (Core DR Paradigm / Belief System)</span><textarea id="t_anchor_cog" class="h-12 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="som-anchor">SOMATIC ANCHOR (Proprioceptive Feedback in DR)</span><textarea id="t_anchor_som" class="h-12 w-full"></textarea></div>
+                        <div><span class="input-label" data-i18n="env-anchor">ENVIRONMENTAL ANCHOR (Initial sensory input upon waking in DR)</span><textarea id="t_anchor_env" class="h-12 w-full"></textarea></div>
                     </div>
                 </div>
 
                 <div class="print-avoid-break">
-                    <h2 class="section-header text-purple-700 border-purple-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
-                    <p class="text-sm text-slate-600 mb-4" data-i18n="bleed-desc">Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).</p>
+                    <h2 class="section-header text-red-600 border-red-200" data-i18n="bleed-tracker">Bleed-Through / Anomaly Tracker</h2>
+                    <p class="text-sm text-slate-600 mb-3" data-i18n="bleed-desc">Log synchronicities, Mandela Effects, or anomalous phenomena post-session (T+48h).</p>
                     
-                    <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-4 items-center bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-3 items-center bg-slate-50 p-3 rounded-lg border border-slate-200">
                         <div class="font-mono text-sm font-bold text-slate-700">T+ 12h</div>
                         <div><input type="text" id="f_obs_12" placeholder="Observation Log..." data-i18n-ph="obs"></div>
                         
