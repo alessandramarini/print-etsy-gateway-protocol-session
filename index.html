@@ -197,21 +197,22 @@
 
         @media print {
             @page { size: A4 portrait; margin: 0 !important; }
-            body, html { background: white !important; padding: 0 !important; margin: 0 !important; height: 100% !important; }
+            body, html { background: white !important; padding: 0 !important; margin: 0 !important; height: auto !important; }
             #toolbar, .canvas-tools, #sys-modal, #dialog-modal, .view-screen { display: none !important; }
             #app-container { display: block !important; padding: 0 !important; }
             
-            /* Locking exactly to A4 with 20mm safe zone */
+            /* Fixing the 1-page cutoff bug */
             .a4-page { 
                 box-shadow: none !important; margin: 0 !important; border: none !important;
                 page-break-after: always; break-after: page; 
                 width: 210mm !important; 
-                height: 297mm !important; 
-                padding: 20mm 20mm 25mm 20mm !important;
+                height: auto !important; /* Changed from fixed height to auto */
+                min-height: 297mm !important; 
+                padding: 15mm !important; /* Slightly reduced padding to allow elements to fit better */
                 box-sizing: border-box !important;
                 display: block !important;
                 position: relative !important;
-                overflow: hidden !important; 
+                overflow: visible !important; /* Changed from hidden to visible */
             }
             .a4-page:last-child { page-break-after: auto; break-after: auto; }
             
@@ -223,9 +224,10 @@
             .chk-wrap input:checked + .chk-box { background: #334155 !important; border-color: #334155 !important; }
             
             .print-footer { 
-                position: absolute !important; bottom: 12mm !important; 
-                left: 20mm !important; right: 20mm !important; 
-                margin-top: 0 !important; padding: 0 !important; 
+                position: relative !important; /* Changed from absolute to relative to prevent overlapping */
+                margin-top: 2rem !important; 
+                bottom: auto !important; left: auto !important; right: auto !important; 
+                padding: 0 !important; 
             }
         }
     </style>
@@ -558,7 +560,7 @@
                 "opt-print-title": "Print Empty Module", "opt-print-desc": "Generate a clean, unformatted A4 PDF for physical archiving and manual compilation with a pen.",
                 "opt-digital-title": "Start Digital Session", "opt-digital-desc": "Type, draw, and use the built-in Binaural Hemi-Sync audio engine and timer directly on this device.",
                 "btn-back": "← Back to Languages",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Start Session", "resume-seq": "Resume", "halt-seq": "Pause / End", "purge": "Clear Data", "pdf-prnt": "Print A4 / PDF",
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Start Timer", "halt-timer": "Stop / Reset", "purge": "Clear Data", "pdf-prnt": "Print A4 / PDF",
                 "manual-freq": "Manual Frequencies", "auto-focus": "Guided Autopilot", "cancel": "Cancel", "confirm": "OK", 
                 "btn-manual": "OS Manual", "btn-gateway": "Gateway eBook",
                 "purge-msg": "Erase all data from the interactive session? This cannot be undone.", 
@@ -601,7 +603,7 @@
                 "opt-print-title": "Stampa il Modulo", "opt-print-desc": "Stampa il Protocollo Coscienza Quantica vuoto in A4 per l'archiviazione fisica e la compilazione a penna.",
                 "opt-digital-title": "Inizia Sessione Digitale", "opt-digital-desc": "Scrivi, disegna e usa il generatore audio Binaurale Hemi-Sync e il timer direttamente su questo dispositivo.",
                 "btn-back": "← Torna alle Lingue",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Inizia Sessione", "resume-seq": "Riprendi", "halt-seq": "Pausa / Fine", "purge": "Cancella Dati", "pdf-prnt": "Stampa A4 / PDF",
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Avvia Timer", "halt-timer": "Ferma / Azzera", "purge": "Cancella Dati", "pdf-prnt": "Stampa A4 / PDF",
                 "manual-freq": "Frequenze Manuali", "auto-focus": "Autopilota Guidato", "cancel": "Annulla", "confirm": "OK",
                 "btn-manual": "Manuale OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Cancellare tutti i dati della sessione? Questa azione è irreversibile.",
@@ -644,7 +646,7 @@
                 "opt-print-title": "Imprimir el Módulo", "opt-print-desc": "Genere un PDF A4 limpio y sin formato para archivarlo físicamente y completarlo manualmente con un bolígrafo.",
                 "opt-digital-title": "Iniciar Sesión Digital", "opt-digital-desc": "Escriba, dibuje y use el motor de audio Hemi-Sync y el temporizador directamente en este dispositivo.",
                 "btn-back": "← Volver a Idiomas",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Sesión", "resume-seq": "Reanudar", "halt-seq": "Pausa / Fin", "purge": "Borrar Datos", "pdf-prnt": "Imprimir A4 / PDF",
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Temporizador", "halt-timer": "Detener / Reiniciar", "purge": "Borrar Datos", "pdf-prnt": "Imprimir A4 / PDF",
                 "manual-freq": "Frecuencias Manuales", "auto-focus": "Piloto Automático", "cancel": "Cancelar", "confirm": "OK",
                 "btn-manual": "Manual OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "¿Borrar todos los datos de la sesión interactiva? Esto no se puede deshacer.",
@@ -686,7 +688,7 @@
                 "opt-print-title": "Imprimir o Módulo", "opt-print-desc": "Gere um PDF A4 limpo e sem formatação para arquivo físico e preenchimento manual à caneta.",
                 "opt-digital-title": "Iniciar Sessão Digital", "opt-digital-desc": "Digite, desenhe e use o motor de áudio Binaural Hemi-Sync e o cronômetro diretamente neste dispositivo.",
                 "btn-back": "← Voltar aos Idiomas",
-                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Sessão", "resume-seq": "Retomar", "halt-seq": "Pausa / Fim", "purge": "Limpar Dados", "pdf-prnt": "Imprimir A4 / PDF",
+                "hemi-sync": "AUDIO SYNC", "init-seq": "Iniciar Cronômetro", "halt-timer": "Parar / Zerar", "purge": "Limpar Dados", "pdf-prnt": "Imprimir A4 / PDF",
                 "manual-freq": "Frequências Manuais", "auto-focus": "Piloto Automático", "cancel": "Cancelar", "confirm": "OK",
                 "btn-manual": "Manual do OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Apagar todos os dados da sessão interativa? Isso não pode ser desfeito.",
@@ -728,7 +730,7 @@
                 "opt-print-title": "Modul Drucken", "opt-print-desc": "Erzeugen Sie ein sauberes A4-PDF für die physische Archivierung und manuelle Bearbeitung mit einem Stift.",
                 "opt-digital-title": "Digitale Sitzung Starten", "opt-digital-desc": "Tippen, zeichnen und nutzen Sie die Binaural Hemi-Sync Audio-Engine direkt auf diesem Gerät.",
                 "btn-back": "← Zurück zu den Sprachen",
-                "hemi-sync": "AUDIO-SYNC", "init-seq": "Sitzung Starten", "resume-seq": "Fortsetzen", "halt-seq": "Pause / Ende", "purge": "Daten Löschen", "pdf-prnt": "Drucken A4 / PDF",
+                "hemi-sync": "AUDIO-SYNC", "init-seq": "Timer Starten", "halt-timer": "Stoppen / Reset", "purge": "Daten Löschen", "pdf-prnt": "Drucken A4 / PDF",
                 "manual-freq": "Manuelle Frequenzen", "auto-focus": "Geführter Autopilot", "cancel": "Abbrechen", "confirm": "OK",
                 "btn-manual": "OS Handbuch", "btn-gateway": "Gateway eBook",
                 "purge-msg": "Alle interaktiven Sitzungsdaten löschen? Dies kann nicht rückgängig gemacht werden.",
@@ -770,7 +772,7 @@
                 "opt-print-title": "Imprimer le Module", "opt-print-desc": "Générez un PDF A4 vierge pour l'archivage physique et la compilation manuelle.",
                 "opt-digital-title": "Démarrer la Session Numérique", "opt-digital-desc": "Tapez, dessinez et utilisez le moteur audio Hemi-Sync directement sur cet appareil.",
                 "btn-back": "← Retour aux Langues",
-                "hemi-sync": "SYNC AUDIO", "init-seq": "Démarrer Session", "resume-seq": "Reprendre", "halt-seq": "Pause / Fin", "purge": "Effacer Données", "pdf-prnt": "Imprimer A4 / PDF",
+                "hemi-sync": "SYNC AUDIO", "init-seq": "Démarrer Minuteur", "halt-timer": "Arrêter / RàZ", "purge": "Effacer Données", "pdf-prnt": "Imprimer A4 / PDF",
                 "manual-freq": "Fréquences Manuelles", "auto-focus": "Pilote Automatique", "cancel": "Annuler", "confirm": "OK",
                 "btn-manual": "Manuel de l'OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Effacer toutes les données interactives ? Action irréversible.",
@@ -812,7 +814,7 @@
                 "opt-print-title": "Drukuj Moduł", "opt-print-desc": "Wygeneruj czysty plik PDF A4 do fizycznego archiwizowania i ręcznego wypełniania długopisem.",
                 "opt-digital-title": "Rozpocznij Sesję", "opt-digital-desc": "Pisz, rysuj i używaj silnika Hemi-Sync bezpośrednio na tym urządzeniu.",
                 "btn-back": "← Powrót do Języków",
-                "hemi-sync": "SYNC AUDIO", "init-seq": "Rozpocznij Sesję", "resume-seq": "Wznów", "halt-seq": "Pauza / Koniec", "purge": "Wyczyść Dane", "pdf-prnt": "Drukuj A4 / PDF",
+                "hemi-sync": "SYNC AUDIO", "init-seq": "Start Timer", "halt-timer": "Stop / Reset", "purge": "Wyczyść Dane", "pdf-prnt": "Drukuj A4 / PDF",
                 "manual-freq": "Ręczne Częstotliwości", "auto-focus": "Autopilot", "cancel": "Anuluj", "confirm": "OK",
                 "btn-manual": "Instrukcja OS", "btn-gateway": "Ebook Gateway",
                 "purge-msg": "Usunąć wszystkie dane interaktywne? To działanie jest nieodwracalne.",
@@ -854,7 +856,7 @@
                 "opt-print-title": "モジュールを印刷", "opt-print-desc": "物理的なアーカイブとペンによる手動記入のための、クリーンなA4 PDFを生成します。",
                 "opt-digital-title": "デジタルセッション開始", "opt-digital-desc": "このデバイス上で直接、入力、描画、バイノーラルオーディオエンジンとタイマーを使用します。",
                 "btn-back": "← 言語選択に戻る",
-                "hemi-sync": "オーディオ同期", "init-seq": "セッション開始", "resume-seq": "再開", "halt-seq": "一時停止 / 終了", "purge": "データ消去", "pdf-prnt": "印刷 A4 / PDF",
+                "hemi-sync": "オーディオ同期", "init-seq": "タイマー開始", "halt-timer": "停止 / リセット", "purge": "データ消去", "pdf-prnt": "印刷 A4 / PDF",
                 "manual-freq": "マニュアル周波数", "auto-focus": "ガイド付きオートパイロット", "cancel": "キャンセル", "confirm": "OK",
                 "btn-manual": "OSマニュアル", "btn-gateway": "Gateway電子書籍",
                 "purge-msg": "すべてのインタラクティブデータを消去しますか？元に戻せません。",
@@ -995,30 +997,13 @@
             if(clickedEl.checked) {
                 if(groupName === 'click') {
                     if(clickedEl.id === 'c_click_yes') document.getElementById('c_click_no').checked = false;
-                    if(clickedEl.id === 'c_click_no') document.getElementById('c_click_yes').checked = false;
+                    else if(clickedEl.id === 'c_click_no') document.getElementById('c_click_yes').checked = false;
                 }
-                saveData();
             }
+            saveData();
         }
 
-        function clearData(askConfirm = true) {
-            const lang = localStorage.getItem('qcs_lang') || 'en';
-            const executeClear = () => {
-                inputs.forEach(input => {
-                    if (input.type === 'checkbox') input.checked = false;
-                    else input.value = '';
-                });
-                clearCanvas('canvas-gestalt', false);
-                clearCanvas('canvas-analytical', false);
-                localStorage.clear();
-                localStorage.setItem('qcs_lang', lang);
-                if(document.getElementById('app-container').classList.contains('active')) loadData();
-            };
-            if(askConfirm) showConfirm(i18n[lang]['purge-msg'], executeClear);
-            else executeClear();
-        }
-
-        // Timer
+        // Timer - Simplified logic without form filling
         let timerInterval; let seconds = 0; let isTimerRunning = false;
         function updateTimerDisplay() {
             const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
@@ -1030,18 +1015,21 @@
             const btn = document.getElementById('timer-btn');
             const lang = localStorage.getItem('qcs_lang') || 'en';
             if(isTimerRunning) {
-                clearInterval(timerInterval); isTimerRunning = false;
-                btn.innerText = i18n[lang]['resume-seq'];
-                document.getElementById('f_end_time').value = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                document.getElementById('f_duration').value = document.getElementById('timer-display').innerText;
-                saveData();
+                // Stop and Reset
+                clearInterval(timerInterval); 
+                isTimerRunning = false;
+                seconds = 0;
+                document.getElementById('timer-display').innerText = "00:00:00";
+                btn.innerText = i18n[lang]['init-seq']; // Back to "Start Timer"
+                btn.classList.remove('btn-danger');
+                btn.classList.add('btn-outline');
             } else {
-                if(seconds === 0) {
-                    document.getElementById('f_start_time').value = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    saveData();
-                }
+                // Start
                 timerInterval = setInterval(() => { seconds++; updateTimerDisplay(); }, 1000);
-                isTimerRunning = true; btn.innerText = i18n[lang]['halt-seq'];
+                isTimerRunning = true; 
+                btn.innerText = i18n[lang]['halt-timer']; // "Stop / Reset"
+                btn.classList.remove('btn-outline');
+                btn.classList.add('btn-danger');
             }
         }
 
@@ -1050,25 +1038,28 @@
         
         async function initAudio() {
             await Tone.start();
-            // Binaural Oscillators
-            synthLeft = new Tone.Oscillator().toDestination();
-            synthRight = new Tone.Oscillator().toDestination();
-            // Perfect Hard Panning: -1 is 100% Left Ear, +1 is 100% Right Ear. 
-            // If user takes off one earbud, they only hear a continuous frequency.
+            // Binaural Oscillators - Using sine waves but initialized with 0 volume
+            synthLeft = new Tone.Oscillator({ type: "sine" }).toDestination();
+            synthRight = new Tone.Oscillator({ type: "sine" }).toDestination();
+            
+            // Perfect Hard Panning
             const pannerLeft = new Tone.Panner(-1).toDestination();
             const pannerRight = new Tone.Panner(1).toDestination();
             synthLeft.disconnect().connect(pannerLeft);
             synthRight.disconnect().connect(pannerRight);
-            synthLeft.volume.value = -18; synthRight.volume.value = -18;
+            
+            // Start silent
+            synthLeft.volume.value = -Infinity; 
+            synthRight.volume.value = -Infinity;
 
-            // Ocean Waves Synthesizer (Pink Noise + LFO Filter)
+            // Ocean Waves Synthesizer - Using Brown noise for a deeper, softer, less harsh sound
             waveFilter = new Tone.AutoFilter({
                 frequency: 0.1, // 10 seconds per wave cycle
-                min: 200,
-                max: 800,
+                min: 150, // Deeper resonance
+                max: 500, // Softer high end
                 type: "sine"
-            }).connect(new Tone.Volume(-20).toDestination());
-            waveNoise = new Tone.Noise("pink").connect(waveFilter);
+            }).connect(new Tone.Volume(-22).toDestination());
+            waveNoise = new Tone.Noise("brown").connect(waveFilter);
         }
 
         async function playSelectedAudio() {
@@ -1081,8 +1072,6 @@
                 const indicator = document.getElementById('audio-status-indicator');
                 const lang = localStorage.getItem('qcs_lang') || 'en';
                 
-                if (isAudioPlaying) stopAudio(); 
-
                 let diffFreq = 0; let isAutopilot = false; let targetFreq = 0; let rampTime = 0;
                 // Gateway Hemi-Sync Frequency Maps
                 switch(preset) {
@@ -1094,27 +1083,39 @@
                     case 'f21': isAutopilot = true; targetFreq = 0.5; rampTime = 150; break;
                 }
                 
-                const baseFreq = 200; // Carrier Frequency
-                synthLeft.frequency.value = baseFreq; // Left Ear stays constant
+                const baseFreq = 110; // Deeper, more resonant Carrier Frequency (was 200Hz)
+                synthLeft.frequency.value = baseFreq; 
                 
                 if (isAutopilot) {
                     // Start at Alpha and ramp down to Target
                     synthRight.frequency.value = baseFreq + 10; 
                     synthRight.frequency.rampTo(baseFreq + targetFreq, rampTime);
-                    showAlert(i18n[lang]['autopilot-msg'], "Autopilot Hemi-Sync");
+                    if(!isAudioPlaying) showAlert(i18n[lang]['autopilot-msg'], "Autopilot Hemi-Sync");
                 } else {
                     // Instant Frequency
                     synthRight.frequency.value = baseFreq + diffFreq;
                 }
                 
-                synthLeft.start(); synthRight.start(); isAudioPlaying = true;
-                indicator.classList.replace('bg-slate-300', 'bg-green-500'); indicator.classList.add('animate-pulse');
-                btnPlay.classList.replace('btn-primary', 'btn-outline'); btnPlay.innerText = "Playing";
+                if(!isAudioPlaying) {
+                    synthLeft.start(); synthRight.start(); 
+                    // Smooth 2-second fade-in to -25dB to avoid ear shock
+                    synthLeft.volume.rampTo(-25, 2); 
+                    synthRight.volume.rampTo(-25, 2);
+                    
+                    isAudioPlaying = true;
+                    indicator.classList.replace('bg-slate-300', 'bg-green-500'); indicator.classList.add('animate-pulse');
+                    btnPlay.classList.replace('btn-primary', 'btn-outline'); btnPlay.innerText = "Playing";
+                }
             } catch (e) { showAlert("Tap anywhere on the screen first to enable the audio engine.", "Audio Engine Off"); }
         }
 
         function stopAudio() {
-            if(synthLeft) { synthLeft.stop(); synthRight.stop(); Tone.Transport.cancel(); }
+            if(synthLeft && isAudioPlaying) { 
+                // Smooth 1-second fade-out before stopping
+                synthLeft.volume.rampTo(-Infinity, 1);
+                synthRight.volume.rampTo(-Infinity, 1);
+                setTimeout(() => { synthLeft.stop(); synthRight.stop(); Tone.Transport.cancel(); }, 1000);
+            }
             isAudioPlaying = false;
             const btnPlay = document.getElementById('btn-play-audio');
             const indicator = document.getElementById('audio-status-indicator');
@@ -1129,10 +1130,17 @@
                 const btnWaves = document.getElementById('btn-waves');
                 
                 if (isWavesPlaying) {
-                    waveNoise.stop(); waveFilter.stop(); isWavesPlaying = false;
+                    // Fade out waves
+                    waveNoise.volume.rampTo(-Infinity, 1);
+                    setTimeout(() => { waveNoise.stop(); waveFilter.stop(); }, 1000);
+                    isWavesPlaying = false;
                     btnWaves.classList.remove('bg-blue-100', 'border-blue-300', 'shadow-inner');
                 } else {
-                    waveNoise.start(); waveFilter.start(); isWavesPlaying = true;
+                    // Fade in waves
+                    waveNoise.volume.value = -Infinity;
+                    waveNoise.start(); waveFilter.start(); 
+                    waveNoise.volume.rampTo(0, 2); // Volume node inside filter is already -22dB
+                    isWavesPlaying = true;
                     btnWaves.classList.add('bg-blue-100', 'border-blue-300', 'shadow-inner');
                 }
             } catch (e) { showAlert("Tap anywhere to enable audio.", "System"); }
