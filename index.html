@@ -155,7 +155,6 @@
         .modal-content-area p { margin-bottom: 1rem; }
         .modal-content-area strong { color: var(--text-main); }
         
-        /* Interactive eBook Accordion Styles */
         details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 0.75rem; overflow: hidden; }
         summary { padding: 1rem; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; background: #f1f5f9; transition: background 0.2s; }
         summary::-webkit-details-marker { display: none; }
@@ -185,10 +184,13 @@
             }
             .a4-page:last-child { page-break-after: auto; break-after: auto; }
             
-            input[type="text"], textarea { border-bottom-color: #64748b; color: black; }
-            input[type="text"]:placeholder-shown { border-bottom-color: #cbd5e1; }
-            .chk-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #64748b; }
-            .canvas-wrapper { border: 1px solid #64748b; background: white; }
+            /* Hide placeholders in print so it looks clean for handwriting */
+            input::placeholder, textarea::placeholder { color: transparent !important; }
+            
+            /* Enforce dashed lines for handwritten inputs */
+            input[type="text"], textarea { border-bottom: 1px dashed #94a3b8 !important; color: black !important; }
+            .chk-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #64748b !important; }
+            .canvas-wrapper { border: 1px solid #94a3b8 !important; background: white !important; }
             .chk-wrap input:checked + .chk-box { background: #334155 !important; border-color: #334155 !important; }
             
             .print\:mb-2 { margin-bottom: 0.5rem !important; }
@@ -238,7 +240,6 @@
 
             <div class="toolbar-group flex items-center gap-2 bg-slate-50 p-1.5 rounded-xl border border-slate-200">
                 <span class="text-xs font-bold text-slate-500 px-2 mobile-hide tracking-wider">AUDIO SYNC</span>
-                <!-- Fixed DOM structure here: removed stray div tags inside the select element -->
                 <select id="audio-preset" class="bg-white border border-slate-300 text-sm font-semibold rounded-lg px-2 py-1.5 outline-none max-w-[170px] shadow-sm">
                     <optgroup label="Manual Frequencies">
                         <option value="delta">Delta (2.5Hz)</option>
@@ -285,21 +286,21 @@
                             </div>
                         </header>
 
-                        <!-- Fixed Posture and Mood layout within the page body -->
+                        <!-- Flexible Inputs with checkboxes and text combinations -->
                         <div class="grid grid-cols-4 gap-4 mb-4 print:mb-2 print:gap-2">
-                            <div class="col-span-1"><span class="input-label">Date</span><input type="text" id="f_date"></div>
-                            <div class="col-span-1"><span class="input-label">Start Time</span><input type="text" id="f_start"></div>
-                            <div class="col-span-1"><span class="input-label">End Time</span><input type="text" id="f_end"></div>
-                            <div class="col-span-1"><span class="input-label">Duration</span><input type="text" id="f_dur"></div>
+                            <div class="col-span-1"><span class="input-label">Date</span><input type="text" id="f_date" placeholder="YYYY-MM-DD"></div>
+                            <div class="col-span-1"><span class="input-label">Start Time</span><input type="text" id="f_start" placeholder="00:00"></div>
+                            <div class="col-span-1"><span class="input-label">End Time</span><input type="text" id="f_end" placeholder="00:00"></div>
+                            <div class="col-span-1"><span class="input-label">Duration</span><input type="text" id="f_dur" placeholder="0h 0m"></div>
                             
-                            <div class="col-span-4"><span class="input-label">Location</span><input type="text" id="f_loc"></div>
+                            <div class="col-span-4"><span class="input-label">Location</span><input type="text" id="f_loc" placeholder="Coordinates / City"></div>
                             
                             <div class="col-span-4 md:col-span-2">
                                 <span class="input-label">Physical Posture</span>
                                 <div class="flex flex-wrap gap-3 mt-1 items-center">
                                     <label class="chk-wrap"><input type="checkbox" id="c_pos_supine"><span class="chk-box"></span><span class="chk-title text-sm">Supine</span></label>
                                     <label class="chk-wrap"><input type="checkbox" id="c_pos_seated"><span class="chk-box"></span><span class="chk-title text-sm">Seated</span></label>
-                                    <div class="flex-1 min-w-[120px]"><input type="text" id="f_pos_other" class="w-full text-sm font-sans"></div>
+                                    <div class="flex-1 min-w-[120px]"><input type="text" id="f_pos_other" class="w-full text-sm font-sans" placeholder="Other..."></div>
                                 </div>
                             </div>
                             <div class="col-span-4 md:col-span-2">
@@ -307,7 +308,7 @@
                                 <div class="flex flex-wrap gap-3 mt-1 items-center">
                                     <label class="chk-wrap"><input type="checkbox" id="c_mood_calm"><span class="chk-box"></span><span class="chk-title text-sm">Calm</span></label>
                                     <label class="chk-wrap"><input type="checkbox" id="c_mood_tired"><span class="chk-box"></span><span class="chk-title text-sm">Tired</span></label>
-                                    <div class="flex-1 min-w-[120px]"><input type="text" id="f_mood_other" class="w-full text-sm font-sans"></div>
+                                    <div class="flex-1 min-w-[120px]"><input type="text" id="f_mood_other" class="w-full text-sm font-sans" placeholder="Other..."></div>
                                 </div>
                             </div>
                         </div>
@@ -332,7 +333,6 @@
                     <div class="print-avoid-break">
                         <h2 class="section-header mt-5 print:mt-3">Target Consciousness Vector</h2>
                         <div class="grid grid-cols-2 gap-3 mb-4 print:mb-2 print:gap-2">
-                            <!-- Fixed text spacing in labels so titles and descriptions don't crash into each other -->
                             <label class="chk-wrap border border-slate-200 rounded-lg p-2 print:p-1.5 hover:bg-slate-50 transition-colors">
                                 <input type="checkbox" id="c_f10"><span class="chk-box mt-1 print:mt-0.5"></span>
                                 <div class="flex flex-col ml-1">
@@ -380,7 +380,7 @@
 
                     <div class="print-avoid-break">
                         <h2 class="section-header mt-5 print:mt-3">Pre-Session Intention</h2>
-                        <textarea id="t_intent" class="h-12 w-full mb-4 print:mb-2"></textarea>
+                        <textarea id="t_intent" class="h-12 w-full mb-4 print:mb-2" placeholder="Input target coordinates or shifting intention..."></textarea>
                     </div>
 
                     <div class="print-avoid-break">
@@ -392,12 +392,12 @@
                                 <label class="chk-wrap text-red-700"><input type="checkbox" id="c_click_yes" onclick="uncheckGroup('click', this)"><span class="chk-box border-red-300"></span><span class="chk-title text-sm uppercase tracking-wide">POSITIVE</span></label>
                             </div>
                             <div class="flex items-center gap-4 text-sm text-slate-600 font-mono">
-                                <span>Est. Start:</span> <input type="text" id="f_click_s" class="w-24 border-slate-300 bg-transparent focus:bg-white">
-                                <span>Est. End:</span> <input type="text" id="f_click_e" class="w-24 border-slate-300 bg-transparent focus:bg-white">
+                                <span>Est. Start:</span> <input type="text" id="f_click_s" class="w-24 border-slate-300 bg-transparent focus:bg-white" placeholder="--:--">
+                                <span>Est. End:</span> <input type="text" id="f_click_e" class="w-24 border-slate-300 bg-transparent focus:bg-white" placeholder="--:--">
                             </div>
                         </div>
                     </div>
-                </div> <!-- End .page-content -->
+                </div> 
                 
                 <div class="print-footer">
                     <span>Subjective Exploration Log</span><span>FORM-QCS-01</span>
@@ -413,7 +413,7 @@
                         </header>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div><span class="input-label">Target Reference Number (TRN)</span><input type="text" id="f_trn" class="text-xl tracking-widest font-mono font-bold"></div>
+                            <div><span class="input-label">Target Reference Number (TRN)</span><input type="text" id="f_trn" class="text-xl tracking-widest font-mono font-bold" placeholder="XXXX-XXXX"></div>
                             <div><span class="input-label">Target Decryption (Post-Session)</span><input type="text" id="f_target_desc" class="text-lg"></div>
                         </div>
                     </div>
@@ -455,7 +455,7 @@
                             <canvas id="canvas-analytical" class="drawing-board h-full"></canvas>
                         </div>
                     </div>
-                </div> <!-- End .page-content -->
+                </div> 
 
                 <div class="print-footer">
                     <span>Subjective Exploration Log</span><span>FORM-QCS-02</span>
@@ -500,16 +500,16 @@
                         
                         <div class="grid grid-cols-[80px_1fr] gap-x-4 gap-y-3 items-center bg-slate-50 p-3 rounded-lg border border-slate-200">
                             <div class="font-mono text-sm font-bold text-slate-700">T+ 12h</div>
-                            <div><input type="text" id="f_obs_12"></div>
+                            <div><input type="text" id="f_obs_12" placeholder="Observation Log..."></div>
                             
                             <div class="font-mono text-sm font-bold text-slate-700">T+ 24h</div>
-                            <div><input type="text" id="f_obs_24"></div>
+                            <div><input type="text" id="f_obs_24" placeholder="Observation Log..."></div>
                             
                             <div class="font-mono text-sm font-bold text-slate-700">T+ 48h</div>
-                            <div><input type="text" id="f_obs_48"></div>
+                            <div><input type="text" id="f_obs_48" placeholder="Observation Log..."></div>
                         </div>
                     </div>
-                </div> <!-- End .page-content -->
+                </div> 
 
                 <div class="print-footer">
                     <span>Subjective Exploration Log</span><span>FORM-QCS-03</span>
@@ -554,9 +554,11 @@
             document.getElementById('app-container').classList.add('active');
             
             if (action === 'print') {
+                // Instantly clean the entire interface for empty pen printing
                 clearData(false);
-                setTimeout(() => window.print(), 300);
+                setTimeout(() => window.print(), 500);
             } else {
+                // Normal digital startup
                 loadData();
             }
         }
@@ -591,11 +593,10 @@
                     <p><strong>1. AUDIO SYNC:</strong> Use the top toolbar to synthesize binaural beats. Stereo headphones are mandatory. <em>Autopilot</em> mode uses frequency ramping: it starts at a waking frequency and slowly guides your brainwaves down to the target state over several minutes to avoid acoustic shock.</p>
                     <p><strong>2. DIGITAL CANVAS (REMOTE VIEWING):</strong> The Gestalt and Dimensional Sketch areas are fully interactive. Use a mouse or stylus to map targets. Sketches are optimized for high-contrast A4 printing.</p>
                     <p><strong>3. AUTO-SAVE & PERSISTENCE:</strong> Every keystroke and sketch is continuously saved to your device's local memory. You can close the browser safely without losing progress.</p>
-                    <p><strong>4. PRINTING PROTOCOL:</strong> Clicking 'Print A4 / PDF' reformats the data onto perfectly scaled A4 pages for physical archiving on white backgrounds, removing all UI elements.</p>
+                    <p><strong>4. PRINTING PROTOCOL:</strong> Clicking 'Print Empty Module' creates a completely blank PDF ready to be written on with a pen. Clicking 'Print A4 / PDF' inside the app prints everything you have typed or drawn on perfectly scaled A4 pages.</p>
                 `;
             } else if (type === 'gateway') {
                 title.innerText = "THE GATEWAY PROCESS (CIA REPORT)";
-                // Extensive Interactive Accordion eBook
                 body.innerHTML = `
                     <p class="mb-4 text-xs font-mono text-slate-500 tracking-wide uppercase">REF: CIA-RDP96-00788R001700210016-5 (Declassified 2003)</p>
                     <p class="mb-6">In 1983, US Army Intelligence commissioned Wayne M. McDonnell to analyze the Gateway Experience developed by the Monroe Institute. The goal was to construct a scientifically valid, quantum-mechanical framework for understanding altered states of consciousness.</p>
@@ -724,23 +725,27 @@
             }
         }
 
-        let synthLeft, synthRight, waveNoise, waveFilter; 
+        let synthLeft, synthRight, waveNoise, waveFilter, stereoMerger; 
         let isAudioPlaying = false; let isWavesPlaying = false;
         
         async function initAudio() {
             await Tone.start();
-            synthLeft = new Tone.Oscillator({ type: "sine" }).toDestination();
-            synthRight = new Tone.Oscillator({ type: "sine" }).toDestination();
             
-            const pannerLeft = new Tone.Panner(-1).toDestination();
-            const pannerRight = new Tone.Panner(1).toDestination();
-            synthLeft.disconnect().connect(pannerLeft);
-            synthRight.disconnect().connect(pannerRight);
+            // STRICT BINAURAL SEPARATION:
+            // Use Tone.Merge to route signals directly to hard Left and Right channels with zero bleed.
+            stereoMerger = new Tone.Merge().toDestination();
+            
+            // Connect synthLeft exclusively to the Left input (0) of the merger
+            synthLeft = new Tone.Oscillator({ type: "sine" }).connect(stereoMerger, 0, 0);
+            
+            // Connect synthRight exclusively to the Right input (1) of the merger
+            synthRight = new Tone.Oscillator({ type: "sine" }).connect(stereoMerger, 0, 1);
             
             synthLeft.volume.value = -Infinity; 
             synthRight.volume.value = -Infinity;
             synthLeft.start(); synthRight.start();
 
+            // Ocean Waves Synthesizer (Brown Noise is deeper/smoother than Pink)
             waveFilter = new Tone.AutoFilter({ frequency: 0.1, min: 150, max: 400, type: "sine" }).connect(new Tone.Volume(-18).toDestination());
             waveNoise = new Tone.Noise("brown").connect(waveFilter);
             
@@ -821,16 +826,24 @@
             const ctx = canvas.getContext('2d');
             canvasState[canvasId] = { ctx, tool: 'pen', history: [], isDrawing: false, lastX: 0, lastY: 0 };
             
-            setTimeout(() => {
+            // Proper resize logic for fixed positioning
+            const resizeCanvas = () => {
                 const rect = canvas.parentElement.getBoundingClientRect();
-                canvas.width = rect.width; canvas.height = rect.height;
-                ctx.strokeStyle = '#0f172a'; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = 2.5;
-            }, 100);
+                if(canvas.width !== rect.width || canvas.height !== rect.height) {
+                    const data = canvas.toDataURL();
+                    canvas.width = rect.width; canvas.height = rect.height;
+                    ctx.strokeStyle = '#0f172a'; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = 2.5;
+                    if(data !== 'data:,') loadCanvasData(canvasId, data, false);
+                }
+            };
+            setTimeout(resizeCanvas, 150);
+            window.addEventListener('resize', resizeCanvas);
 
             const getPos = (e) => {
                 const r = canvas.getBoundingClientRect();
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                // Strict bounds relative to canvas element
                 return { x: clientX - r.left, y: clientY - r.top };
             };
             const startDraw = (e) => {
@@ -890,7 +903,7 @@
             else { showConfirm("Clear this sketch?", executeClear); }
         }
         function loadCanvasData(canvasId, dataUrl, addToHistory=true) {
-            if(!dataUrl) return;
+            if(!dataUrl || dataUrl === 'data:,') return;
             const canvas = document.getElementById(canvasId); const ctx = canvasState[canvasId].ctx;
             const img = new Image();
             img.onload = () => {
