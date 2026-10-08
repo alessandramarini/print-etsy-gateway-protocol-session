@@ -993,6 +993,25 @@
         }
         inputs.forEach(input => input.addEventListener('input', saveData));
 
+        function clearData(ask = true) {
+            const lang = localStorage.getItem('qcs_lang') || 'en';
+            const executeClear = () => {
+                inputs.forEach(input => {
+                    if (input.type === 'checkbox') input.checked = false;
+                    else input.value = '';
+                    localStorage.removeItem('qcs5_' + input.id);
+                });
+                clearCanvas('canvas-gestalt', false);
+                clearCanvas('canvas-analytical', false);
+                document.getElementById('f_date').value = new Date().toLocaleDateString();
+                if(isTimerRunning) toggleTimer();
+                seconds = 0; updateTimerDisplay();
+            };
+            
+            if(ask) showConfirm(i18n[lang]['purge-msg'], executeClear, "Clear Data");
+            else executeClear();
+        }
+
         function uncheckGroup(groupName, clickedEl) {
             if(clickedEl.checked) {
                 if(groupName === 'click') {
@@ -1038,7 +1057,7 @@
         
         async function initAudio() {
             await Tone.start();
-            // Binaural Oscillators - Using sine waves but initialized with 0 volume
+            // Binaural Oscillators
             synthLeft = new Tone.Oscillator({ type: "sine" }).toDestination();
             synthRight = new Tone.Oscillator({ type: "sine" }).toDestination();
             
@@ -1048,18 +1067,24 @@
             synthLeft.disconnect().connect(pannerLeft);
             synthRight.disconnect().connect(pannerRight);
             
-            // Start silent
+            // KEY FIX: Keep oscillators running silently to prevent Tone.js restart bugs
             synthLeft.volume.value = -Infinity; 
             synthRight.volume.value = -Infinity;
+            synthLeft.start();
+            synthRight.start();
 
-            // Ocean Waves Synthesizer - Using Brown noise for a deeper, softer, less harsh sound
+            // Ocean Waves Synthesizer
             waveFilter = new Tone.AutoFilter({
-                frequency: 0.1, // 10 seconds per wave cycle
-                min: 150, // Deeper resonance
-                max: 500, // Softer high end
+                frequency: 0.1, 
+                min: 150, 
+                max: 500, 
                 type: "sine"
             }).connect(new Tone.Volume(-22).toDestination());
             waveNoise = new Tone.Noise("brown").connect(waveFilter);
+            
+            waveNoise.volume.value = -Infinity;
+            waveNoise.start();
+            waveFilter.start();
         }
 
         async function playSelectedAudio() {
@@ -1073,7 +1098,6 @@
                 const lang = localStorage.getItem('qcs_lang') || 'en';
                 
                 let diffFreq = 0; let isAutopilot = false; let targetFreq = 0; let rampTime = 0;
-                // Gateway Hemi-Sync Frequency Maps
                 switch(preset) {
                     case 'delta': diffFreq = 2.5; break; case 'theta': diffFreq = 5; break;
                     case 'alpha': diffFreq = 10; break; case 'beta': diffFreq = 20; break; case 'gamma': diffFreq = 40; break;
@@ -1083,22 +1107,19 @@
                     case 'f21': isAutopilot = true; targetFreq = 0.5; rampTime = 150; break;
                 }
                 
-                const baseFreq = 110; // Deeper, more resonant Carrier Frequency (was 200Hz)
+                const baseFreq = 110; 
                 synthLeft.frequency.value = baseFreq; 
                 
                 if (isAutopilot) {
-                    // Start at Alpha and ramp down to Target
                     synthRight.frequency.value = baseFreq + 10; 
                     synthRight.frequency.rampTo(baseFreq + targetFreq, rampTime);
                     if(!isAudioPlaying) showAlert(i18n[lang]['autopilot-msg'], "Autopilot Hemi-Sync");
                 } else {
-                    // Instant Frequency
                     synthRight.frequency.value = baseFreq + diffFreq;
                 }
                 
                 if(!isAudioPlaying) {
-                    synthLeft.start(); synthRight.start(); 
-                    // Smooth 2-second fade-in to -25dB to avoid ear shock
+                    // Smooth 2-second fade-in (Ramp to -25dB instead of starting)
                     synthLeft.volume.rampTo(-25, 2); 
                     synthRight.volume.rampTo(-25, 2);
                     
@@ -1111,10 +1132,9 @@
 
         function stopAudio() {
             if(synthLeft && isAudioPlaying) { 
-                // Smooth 1-second fade-out before stopping
+                // KEY FIX: Smooth fade-out without stopping the oscillators (Ramp to -Infinity)
                 synthLeft.volume.rampTo(-Infinity, 1);
                 synthRight.volume.rampTo(-Infinity, 1);
-                setTimeout(() => { synthLeft.stop(); synthRight.stop(); Tone.Transport.cancel(); }, 1000);
             }
             isAudioPlaying = false;
             const btnPlay = document.getElementById('btn-play-audio');
@@ -1130,16 +1150,13 @@
                 const btnWaves = document.getElementById('btn-waves');
                 
                 if (isWavesPlaying) {
-                    // Fade out waves
+                    // Fade out
                     waveNoise.volume.rampTo(-Infinity, 1);
-                    setTimeout(() => { waveNoise.stop(); waveFilter.stop(); }, 1000);
                     isWavesPlaying = false;
                     btnWaves.classList.remove('bg-blue-100', 'border-blue-300', 'shadow-inner');
                 } else {
-                    // Fade in waves
-                    waveNoise.volume.value = -Infinity;
-                    waveNoise.start(); waveFilter.start(); 
-                    waveNoise.volume.rampTo(0, 2); // Volume node inside filter is already -22dB
+                    // Fade in
+                    waveNoise.volume.rampTo(0, 2); 
                     isWavesPlaying = true;
                     btnWaves.classList.add('bg-blue-100', 'border-blue-300', 'shadow-inner');
                 }
